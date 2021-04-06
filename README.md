@@ -8,7 +8,7 @@ To help New Yorkers who can't afford food, CityMeal offers information for free 
 
   - __Product Manager__: Seola Carrano
   - __Scrum Master__: Phoenix McKnight
-  - __Development Team Members__: Rosmary Fermin, Yemisi
+  - __Development Team Members__: Rosmary Fermin, Yemisi Onayemi
 
 ## Table of Contents
 
