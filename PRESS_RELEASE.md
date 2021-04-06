@@ -10,11 +10,7 @@ Users can find information for covid free meal sites for New Yorkers
 
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
-Users can sign up and log in
-Users can find free meal sites in their area 
-Users can save their favorite free meal sites 
-Users can create / update / delete their reviews 
+To help New Yorkers who can't afford food, CityMeal offers information for free meal sites. Users can check the location on a list and Google map. Users can also rate free meal sites they visited and check ratings from other people. 
 
 
 ## Problem ##
@@ -32,5 +28,5 @@ Getting the third party data and utilize it
 Implementing Google Map to the app
 
 ## Extension Opportunities ##
-Adding private restaurants that offer free meals for the community can expand this service 
+Allowing users to post their free food to share with other people
 
