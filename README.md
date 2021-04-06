@@ -1,6 +1,9 @@
 # Project Name
 Let's Eat
 
+# Project Description
+To help New Yorkers who can't afford food, CityMeal offers information for free meal sites. Users can check the location on a list and Google map. Users can also rate free meal sites they visited and check ratings from other people. 
+
 ## Team
 
   - __Product Manager__: Seola Carrano
@@ -41,7 +44,7 @@ From within the root directory:
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECTS_TAB).
+View the project roadmap [here]('https://github.com/CityMeal/CityMeal/projects/2').
 
 
 ## Contributing
