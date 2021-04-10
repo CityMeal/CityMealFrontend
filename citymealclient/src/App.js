@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Nav from './Component/Navbar/Navbar'
 import Footer from './Component/Footer/footer'
+import Announce from './Component/Others/announce'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
       <h1>Hello World</h1>
       <button onClick={updateNav}>Click to update nav</button>
       <Nav size={screenSize} />
+      <Announce />
       <Footer />
     </div>
   );
