@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     display: 'flex',
+    justifyContent: 'center',
     marginLeft: '5%',
     marginRight: '5%',
     marginBottom: '5%',
@@ -30,27 +31,31 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    height: '15rem',
+    // height: '15rem',
     paddingLeft: '5%',
   },
-  eachInfo: {
-    display: 'flex',
-    paddingBottom: '5%',
-
-  }
+  // eachInfo: {
+  //   display: 'flex',
+  //   paddingBottom: '5%',
+  //   justifyContent: 'flex-end',
+  // }
 }));
 
 function EachList() {
   const classes = useStyles();
 
   return (
-    <Box className={classes.list} maxWidth="xl">
+    <Box className={classes.list} maxWidth="xl" border={1}>
       <Box className={classes.pic} width={1 / 2}><img height="100%" width="100%" src="https://res.cloudinary.com/dqduwnrb1/image/upload/v1618158659/GoogleMapTA_nkou2y.jpg"></img></Box>
       <Box className={classes.info} width={1 / 2}>
-        <Box className={classes.eachInfo}>Franklin Delano Roosevelt High School - 5800 20 Avenue, 11204</Box>
+        {/* <Box className={classes.eachInfo}>Franklin Delano Roosevelt High School - 5800 20 Avenue, 11204</Box>
         <Box className={classes.eachInfo}>D, E, 2, 3</Box>
         <Box className={classes.eachInfo}>⭐️⭐️⭐️⭐️⭐️</Box>
-        <Box className={classes.eachInfo}>❤️</Box>
+        <Box className={classes.eachInfo}>❤️</Box> */}
+        <p>Franklin Delano Roosevelt High School - 5800 20 Avenue, 11204</p>
+        <p>Train: D, E, 2, 3</p>
+        <p>⭐️⭐️⭐️⭐️⭐️</p>
+        <p>❤️</p>
       </Box>
     </Box>
   )
