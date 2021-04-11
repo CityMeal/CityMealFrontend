@@ -53,10 +53,10 @@ function Announce() {
                 <p className={classes.mainfont}>2. No registration or ID required</p>
                  */}
 
-                <p>1. Pickup available time</p>
+                <p><strong>1. Pickup available time</strong></p>
                 <p> - all families and students: Monday - Friday, 9 am to 12 pm</p>
                 <p> - members of the community: Monday-Friday, 3 pm to 5 pm </p>
-                <p>2. No registration or ID required</p>
+                <p><strong>2. No registration or ID required</strong></p>
             </div>
 
         </Box>)
