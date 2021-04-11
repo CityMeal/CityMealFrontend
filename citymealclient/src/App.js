@@ -3,6 +3,7 @@ import './App.css';
 import Nav from './Component/Navbar/Navbar'
 import Footer from './Component/Footer/footer'
 import Announce from './Component/Others/announce'
+import List from './Component/ListPage/List'
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
       <button onClick={updateNav}>Click to update nav</button>
       <Nav size={screenSize} />
       <Announce />
+      <List />
       <Footer />
     </div>
   );
