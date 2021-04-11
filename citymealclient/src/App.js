@@ -4,6 +4,7 @@ import Nav from './Component/Navbar/Navbar'
 import Footer from './Component/Footer/footer'
 import Announce from './Component/Others/announce'
 import List from './Component/ListPage/List'
+import Favorites from './Component/Favorites/Favorites'
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
       <Nav size={screenSize} />
       <Announce />
       <List />
+      <Favorites />
       <Footer />
     </div>
   );
