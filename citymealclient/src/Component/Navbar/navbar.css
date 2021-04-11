@@ -1,0 +1,10 @@
+#navish{
+    border: solid red;
+    width: 5em;
+    display: flex;
+}
+
+#dropdown{
+    border: solid blue;
+    width: 5em;
+}
