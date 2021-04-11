@@ -7,12 +7,36 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         backgroundColor: '#F9CF00',
-        marginLeft: '11%',
+        marginLeft: '6%',
         paddingTop: '2%',
         paddingBottom: '2%',
         paddingLeft: '5%',
-        paddingRight: '5%',
-        textAlign: 'center'
+        paddingRight: '9%',
+        textAlign: 'left'
+    },
+    mainfont: {
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '0.8rem',
+        },
+        [theme.breakpoints.up('md')]: {
+            fontSize: '1.8rem',
+        },
+        [theme.breakpoints.up('lg')]: {
+            fontSize: '2.3rem',
+        },
+
+    },
+    subfont: {
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '0.6rem',
+        },
+        [theme.breakpoints.up('md')]: {
+            fontSize: '1.5rem',
+        },
+        [theme.breakpoints.up('lg')]: {
+            fontSize: '2rem',
+        },
+
     }
 }));
 
@@ -20,15 +44,14 @@ function Announce() {
     const classes = useStyles();
 
     return (
-        <Box className={classes.root} maxWidth="xl" width={2 / 3}>
-            {/* <p className={classes.font}>1. Pickup available time</p>
-            <p className={classes.font}>- all families and students: Monday - Friday, 9 am to 12 pm</p>
-            <p className={classes.font}> - members of the community: Monday-Friday, 3 pm to 5 pm</p>
-            <p className={classes.font}>2. No registration or ID required</p> */}
-            <h3>1. Pickup available time</h3>
-            <h4>- all families and students: Monday - Friday, 9 am to 12 pm</h4>
-            <h4> - members of the community: Monday-Friday, 3 pm to 5 pm</h4>
-            <h3>2. No registration or ID required</h3>
+        <Box className={classes.root} maxWidth="xl" width={3 / 4}>
+            <div>
+                <p className={classes.mainfont}>1. Pickup available time</p>
+                <p className={classes.subfont}> - all families and students: Monday - Friday, 9 am to 12 pm</p>
+                <p className={classes.subfont}> - members of the community: Monday-Friday, 3 pm to 5 pm </p>
+                <p className={classes.mainfont}>2. No registration or ID required</p>
+            </div>
+
         </Box>)
 }
 
