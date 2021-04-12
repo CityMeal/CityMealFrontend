@@ -1,19 +1,36 @@
 import React from 'react';
 import './App.css';
 import Header from './Components/Navbar/navbar';
+import Footer from './Components/Footer/footer'
+import Announce from './Components/Others/announce'
 import Welcome from './Components/MainPage/WelcomePage'
 
 function App() {
  
-  const[screenSize, setScreenSize] = React.useState(360)
   const[clickSignUp, setClickSignUp] = React.useState(false)
   const[clickSignIn, setClickSignIn] = React.useState(false)
 
+   //RETUN SIGN UP FORM ON CLICK ON SIGN UP BUTTON
+  const handleSignUpClick = (e) =>{
+    console.log(e.target)
+    setClickSignUp(true)
+    console.log('clicking sign up', clickSignUp)
+  }
+
+  //RETURN SIGN IN FORM ON CLICK ON SIGN IN BUTTON 
+  const handleSignInClick = (e) =>{
+    console.log(e.target)
+    setClickSignIn(true)
+    console.log('clicking sign in', clickSignIn)
+  }
+
+  //SET USER LOG IN DETAILS 
   const [logInDetails, setLogInDetails] = React.useState({
     Username: "",
     Password: ""
   })
 
+  //GET USER LOG IN DETAILS ONCHANGE
   const handleLogInChange = (event) => {
     console.log(event.target.value)
     const {name, value} = event.target
@@ -25,30 +42,15 @@ function App() {
     console.log(logInDetails)
   }
 
+  //USE LOGINDETAIL OBJECT TO AUTHENTICATE USER: WRITE AUTH FUNCTION
 
-  const updateNav = () =>{
-    setScreenSize(1024)
-    console.log('clicking button')
-  }
-
-  const handleSignUpClick = (e) =>{
-    console.log(e.target)
-    setClickSignUp(true)
-    console.log('clicking sign up', clickSignUp)
-  }
-
-  const handleSignInClick = (e) =>{
-    console.log(e.target)
-    setClickSignIn(true)
-    console.log('clicking sign in', clickSignIn)
-  }
-
+ 
   return (
     <div className="App">
       <Header clickSignUp={handleSignUpClick} clickSignIn={handleSignInClick}/>
-      <h1>Hello World</h1>
-      <button onClick={updateNav}>Click to update nav</button>
       <Welcome signUp={clickSignUp} signIn={clickSignIn}/>
+      <Announce />
+      <Footer />
     </div>
   );
 }

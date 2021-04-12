@@ -173,7 +173,7 @@ function Forms(props) {
         <div>
             {webForm !== true ?
             //This is the Mobile form version for sign up
-                <Modal open className={modalClass.root}> 
+                <Modal  className={modalClass.root}> 
                     <form className={formClass.root}>
                         {
 
@@ -195,7 +195,7 @@ function Forms(props) {
                     </form>
                 </Modal> : 
                 //This is the Desktop form version for sign up
-                 (<Modal open className={modalClass.root}> 
+                 (<Modal  className={modalClass.root}> 
                      <form className={formClass.root}>
                      {signUpLabels.map(label => (
                             <FormControl htmlFor={label} key={label} required={label === 'Zip Code' ? false : true}>

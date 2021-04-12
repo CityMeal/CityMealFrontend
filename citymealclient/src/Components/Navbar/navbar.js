@@ -50,51 +50,34 @@ const btnstyles = makeStyles(() => ({
     marginLeft: 0.7 +'em',
     borderRadius: 2 + 'px',
     [themes.breakpoints.down('sm')]: {//340
-      // border: 'solid red',
       position: 'relative',
       left: 22 +'%',
-      // top:  -2+ 'em',
-      // borderRadius: 2 + 'px', 
-      // marginLeft: 0.7 +'em',
     },
     [themes.breakpoints.between('md', 'lg')]: {//360 - 411
-      // border: 'solid green',
       position: 'relative',
       left: 30 +'%',
-      // top:  -2+ 'em',
-      // borderRadius: 2 + 'px', 
-      // marginLeft: 0.7 +'em',
+
     },
     [themes.breakpoints.up('lg')]: {//412 or more/699
-      // border: 'solid purple',
       position: 'relative',
       left: 40 +'%',
-      // top:  -2+ 'em',
-      // borderRadius: 2 + 'px', 
-      // marginLeft: 0.6 +'em',
+
     },
     [themes.breakpoints.up('xl')]: { // 700 or more 1023
       border: 'solid black',
       position: 'relative',
       left: 65 +'%',
-      // top:  -2+ 'em',
-      // borderRadius: 2 + 'px', 
-      // marginLeft: 0.7 +'em',
     },
     [themes2.breakpoints.up('laptop')]:{//1024 or more
       border: 'solid pink',
       position: 'relative',
       left: 75 +'%',
-      // top:  -2+ 'em',
-      // borderRadius: 2 + 'px', 
-      // marginLeft: 0.7 +'em',
     }
   }
 }))
 
 const logoStyles = makeStyles(() => ({
   root: {
-    // border: 'solid red',
     position: 'relative',
     width: 5 +'em',
     height: 5 +'em',
@@ -102,12 +85,8 @@ const logoStyles = makeStyles(() => ({
     top: 0.6 + 'em',
 
     [themes2.breakpoints.up('laptop')]:{
-      // border: 'solid pink',
       position: 'relative',
-      // width: 5 +'em',
-      // height: 5 +'em',
       left: 2 + 'em',
-      // top: 0.6 + 'em',
     }
   }
 }))
