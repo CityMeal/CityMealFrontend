@@ -75,49 +75,78 @@ function EachList() {
   )
 }
 
-
 function ShowProfile() {
   const classes = useStyles();
 
+  const [zipcode, setZipcode] = React.useState(false);
+
+  const [zip, setZip] = React.useState("00000")
+
+  const handleChange = (e) => {
+    console.log(e.target.value)
+    const { name, value } = e.target
+    console.log(value)
+    setZip(value)
+    console.log(zip)
+  }
+
   return (
     <div className="profile">
-      <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Profile</p></Box>
       <Box className={classes.profile}>
         <p>username: citymeal</p>
-        <p>zipcode: 00000</p>
-        <Button variant="contained" color="primary">edit</Button>
+        <label>zipcode:</label>{!zipcode && zip}
+        {zipcode &&
+          <div>
+            <TextField className={classes.editInput} id="standard-search" label="zipcode" type="search" value={zip} onChange={handleChange} />
+            {/* <Button variant="contained" color="primary">submit</Button> */}
+          </div>
+        }
+        <Button variant="contained" color="primary" onClick={() => setZipcode(!zipcode)} >{!zipcode ? 'edit' : 'submit'}</Button>
       </Box>
     </div>
   )
 }
 
-function EditProfile() {
+// function EditProfile() {
+//   const classes = useStyles();
+
+//   return (
+//     <div className="profile">
+//       <Box className={classes.profile}>
+//         <p>username: citymeal</p>
+//         <TextField className={classes.editInput} id="standard-search" label="zipcode" type="search" />
+//         <Button variant="contained" color="primary">submit</Button>
+//       </Box>
+//     </div>
+//   )
+// }
+
+function Profile() {
   const classes = useStyles();
 
   return (
-    <div className="profile">
+    <div>
       <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Profile</p></Box>
-      <Box className={classes.profile}>
-        <p>username: citymeal</p>
-        <TextField className={classes.editInput} id="standard-search" label="zipcode" type="search" />
-        <Button variant="contained" color="primary">submit</Button>
-      </Box>
+      <ShowProfile />
     </div>
   )
 }
-
 
 function Favorites() {
   const classes = useStyles();
+
 
   return (
     <div>
       <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Favorite Meal Sites</p></Box>
       <EachList />
-      <ShowProfile />
-      <EditProfile />
+      <Profile />
+      {/* <ShowProfile />
+      <EditProfile /> */}
     </div>
   );
 }
 
 export default Favorites;
+
+
