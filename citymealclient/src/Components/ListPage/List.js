@@ -2,19 +2,10 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   zipcodeInput: {
-    // paddingBottom: "5%",
-    // [theme.breakpoints.down('sm')]: {
-    //   marginLeft: '40%',
-    // },
-    // [theme.breakpoints.up('md')]: {
-    //   marginLeft: '40%',
-    // },
-    // [theme.breakpoints.up('lg')]: {
-    //   marginLeft: '40%',
-    // },
     display: 'flex',
     justifyContent: 'center',
     paddingBottom: '5%',
@@ -40,11 +31,27 @@ const useStyles = makeStyles((theme) => ({
     // height: '15rem',
     paddingLeft: '5%',
   },
-  // eachInfo: {
-  //   display: 'flex',
-  //   paddingBottom: '5%',
-  //   justifyContent: 'flex-end',
-  // }
+  twolists: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  showList: {
+    [theme.breakpoints.down('md')]: {
+      display: 'block',
+    },
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    }
+  },
+  showListLg: {
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
+    [theme.breakpoints.up('md')]: {
+      display: 'block',
+    }
+  },
+
 }));
 
 function EachList() {
@@ -54,12 +61,9 @@ function EachList() {
     <Box className={classes.list} maxWidth="xl" >
       <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src="https://res.cloudinary.com/dqduwnrb1/image/upload/v1618158659/GoogleMapTA_nkou2y.jpg" alt="map" /></Box>
       <Box className={classes.info} width={1 / 2}>
-        {/* <Box className={classes.eachInfo}>Franklin Delano Roosevelt High School - 5800 20 Avenue, 11204</Box>
-        <Box className={classes.eachInfo}>D, E, 2, 3</Box>
-        <Box className={classes.eachInfo}>⭐️⭐️⭐️⭐️⭐️</Box>
-        <Box className={classes.eachInfo}>❤️</Box> */}
         <p>Franklin Delano Roosevelt High School - 5800 20 Avenue, 11204</p>
-        <p>Train: D, E, 2, 3</p>
+        <Button variant="contained" color="primary">GET DIRECTION</Button>
+        {/* <p>Train: D, E, 2, 3</p> */}
         <p>⭐️⭐️⭐️⭐️⭐️</p>
         <p>❤️</p>
       </Box>
@@ -67,15 +71,25 @@ function EachList() {
   )
 }
 
-function List() {
+function TwoLists() {
   const classes = useStyles();
 
   return (
+    <Box className={classes.twolists}>
+      <EachList />
+      <EachList />
+    </Box>
+
+  )
+}
+
+function List() {
+  const classes = useStyles();
+  return (
     <div >
       <div className={classes.zipcodeInput}><TextField id="standard-search" label="zipcode" type="search" /></div>
-      <EachList />
-      <EachList />
-      <EachList />
+      <div className={classes.showList}><EachList /></div>
+      <div className={classes.showListLg}><TwoLists /></div>
     </div>
   );
 }
