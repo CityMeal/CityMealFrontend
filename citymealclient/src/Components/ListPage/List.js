@@ -51,7 +51,7 @@ function EachList() {
   const classes = useStyles();
 
   return (
-    <Box className={classes.list} maxWidth="xl" border={1} borderRadius={16}>
+    <Box className={classes.list} maxWidth="xl" >
       <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src="https://res.cloudinary.com/dqduwnrb1/image/upload/v1618158659/GoogleMapTA_nkou2y.jpg" alt="map" /></Box>
       <Box className={classes.info} width={1 / 2}>
         {/* <Box className={classes.eachInfo}>Franklin Delano Roosevelt High School - 5800 20 Avenue, 11204</Box>

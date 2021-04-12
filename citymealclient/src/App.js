@@ -1,26 +1,56 @@
 import React from 'react';
 import './App.css';
-import Nav from './Component/Navbar/Navbar'
-import Footer from './Component/Footer/footer'
-import Announce from './Component/Others/announce'
-import List from './Component/ListPage/List'
-import Favorites from './Component/Favorites/Favorites'
+import Header from './Components/Navbar/navbar';
+import Footer from './Components/Footer/footer'
+import Announce from './Components/Others/announce'
+import Welcome from './Components/MainPage/WelcomePage'
+import List from './Components/ListPage/List'
+import Favorites from './Components/Favorites/Favorites'
 
 function App() {
 
-  const [screenSize, setScreenSize] = React.useState(360)
+  const [clickSignUp, setClickSignUp] = React.useState(false)
+  const [clickSignIn, setClickSignIn] = React.useState(false)
 
-  const updateNav = () => {
-    setScreenSize(1024)
-    console.log('clicking button')
+  //RETUN SIGN UP FORM ON CLICK ON SIGN UP BUTTON
+  const handleSignUpClick = (e) => {
+    console.log(e.target)
+    setClickSignUp(true)
+    console.log('clicking sign up', clickSignUp)
   }
+
+  //RETURN SIGN IN FORM ON CLICK ON SIGN IN BUTTON 
+  const handleSignInClick = (e) => {
+    console.log(e.target)
+    setClickSignIn(true)
+    console.log('clicking sign in', clickSignIn)
+  }
+
+  //SET USER LOG IN DETAILS 
+  const [logInDetails, setLogInDetails] = React.useState({
+    Username: "",
+    Password: ""
+  })
+
+  //GET USER LOG IN DETAILS ONCHANGE
+  const handleLogInChange = (event) => {
+    console.log(event.target.value)
+    const { name, value } = event.target
+    console.log(name)
+    setLogInDetails({
+      ...logInDetails,
+      [name]: value
+    });
+    console.log(logInDetails)
+  }
+
+  //USE LOGINDETAIL OBJECT TO AUTHENTICATE USER: WRITE AUTH FUNCTION
+
 
   return (
     <div className="App">
-      <header className="App-header"></header>
-      <h1>Hello World</h1>
-      <button onClick={updateNav}>Click to update nav</button>
-      <Nav size={screenSize} />
+      <Header clickSignUp={handleSignUpClick} clickSignIn={handleSignInClick} />
+      <Welcome signUp={clickSignUp} signIn={clickSignIn} />
       <Announce />
       <List />
       <Favorites />
