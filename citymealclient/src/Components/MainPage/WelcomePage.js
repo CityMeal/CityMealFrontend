@@ -1,16 +1,14 @@
 import React from 'react';
 import Forms from './FormModal'
-import Nav from '../Navbar/Navbar'
 import announce from '../Others/announce'
 
 
-function Welcome() {
+function Welcome(props) {
  
 
   return (
     <div className="welcome">
-        <Nav />
-        <Form />
+        <Forms />
     </div>
   );
 }
