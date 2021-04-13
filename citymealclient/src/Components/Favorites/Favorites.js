@@ -78,30 +78,27 @@ function EachList() {
 function ShowProfile() {
   const classes = useStyles();
 
-  const [zipcode, setZipcode] = React.useState(false);
+  const [currentZipcode, setCurrentZipcode] = React.useState(false);
 
-  const [zip, setZip] = React.useState("00000")
+  const [newZipcode, setNewZipcode] = React.useState("00000")
 
   const handleChange = (e) => {
-    console.log(e.target.value)
-    const { name, value } = e.target
-    console.log(value)
-    setZip(value)
-    console.log(zip)
+    const { value } = e.target
+    setNewZipcode(value)
   }
 
   return (
     <div className="profile">
       <Box className={classes.profile}>
         <p>username: citymeal</p>
-        <label>zipcode:</label>{!zipcode && zip}
-        {zipcode &&
+        <label>zipcode:</label>{!currentZipcode && newZipcode}
+        {currentZipcode &&
           <div>
-            <TextField className={classes.editInput} id="standard-search" label="zipcode" type="search" value={zip} onChange={handleChange} />
+            <TextField className={classes.editInput} id="standard-search" label="currentZipcode" type="search" value={newZipcode} onChange={handleChange} />
             {/* <Button variant="contained" color="primary">submit</Button> */}
           </div>
         }
-        <Button variant="contained" color="primary" onClick={() => setZipcode(!zipcode)} >{!zipcode ? 'edit' : 'submit'}</Button>
+        <Button variant="contained" color="primary" onClick={() => setCurrentZipcode(!currentZipcode)} >{!currentZipcode ? 'edit' : 'submit'}</Button>
       </Box>
     </div>
   )
