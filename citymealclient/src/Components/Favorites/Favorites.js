@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#F9CF00',
     marginLeft: '5%',
     marginRight: '5%',
-    // marginBottom: '3%',
   },
   fontSize: {
     [theme.breakpoints.down('sm')]: {
@@ -44,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    // height: '15rem',
     paddingLeft: '5%',
   },
   profile: {
@@ -95,7 +93,6 @@ function ShowProfile() {
         {currentZipcode &&
           <div>
             <TextField className={classes.editInput} id="standard-search" label="currentZipcode" type="search" value={newZipcode} onChange={handleChange} />
-            {/* <Button variant="contained" color="primary">submit</Button> */}
           </div>
         }
         <Button variant="contained" color="primary" onClick={() => setCurrentZipcode(!currentZipcode)} >{!currentZipcode ? 'edit' : 'submit'}</Button>
@@ -103,20 +100,6 @@ function ShowProfile() {
     </div>
   )
 }
-
-// function EditProfile() {
-//   const classes = useStyles();
-
-//   return (
-//     <div className="profile">
-//       <Box className={classes.profile}>
-//         <p>username: citymeal</p>
-//         <TextField className={classes.editInput} id="standard-search" label="zipcode" type="search" />
-//         <Button variant="contained" color="primary">submit</Button>
-//       </Box>
-//     </div>
-//   )
-// }
 
 function Profile() {
   const classes = useStyles();
@@ -138,8 +121,6 @@ function Favorites() {
       <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Favorite Meal Sites</p></Box>
       <EachList />
       <Profile />
-      {/* <ShowProfile />
-      <EditProfile /> */}
     </div>
   );
 }

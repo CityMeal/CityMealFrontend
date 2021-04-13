@@ -63,7 +63,6 @@ function EachList() {
       <Box className={classes.info} width={1 / 2}>
         <p>Franklin Delano Roosevelt High School - 5800 20 Avenue, 11204</p>
         <Button variant="contained" color="primary">GET DIRECTION</Button>
-        {/* <p>Train: D, E, 2, 3</p> */}
         <p>⭐️⭐️⭐️⭐️⭐️</p>
         <p>❤️</p>
       </Box>
