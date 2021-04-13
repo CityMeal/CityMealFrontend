@@ -33,24 +33,22 @@ const modalStyle = makeStyles(() => ({
         padding: 10 + '%',
         [themes.breakpoints.between('xs', 'sm')]: {
             width: 67 + '%',
-            height: 22 + 'em',
             marginTop: 8 + 'em',
         },
         [themes.breakpoints.between('md', 'xl')]: {
             width: 70 + '%',
-            height: 22 + 'em',
             marginTop: 10 + 'em',
         },
         [themes2.breakpoints.up('tablet')]: {
             width: 45 + '%',
             marginTop: 11 + 'em',
             padding: 20 + '%',
-            height: 5 + 'em',
         },
         [themes2.breakpoints.up('laptop')]: {
-            width: 50 + '%',
-            marginTop: 8 + 'em',
-            padding: 15 + '%',
+            width: 60 + '%',
+            padding: 0 + '%',
+            marginTop: 20 + 'em',
+            marginLeft: 20 + 'em',
         },
     }
 }))
@@ -59,64 +57,67 @@ const formStyle = makeStyles(theme => ({
     root: {
         position: 'relative',
         margin: 'auto',
-        top: -1 + 'em',
-        left: 0 + 'em',
+        top: -5 + 'em',
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
         backgroundColor: ' #D9D9D9',
         color: '#000000',
+
         '& .MuiTextField-root': {
             margin: theme.spacing(0.8),
             width: 15 + 'em',
             backgroundColor: '#FBF7F7',
         },
+        '& Button': {
+            margin: 'auto',
+        },
         [themes2.breakpoints.up('tablet')]: {
-            top: -9.5 + 'em',
-            left: -9 + 'em',
-            width: 35 + 'em',
-            height: 20 + 'em',
+            top: -13.5 + 'em',
+            left: -10.5 + 'em',
+            width: 38 + 'em',
             padding: 10 + '%',
             position: 'relative',
-            justifyContent: 'flex-end',
 
             '& .MuiFormControl-root': {
                 flexDirection: 'row',
-                top: -1 + 'em',
-                margin: 0.6 + 'em',
+                marginLeft: 5 + 'em',
+                margin: theme.spacing(0.5),
+                width: 33 + 'em',
+                backgroundColor: '#FBF7F7',
             },
-            '& .MuiInputLabel-formControl': {
-                left: -5.5 + 'em',
-                top: -0.5 + 'em',
+            '& .MuiInputBase-root': {
+                display: 'contents',
+                position: 'relative',
+                alignItems: 'center',
+                left: 8 + 'em',
             },
-            '& .MuiInput-formControl': {
-                width: 29 + 'em',
-                height: 2 + 'em',
+            '& .MuiInputLabel-formControl':{
+                left: -6 +'em',
+                color: '#000000'
             },
+ 
             '& Button': {
-                width: 25 + '%',
-                margin: 'auto',
                 left: 2 + 'em',
             }
         },
         [themes2.breakpoints.up('laptop')]: {
-            left: -6.5 + 'em',
             width: 50 + 'em',
-            height: 22 + 'em',
-            padding: 10 + '%',
-            top: -12 + 'em',
-            left: -8 + 'em',
-            justifyContent: 'flex-end',
+            padding: 4 + '%',
+            top: -13 + 'em',
+            marginLeft: 5 + 'em',
+            margin: theme.spacing(0.5),
 
             '& .MuiFormControl-root': {
                 flexDirection: 'row',
                 position: 'relative',
-                top: -4 + 'em',
-                left: 2 + 'em',
+                top: -2 + 'em',
+                width: 45 + 'em',
+                marginLeft: 6 + 'em',
+                
             },
             '& .MuiInputLabel-formControl': {
-                left: -5 + 'em',
-                top: 0.5 + 'em',
+                left: -6 + 'em',
             },
             '& .MuiInput-formControl': {
                 width: 50 + 'em',
@@ -124,9 +125,7 @@ const formStyle = makeStyles(theme => ({
                 margin: 0.5 + 'em',
             },
             '& Button': {
-                width: 25 + '%',
-                margin: 'auto',
-                top: -5 + 'em',
+                top: -2 + 'em',
             },
         },
     }
