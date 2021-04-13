@@ -7,22 +7,25 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         backgroundColor: '#F9CF00',
-        marginLeft: '6%',
-        paddingTop: '2%',
-        paddingBottom: '2%',
-        paddingLeft: '5%',
-        paddingRight: '9%',
+        marginTop: '3%',
+        marginBottom: '5%',
+        marginLeft: '3%',
+        marginRight: '3%',
         textAlign: 'left'
+    },
+    text: {
+        display: 'column',
+        alignSelf: 'center',
     },
     mainfont: {
         [theme.breakpoints.down('sm')]: {
-            fontSize: '0.8rem',
+            fontSize: '0.7rem',
         },
         [theme.breakpoints.up('md')]: {
-            fontSize: '1.8rem',
+            fontSize: '1.2rem',
         },
         [theme.breakpoints.up('lg')]: {
-            fontSize: '2.3rem',
+            fontSize: '1.5rem',
         },
 
     },
@@ -31,10 +34,10 @@ const useStyles = makeStyles((theme) => ({
             fontSize: '0.6rem',
         },
         [theme.breakpoints.up('md')]: {
-            fontSize: '1.5rem',
+            fontSize: '1rem',
         },
         [theme.breakpoints.up('lg')]: {
-            fontSize: '2rem',
+            fontSize: '1.3rem',
         },
 
     }
@@ -44,12 +47,12 @@ function Announce() {
     const classes = useStyles();
 
     return (
-        <Box className={classes.root} maxWidth="xl" width={3 / 4}>
-            <div>
-                <p className={classes.mainfont}>1. Pickup available time</p>
-                <p className={classes.subfont}> - all families and students: Monday - Friday, 9 am to 12 pm</p>
-                <p className={classes.subfont}> - members of the community: Monday-Friday, 3 pm to 5 pm </p>
-                <p className={classes.mainfont}>2. No registration or ID required</p>
+        <Box className={classes.root} maxWidth="xl">
+            <div className={classes.text}>
+                <p className={classes.mainfont}>• Pickup available time</p>
+                <p className={classes.subfont}>&nbsp;&nbsp;&nbsp;&nbsp; a. all families and students: Monday - Friday, 9 am to 12 pm</p>
+                <p className={classes.subfont}>&nbsp;&nbsp;&nbsp;&nbsp; b. members of the community: Monday-Friday, 3 pm to 5 pm </p>
+                <p className={classes.mainfont}>• No registration or ID required</p>
             </div>
 
         </Box>)

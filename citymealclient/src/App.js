@@ -4,6 +4,8 @@ import Header from './Components/Navbar/navbar';
 import Footer from './Components/Footer/footer'
 import Announce from './Components/Others/announce'
 import Welcome from './Components/MainPage/WelcomePage'
+import List from './Components/ListPage/List'
+import Favorites from './Components/Favorites/Favorites'
 
 function App() {
  
@@ -53,7 +55,7 @@ function App() {
   //GET NEW USER SIGN UP INFO
   const handleUserChange = (event) => {
     const {name, value} = event.target
-    console.log(name)
+
     setNewUser({
         ...newUser,
         [name]: value
@@ -63,7 +65,6 @@ function App() {
 
   //FUNCTION MAKING A NEW USER POST REQUEST TO THE DATABASE
   const signUpUser = () => {
-
     console.log(newUser) 
 
     //Write post request function
@@ -80,22 +81,20 @@ function App() {
 
   }
 
-
   //GET USER LOG IN DETAILS ONCHANGE
   const handleLogInChange = (event) => {
-    console.log(event.target.value)
-    const {name, value} = event.target
+
+    const { name, value } = event.target
     console.log(name)
     setLogInDetails({
-        ...logInDetails,
-        [name]: value
+      ...logInDetails,
+      [name]: value
     });
     console.log(logInDetails)
   }
 
   //USE LOGIN DETAIL OBJECT TO AUTHENTICATE USER: WRITE AUTH FUNCTION
   const signInUser = () => {
-    
     console.log(logInDetails)
 
     //make a request tp the auth function and clear form
@@ -105,7 +104,7 @@ function App() {
     })
   }
 
- 
+
   return (
     <div className="App">
       <Header 
@@ -124,6 +123,8 @@ function App() {
         onSubmitLogIn={signInUser}
       />
       <Announce />
+      <List />
+      <Favorites />
       <Footer />
     </div>
   );
