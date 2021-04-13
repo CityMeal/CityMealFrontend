@@ -97,17 +97,26 @@ function Header(props) {
   const btnClasses = btnstyles()
   const logoClasses = logoStyles()
 
-  const handleClick = (e) => {
-    const button = e.target
-    console.log('im  clicking', button, button.id)
-    button.id === "button0" ? console.log('im  clicking Sign Up') : console.log('im  clicking Sign In')
-  }
+  // const handleClick = (e) => {
+  //   const button = e.target
+  //   console.log('im  clicking', button, button.id)
+  //   button.id === "button0" ? console.log('im  clicking Sign Up') : console.log('im  clicking Sign In')
+  // }
 
   return (
     <DivStyle className="Nav">
       <img src={logo} alt="logo" id='logo'  className={logoClasses.root} />
       {buttons.map ((button, index) => (
-        <Button variant="contained" id={`button${index}`} key={button} className={btnClasses.root} size="small" onClick={handleClick}>{button}</Button>
+        <Button 
+          variant="contained" 
+          id={`button${index}`} 
+          key={button} 
+          className={btnClasses.root} 
+          size="small" 
+          onClick={button === 'Sign Up' ? props.clickSignUpBtn: props.clickSignInBtn}
+        >
+          {button}
+        </Button>
       ))}
     </DivStyle>
   );
