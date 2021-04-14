@@ -8,33 +8,82 @@ import List from './Components/ListPage/List'
 import Favorites from './Components/Favorites/Favorites'
 
 function App() {
+ 
+  const signUpLabels = ['Username', 'Email', 'Address', 'City', 'ZipCode', 'Password']
+  const signInLabels = ['Username', 'Password']
 
-  const [clickSignUp, setClickSignUp] = React.useState(false)
-  const [clickSignIn, setClickSignIn] = React.useState(false)
+  const [openModal, setOpenModal] = React.useState(false)
+  const [labels, setLabels] = React.useState(signUpLabels)
 
-  //RETUN SIGN UP FORM ON CLICK ON SIGN UP BUTTON
-  const handleSignUpClick = (e) => {
-    console.log(e.target)
-    setClickSignUp(true)
-    console.log('clicking sign up', clickSignUp)
-  }
+  //SET NEW USER STATE
+  const [newUser, setNewUser] = React.useState({
+    Username: "",
+    Email: "",
+    Address: "",
+    City: "", 
+    ZipCode: "",
+    Password: "",
+  })
 
-  //RETURN SIGN IN FORM ON CLICK ON SIGN IN BUTTON 
-  const handleSignInClick = (e) => {
-    console.log(e.target)
-    setClickSignIn(true)
-    console.log('clicking sign in', clickSignIn)
-  }
-
-  //SET USER LOG IN DETAILS 
+  //SET USER LOG IN DETAILS
   const [logInDetails, setLogInDetails] = React.useState({
     Username: "",
     Password: ""
   })
+  
+  //RETURN SIGN UP FORM ON CLICK ON SIGN UP BUTTON. THIS OPENS MODAL
+  const handleSignUpClick = (e) => {
+    setOpenModal(true)
+    console.log('clicking sign up', openModal)
+  }
+
+  //RETURN SIGN IN FORM ON CLICK OF SIGN IN BUTTON 
+  const handleSignInClick = (e) => {
+    console.log(e.target)
+    setLabels(signInLabels)
+    setOpenModal(true)
+    console.log('clicking sign in', openModal)
+  }
+
+  //CLOSE MODAL FUNCTION
+  const handleModalClose = () => {  
+    setOpenModal(false)
+    setLabels(signUpLabels)
+  }
+
+
+  //GET NEW USER SIGN UP INFO
+  const handleUserChange = (event) => {
+    const {name, value} = event.target
+
+    setNewUser({
+        ...newUser,
+        [name]: value
+    });
+    console.log(newUser)
+  };
+
+  //FUNCTION MAKING A NEW USER POST REQUEST TO THE DATABASE
+  const signUpUser = () => {
+    console.log(newUser) 
+
+    //Write post request function
+
+    //update the new user state and clear form
+    setNewUser({
+      Username: "",
+      Email: "",
+      Address: "",
+      City: "", 
+      ZipCode: "",
+      Password: "",
+    })
+
+  }
 
   //GET USER LOG IN DETAILS ONCHANGE
   const handleLogInChange = (event) => {
-    console.log(event.target.value)
+
     const { name, value } = event.target
     console.log(name)
     setLogInDetails({
@@ -44,13 +93,35 @@ function App() {
     console.log(logInDetails)
   }
 
-  //USE LOGINDETAIL OBJECT TO AUTHENTICATE USER: WRITE AUTH FUNCTION
+  //USE LOGIN DETAIL OBJECT TO AUTHENTICATE USER: WRITE AUTH FUNCTION
+  const signInUser = () => {
+    console.log(logInDetails)
+
+    //make a request tp the auth function and clear form
+    setLogInDetails({
+      Username: "",
+      Password: ""
+    })
+  }
 
 
   return (
     <div className="App">
-      <Header clickSignUp={handleSignUpClick} clickSignIn={handleSignInClick} />
-      <Welcome signUp={clickSignUp} signIn={clickSignIn} />
+      <Header 
+        clickSignUpBtn={handleSignUpClick} 
+        clickSignInBtn={handleSignInClick} 
+      />
+      <Welcome 
+        labels={labels}
+        modalOpen={openModal}
+        modalClose={handleModalClose}
+        userChange={handleUserChange}
+        logInChange={handleLogInChange}
+        userVal={newUser}
+        loginVal={logInDetails}
+        onSubmitUser={signUpUser}
+        onSubmitLogIn={signInUser}
+      />
       <Announce />
       <List />
       <Favorites />
