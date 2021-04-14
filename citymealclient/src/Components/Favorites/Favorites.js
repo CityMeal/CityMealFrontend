@@ -54,6 +54,15 @@ const useStyles = makeStyles((theme) => ({
   },
   editInput: {
     marginBottom: '3%'
+  },
+  currentProfile: {
+    display: 'flex',
+    flexDirection: 'row',
+    paddingTop: '3%',
+    paddingBottom: '3%',
+  },
+  editform: {
+    marginTop: '2%',
   }
 }));
 
@@ -76,26 +85,71 @@ function EachList() {
 function ShowProfile() {
   const classes = useStyles();
 
-  const [currentZipcode, setCurrentZipcode] = React.useState(false);
+  const [currentZipcode, setCurrentZipcode] = React.useState(true);
+  // const [newZipcode, setNewZipcode] = React.useState("00000")
+  const [state, setState] = React.useState({
+    username: "citymeal",
+    zipcode: "00000"
+  })
 
-  const [newZipcode, setNewZipcode] = React.useState("00000")
 
-  const handleChange = (e) => {
-    const { value } = e.target
-    setNewZipcode(value)
+
+  // const handleChange = (e) => {
+  //   const { value } = e.target
+  //   setNewZipcode(value)
+  // }
+  function handleChange(e) {
+    const value = e.target.value;
+    setState({
+      ...state,
+      [e.target.name]: value
+    });
+  }
+
+  //add delete user function
+  function handleClick() {
+    console.log('delete account')
   }
 
   return (
-    <div className="profile">
+    <div>
       <Box className={classes.profile}>
-        <p>username: citymeal</p>
-        <label>zipcode:</label>{!currentZipcode && newZipcode}
+        {/* <p>username: citymeal</p> */}
+
+        {/* <label>zipcode:</label>{!currentZipcode && newZipcode}
         {currentZipcode &&
           <div>
             <TextField className={classes.editInput} id="standard-search" label="currentZipcode" type="search" value={newZipcode} onChange={handleChange} />
           </div>
-        }
-        <Button variant="contained" color="primary" onClick={() => setCurrentZipcode(!currentZipcode)} >{!currentZipcode ? 'edit' : 'submit'}</Button>
+        } */}
+        <div >
+          <div className={classes.currentProfile}><label>username:</label>{currentZipcode && state.username}</div>
+          <div className={classes.currentProfile}><label>zipcode:</label>{currentZipcode && state.zipcode}</div>
+        </div>
+
+        {!currentZipcode && <form className={classes.editform}>
+          <label>
+            username
+        <input
+              type="text"
+              name="username"
+              value={state.username}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            zip code
+        <input
+              type="text"
+              name="zipcode"
+              value={state.zipcode}
+              onChange={handleChange}
+            />
+          </label>
+        </form>}
+        <Button className={classes.editform} variant="contained" color="primary" onClick={() => setCurrentZipcode(!currentZipcode)} >{currentZipcode ? 'edit' : 'submit'}</Button>
+        <Button className={classes.editform} color="primary" onClick={handleClick}>Delete Account</Button>
+
       </Box>
     </div>
   )
