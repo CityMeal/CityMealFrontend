@@ -16,22 +16,6 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.paper,
 
     },
-    // dropbtn: {
-    //     backgroundColor: "#4CAF50",
-    //     color: "white",
-    //     padding: "16px",
-    //     fontSize: "16px",
-    //     border: "none",
-    //     cursor: "pointer"
-    // },
-    // dropdown: {
-    //     display: "none",
-    //     position: "absolute",
-    //     backgroundColor: "#f9f9f9",
-    //     minWidth: "160px",
-    //     boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",
-    //     zIndex: "1",
-    // },
 }
 ))
 
