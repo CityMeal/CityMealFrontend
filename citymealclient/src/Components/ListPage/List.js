@@ -32,6 +32,15 @@ const useStyles = makeStyles((theme) => ({
     // height: '15rem',
     paddingLeft: '5%',
   },
+  link: {
+    textDecoration: 'none',
+    color: '#D9D9D9',
+    backgroundColor: '#4484CE',
+    textAlign: 'center',
+    width: '50%',
+    paddingTop: '2%',
+    paddingBottom: '2%',
+  },
   twolists: {
     display: 'flex',
     flexDirection: 'row',
@@ -63,7 +72,8 @@ function EachList() {
       <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src="https://res.cloudinary.com/dqduwnrb1/image/upload/v1618158659/GoogleMapTA_nkou2y.jpg" alt="map" /></Box>
       <Box className={classes.info} width={1 / 2}>
         <p>Franklin Delano Roosevelt High School - 5800 20 Avenue, 11204</p>
-        <Button variant="contained" color="primary">GET DIRECTION</Button>
+        {/* <Button variant="contained" color="primary"><a style={{ textDecoration: "none", color: "white" }} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a></Button> */}
+        <a className={classes.link} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a>
         <p>⭐️⭐️⭐️⭐️⭐️</p>
         <p>❤️</p>
       </Box>
