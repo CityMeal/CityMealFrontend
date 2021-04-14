@@ -1,8 +1,10 @@
 import React from 'react';
+import Filter from './filter'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+
 
 const useStyles = makeStyles((theme) => ({
   zipcodeInput: {
@@ -63,7 +65,6 @@ function EachList() {
       <Box className={classes.info} width={1 / 2}>
         <p>Franklin Delano Roosevelt High School - 5800 20 Avenue, 11204</p>
         <Button variant="contained" color="primary">GET DIRECTION</Button>
-        {/* <p>Train: D, E, 2, 3</p> */}
         <p>⭐️⭐️⭐️⭐️⭐️</p>
         <p>❤️</p>
       </Box>
@@ -87,7 +88,8 @@ function List() {
   const classes = useStyles();
   return (
     <div >
-      <div className={classes.zipcodeInput}><TextField id="standard-search" label="zipcode" type="search" /></div>
+      <Filter />
+      {/* <div className={classes.zipcodeInput}><TextField id="standard-search" label="zipcode" type="search" /></div> */}
       <div className={classes.showList}><EachList /></div>
       <div className={classes.showListLg}><TwoLists /></div>
     </div>
