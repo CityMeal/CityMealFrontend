@@ -14,14 +14,6 @@ function App() {
   const signInLabels = ['email', 'password']
 
   const [openModal, setOpenModal] = React.useState(false)
-  const [userSignedIn, setUserSignedIn] = React.useState({
-    signedIn: false,
-    email: "",
-    currentUser: {},
-    token: "",
-  })
-  const [labels, setLabels] = React.useState(signUpLabels)
-  const [user, setUser] = React.useState([])
 
   //SET NEW USER STATE
   const [newUser, setNewUser] = React.useState({
@@ -33,11 +25,19 @@ function App() {
     password: "",
   })
 
-  //SET USER LOG IN DETAILS
-  const [logInDetails, setLogInDetails] = React.useState({
+   //SET USER LOG IN DETAILS
+   const [logInDetails, setLogInDetails] = React.useState({
     email: "",
     password: ""
   })
+  const [userSignedIn, setUserSignedIn] = React.useState({
+    signedIn: false,
+    currentUser:{},
+    token: '',
+  })
+  const [labels, setLabels] = React.useState(signUpLabels)
+
+
 
 
   //RETURN SIGN UP FORM ON CLICK ON SIGN UP BUTTON. THIS OPENS MODAL
@@ -88,13 +88,14 @@ function App() {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'content-type': 'application/json'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(newUser)
     })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(err => console.log(err))
+
     //update the new user state and clear form
     setNewUser({
       username: "",
@@ -107,40 +108,52 @@ function App() {
   }
 
 
+  // const getUser = async () => {
+  //   const token = userSignedIn.token
+  //   console.log(token)
+  //   await fetch(
+  //     `${BASE_URL}/user`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Authorization':`Bearer ${token}`
+  //     },
+  //   })
+  //   .then(response => response.json())
+  //   .then(data => console.log(data))
+  //   .catch(err => console.log(err))
+  // }
+
   //USE LOGIN DETAIL OBJECT TO AUTHENTICATE USER: WRITE AUTH FUNCTION
-  const signInUser = () => {
+  const signInUser = async () => {
+
     console.log(logInDetails)
 
-    //Write a function to the authentication request
-
-    setUserSignedIn(true)
-
-    //make a request tp the auth function and clear form
+    //Write a POST request to user login route on the back end
+    await fetch(`${BASE_URL}/login`, {
+      method: 'POST',
+      headers:{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(logInDetails)
+    })
+    .then(response => response.json())
+    .then(data => {
+      setUserSignedIn({
+        signedIn: true,
+        currentUser:data.user,
+        token: data.token
+      })
+    })
+    .catch(err => console.log(err))
     setLogInDetails({
       username: "",
       password: ""
     })
+    // getUser()
   }
 
-  // const [userSignedIn, setUserSignedIn] = React.useState({
-  //   signedIn: false,
-  //   email: "",
-  //   currentUser: {},
-  //   passwordHash: "",
-  // })
-  const getUser = async () => {
-    const currentUser = await fetch(
-      `${BASE_URL}/user`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `JWT ${userSignedIn.token}`
-      },
-    })
-      .then(response => response.json())
-      .then(data => { })
-      .catch(err => console.log(err))
-    setUserSignedIn(true)
-  }
 
 
   return (
