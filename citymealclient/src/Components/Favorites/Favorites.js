@@ -81,15 +81,15 @@ function EachList() {
   )
 }
 
-function Favorites() {
+function Favorites(props) {
   const classes = useStyles();
-
+  // console.log(props)
 
   return (
     <div>
       <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Favorite Meal Sites</p></Box>
       <EachList />
-      <Profile />
+      <Profile currentUser={props.user} handleChange={props.updateUser} />
     </div>
   );
 }

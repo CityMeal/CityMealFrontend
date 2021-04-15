@@ -25,16 +25,19 @@ function App() {
     password: "",
   })
 
-   //SET USER LOG IN DETAILS
-   const [logInDetails, setLogInDetails] = React.useState({
+  //SET USER LOG IN DETAILS
+  const [logInDetails, setLogInDetails] = React.useState({
     email: "",
     password: ""
   })
   const [userSignedIn, setUserSignedIn] = React.useState({
     signedIn: false,
-    currentUser:{},
+    // currentUser: {},
     token: '',
   })
+
+  const [currentUser, setcurrentUser] = React.useState({})
+
   const [labels, setLabels] = React.useState(signUpLabels)
 
 
@@ -43,7 +46,7 @@ function App() {
   //RETURN SIGN UP FORM ON CLICK ON SIGN UP BUTTON. THIS OPENS MODAL
   const handleSignUpClick = (e) => {
     setOpenModal(true)
-    console.log('clicking sign up', openModal)
+    // console.log('clicking sign up', openModal)
   }
 
   //RETURN SIGN IN FORM ON CLICK OF SIGN IN BUTTON 
@@ -92,9 +95,9 @@ function App() {
       },
       body: JSON.stringify(newUser)
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err))
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
 
     //update the new user state and clear form
     setNewUser({
@@ -107,7 +110,34 @@ function App() {
     })
   }
 
+  //HANDLE UPDATE USERS
+  function handleChange(e) {
+    const value = e.target.value;
+    console.log(e.target.name, value)
+    setcurrentUser({
+      ...currentUser,
+      [e.target.name]: value
+    })
+  }
 
+
+  //UPDATE USER
+  const updateUser = async () => {
+    const token = userSignedIn.token
+    console.log(token)
+    await fetch(
+      `${BASE_URL}/user`, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(userSignedIn.currentUser)
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
+  }
   // const getUser = async () => {
   //   const token = userSignedIn.token
   //   console.log(token)
@@ -132,27 +162,30 @@ function App() {
     //Write a POST request to user login route on the back end
     await fetch(`${BASE_URL}/login`, {
       method: 'POST',
-      headers:{
+      headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(logInDetails)
     })
-    .then(response => response.json())
-    .then(data => {
-      setUserSignedIn({
-        signedIn: true,
-        currentUser:data.user,
-        token: data.token
+      .then(response => response.json())
+      .then(data => {
+        setUserSignedIn({
+          signedIn: true,
+          token: data.token
+        })
+        setcurrentUser(
+          data.user
+        )
       })
-    })
-    .catch(err => console.log(err))
+      .catch(err => console.log(err))
     setLogInDetails({
       username: "",
       password: ""
     })
     // getUser()
   }
+  //delete route 
 
 
 
@@ -175,7 +208,7 @@ function App() {
           onSubmitUser={signUpUser}
           onSubmitLogIn={signInUser}
         /> :
-        <Favorites />
+        <Favorites user={currentUser} updateUser={handleChange} />
       }
       <Footer />
     </div>
