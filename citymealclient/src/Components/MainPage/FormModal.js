@@ -148,14 +148,14 @@ function Forms(props) {
                         {props.formLabels.map(label => (
                             <TextField id={`${label}field`} 
                                 key={label} 
-                                label={label === 'ZipCode' ?  'Zip Code': label}
-                                type={label === 'Password'? "password": null}
+                                label={label === 'zipcode' ?  'zip code': label}
+                                type={label === 'password'? "password": null}
                                 variant="outlined" 
                                 size="small" 
                                 name={label}
                                 value= {props.formLabels.length > 2 ? props.userVals.label : props.loginVals.label}
-                                required={label === 'Zip Code' ? false : true}
-                                onChange={props.formLabels.length > 2 ? props.userChange : props.loginChange}
+                                required
+                                onChange= {props.valueChange}
                             />
                         ))}
                         <Button 
@@ -171,16 +171,16 @@ function Forms(props) {
                 (<Modal open={props.modalOpen} onClose={props.modalClose} className={modalClass.root}> 
                     <form className={formClass.root}>
                         {props.formLabels.map(label => (
-                            <FormControl htmlFor={label} key={label} required={label === 'Zip Code' ? false : true}>
-                                <InputLabel>{label === 'ZipCode' ? 'Zip Code' : label}</InputLabel>
+                            <FormControl htmlFor={label} key={label} required>
+                                <InputLabel>{label === 'zipCode' ? 'zip code' : label}</InputLabel>
                                 <OutlinedInput
                                     id={label}
                                     size="small"
                                     name={label}
                                     className='MuiInput-formControl' 
                                     value={props.formLabels.length > 2 ? props.userVals.label : props.loginVals.label} 
-                                    onChange={props.formLabels.length > 2 ? props.userChange : props.loginChange}
-                                    type={label === 'Password'? "password": null}
+                                    onChange= {props.valueChange}
+                                    type={label === 'password'? "password": null}
                                 />
                             </FormControl>
                         ))}
