@@ -110,34 +110,7 @@ function App() {
     })
   }
 
-  //HANDLE UPDATE USERS
-  function handleChange(e) {
-    const value = e.target.value;
-    console.log(e.target.name, value)
-    setcurrentUser({
-      ...currentUser,
-      [e.target.name]: value
-    })
-  }
 
-
-  //UPDATE USER
-  const updateUser = async () => {
-    const token = userSignedIn.token
-    console.log(token)
-    await fetch(
-      `${BASE_URL}/user`, {
-      method: 'PUT',
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify(userSignedIn.currentUser)
-    })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
-  }
   // const getUser = async () => {
   //   const token = userSignedIn.token
   //   console.log(token)
@@ -185,8 +158,54 @@ function App() {
     })
     // getUser()
   }
-  //delete route 
 
+  //HANDLE UPDATE USERS
+  function handleChange(e) {
+    const value = e.target.value;
+    console.log(e.target.name, value)
+    setcurrentUser({
+      ...currentUser,
+      [e.target.name]: value,
+    })
+  }
+
+
+  //UPDATE USER
+  const updateUser = async () => {
+    const token = userSignedIn.token
+    console.log(token)
+    await fetch(
+      `${BASE_URL}/user`, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(userSignedIn.currentUser)
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
+  }
+
+
+  //delete route 
+  const deleteUser = async () => {
+    const token = userSignedIn.token
+    //Write a POST request to user login route on the back end
+    await fetch(`${BASE_URL}/user`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    })
+      .then(response => {
+        return response.json()
+      })
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
+  }
 
 
   return (
@@ -208,7 +227,7 @@ function App() {
           onSubmitUser={signUpUser}
           onSubmitLogIn={signInUser}
         /> :
-        <Favorites user={currentUser} updateUser={handleChange} />
+        <Favorites user={currentUser} updateUser={handleChange} deleteUser={deleteUser} />
       }
       <Footer />
     </div>

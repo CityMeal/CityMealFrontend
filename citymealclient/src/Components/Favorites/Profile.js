@@ -82,9 +82,9 @@ function ShowProfile(props) {
     }
 
     //add delete user function
-    function handleClick() {
-        // console.log('delete account')
-    }
+    // function handleClick() {
+
+    // }
 
     return (
         <div>
@@ -99,12 +99,12 @@ function ShowProfile(props) {
 
                 {!currentZipcode &&
                     <form className={classes.editform}>
-                        <TextField className={classes.editInput} id="standard-search" name={props.currentUser.username} label="username" value={props.currentUser.username} onChange={props.handleChange} />
-                        <TextField className={classes.editInput} id="standard-search" name={props.currentUser.zipcode} label="zip code" value={props.currentUser.zipcode} onChange={props.handleChange} />
+                        <TextField className={classes.editInput} id="standard-search" name="username" label="username" value={props.currentUser.username} onChange={props.handleChange} />
+                        <TextField className={classes.editInput} id="standard-search" name="zipcode" label="zipcode" value={props.currentUser.zipcode} onChange={props.handleChange} />
                     </form>
                 }
                 <Button className={classes.editform} variant="contained" color="primary" onClick={onClick} >{currentZipcode ? 'edit' : 'submit'}</Button>
-                <Button className={classes.editform} variant="outlined" color="primary" onClick={handleClick}>Delete Account</Button>
+                <Button className={classes.editform} variant="outlined" color="primary" onClick={props.deleteUser}>Delete Account</Button>
 
             </Box>
         </div>
@@ -118,7 +118,7 @@ function Profile(props) {
     return (
         <div>
             <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Profile</p></Box>
-            <ShowProfile currentUser={props.currentUser} handleChange={props.handleChange} />
+            <ShowProfile currentUser={props.currentUser} handleChange={props.handleChange} deleteUser={props.deleteUser} />
         </div>
     )
 }
