@@ -51,6 +51,36 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function useFetch(url, opts) {
+    const [response, setResponse] = React.useState(null)
+    const [loading, setLoading] = React.useState(false)
+    const [hasError, setHasError] = React.useState(false)
+    React.useEffect(() => {
+        setLoading(true)
+        fetch(url, opts)
+            .then((res) => {
+                setResponse(res.data)
+                setLoading(false)
+            })
+            .catch(() => {
+                setHasError(true)
+                setLoading(false)
+            })
+    }, [url])
+    return [response, loading, hasError]
+}
+
+function App() {
+    const [response, loading, hasError] = useFetch("api/data")
+    return (
+        <>
+            {loading ? <div>Loading...</div> : (hasError ? <div>Error occured.</div> : (response.map(data => <div>{data}</div>)))}
+        </>
+    )
+}
+
+
+
 function ShowProfile() {
     const classes = useStyles();
 

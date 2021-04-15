@@ -9,30 +9,37 @@ import Favorites from './Components/Favorites/Favorites'
 const BASE_URL = "http://localhost:3030"
 
 function App() {
- 
+
   const signUpLabels = ['username', 'email', 'address', 'city', 'zipcode', 'password']
-  const signInLabels = ['username', 'password']
+  const signInLabels = ['email', 'password']
 
   const [openModal, setOpenModal] = React.useState(false)
-  const [userSignedIn, setUserSignedIn] = React.useState(false)
+  const [userSignedIn, setUserSignedIn] = React.useState({
+    signedIn: false,
+    email: "",
+    currentUser: {},
+    token: "",
+  })
   const [labels, setLabels] = React.useState(signUpLabels)
+  const [user, setUser] = React.useState([])
 
   //SET NEW USER STATE
   const [newUser, setNewUser] = React.useState({
     username: "",
     email: "",
     address: "",
-    city: "", 
+    city: "",
     zipcode: "",
     password: "",
   })
 
   //SET USER LOG IN DETAILS
   const [logInDetails, setLogInDetails] = React.useState({
-    username: "",
+    email: "",
     password: ""
   })
-  
+
+
   //RETURN SIGN UP FORM ON CLICK ON SIGN UP BUTTON. THIS OPENS MODAL
   const handleSignUpClick = (e) => {
     setOpenModal(true)
@@ -48,7 +55,7 @@ function App() {
   }
 
   //CLOSE MODAL FUNCTION
-  const handleModalClose = () => {  
+  const handleModalClose = () => {
     setOpenModal(false)
     setLabels(signUpLabels)
   }
@@ -56,35 +63,35 @@ function App() {
 
   //GET NEW USER SIGN UP INFO
   const handleValueChange = (event) => {
-    const {name, value} = event.target
+    const { name, value } = event.target
 
-    labels.length > 2 
-    ? setNewUser({
-      ...newUser,
-      [name]: value
-    })
-    : 
-    setLogInDetails({
-      ...logInDetails,
-      [name]: value
-    });
-   
+    labels.length > 2
+      ? setNewUser({
+        ...newUser,
+        [name]: value
+      })
+      :
+      setLogInDetails({
+        ...logInDetails,
+        [name]: value
+      });
+
   };
 
 
   //FUNCTION MAKING A NEW USER POST REQUEST TO THE DATABASE
-  const signUpUser = async ()  => {
-    console.log(newUser) 
+  const signUpUser = async () => {
+    console.log(newUser)
     //Write a function to post user in database
     await fetch(
       `${BASE_URL}/register`, {
-        method: 'POST',
-        headers:{
-          'Accept': 'application/json',
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify(newUser)
-      })
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(newUser)
+    })
       .then(response => response.json())
       .then(data => console.log(data))
       .catch(err => console.log(err))
@@ -93,7 +100,7 @@ function App() {
       username: "",
       email: "",
       address: "",
-      city: "", 
+      city: "",
       zipcode: "",
       password: "",
     })
@@ -115,27 +122,47 @@ function App() {
     })
   }
 
+  // const [userSignedIn, setUserSignedIn] = React.useState({
+  //   signedIn: false,
+  //   email: "",
+  //   currentUser: {},
+  //   passwordHash: "",
+  // })
+  const getUser = async () => {
+    const currentUser = await fetch(
+      `${BASE_URL}/user`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `JWT ${userSignedIn.token}`
+      },
+    })
+      .then(response => response.json())
+      .then(data => { })
+      .catch(err => console.log(err))
+    setUserSignedIn(true)
+  }
+
 
   return (
     <div className="App">
-      <Header 
-        clickSignUpBtn={handleSignUpClick} 
-        clickSignInBtn={handleSignInClick} 
+      <Header
+        clickSignUpBtn={handleSignUpClick}
+        clickSignInBtn={handleSignInClick}
       />
       <Announce />
-      {!userSignedIn ? 
-      <Welcome 
-        labels={labels}
-        modalOpen={openModal}
-        modalClose={handleModalClose}
-        valueChange={handleValueChange}
-        // logInChange={handleLogInChange}
-        userVal={newUser}
-        loginVal={logInDetails}
-        onSubmitUser={signUpUser}
-        onSubmitLogIn={signInUser}
-      /> : 
-      <Favorites />
+      {!userSignedIn.signedIn ?
+        <Welcome
+          labels={labels}
+          modalOpen={openModal}
+          modalClose={handleModalClose}
+          valueChange={handleValueChange}
+          // logInChange={handleLogInChange}
+          userVal={newUser}
+          loginVal={logInDetails}
+          onSubmitUser={signUpUser}
+          onSubmitLogIn={signInUser}
+        /> :
+        <Favorites />
       }
       <Footer />
     </div>
