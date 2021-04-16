@@ -8,7 +8,7 @@ function Welcome(props) {
   return (
     <div className="welcome">
 
-      <List />
+      <List locations={props.locations}/>
 
       <Forms 
         formLabels={props.labels}

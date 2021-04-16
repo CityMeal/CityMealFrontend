@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
-import userSignedIn from '../../App'
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
 
 function ShowProfile(props) {
     const classes = useStyles();
-    console.log(props)
 
     const [currentZipcode, setCurrentZipcode] = React.useState(true);
 
@@ -80,10 +79,10 @@ function ShowProfile(props) {
                     {!currentZipcode && <div>
                         <TextField className={classes.editInput} id="standard-search" name="username" label="username" value={props.currentUser.username} onChange={props.handleChange} />
                         <TextField className={classes.editInput} id="standard-search" name="zipcode" label="zipcode" value={props.currentUser.zipcode} onChange={props.handleChange} />
-                        {/* <Button onClick={props.updateUser}>test</Button> */}
+                        <Button onClick={props.updateUser}>test</Button>
                     </div>
                     }
-                    {/* onClick={() => {{props.updateUser} {handleClick}}} */}
+                    {/* onClick={() => { { props.updateUser } { handleClick } }} */}
                     <Button className={classes.editform} variant="contained" color="primary" onClick={handleClick}>{currentZipcode ? 'edit' : 'submit'}</Button>
                 </form>
 

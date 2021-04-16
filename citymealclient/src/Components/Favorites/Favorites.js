@@ -83,7 +83,6 @@ function EachList() {
 
 function Favorites(props) {
   const classes = useStyles();
-  // console.log(props)
 
   return (
     <div>

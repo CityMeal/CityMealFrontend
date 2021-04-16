@@ -82,9 +82,15 @@ function Filter() {
         setBoroughFilter(true);
         setZipcodeFilter(false);
     }
+    const FilterStyle = {
+        width: 9+ 'em',
+        height: 2 + 'em',
+        position: 'relative',
+        left: 0.3 + "em",
+    }
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} style={FilterStyle}>
             <Button variant="outlined" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>Filter By</Button>
             <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
                 <MenuItem onClick={handleZipcodeClick}>zip code</MenuItem>

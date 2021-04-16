@@ -5,6 +5,7 @@ import Footer from './Components/Footer/footer'
 import Announce from './Components/Others/announce'
 import Welcome from './Components/MainPage/WelcomePage'
 import Favorites from './Components/Favorites/Favorites'
+import List from './Components/ListPage/List'
 
 const BASE_URL = "http://localhost:3030"
 
@@ -13,7 +14,14 @@ function App() {
   const signUpLabels = ['username', 'email', 'address', 'city', 'zipcode', 'password']
   const signInLabels = ['email', 'password']
 
+  const [labels, setLabels] = React.useState(signUpLabels)
+
+  //SET SIGN UP SIGN IN MODAL STATE
   const [openModal, setOpenModal] = React.useState(false)
+
+  //SET SITES LOCATIONS
+  const [locations, setLocations] = React.useState([])
+
 
   //SET NEW USER STATE
   const [newUser, setNewUser] = React.useState({
@@ -32,15 +40,14 @@ function App() {
   })
   const [userSignedIn, setUserSignedIn] = React.useState({
     signedIn: false,
-    // currentUser: {},
     token: '',
+    currentUser: {}
   })
-
-  const [currentUser, setcurrentUser] = React.useState({})
-
-  const [labels, setLabels] = React.useState(signUpLabels)
-
-
+  //SET MOBILE MENU STATE
+  const [openMenu, setOpenMenu] = React.useState({
+    open: false,
+    anchorEl: null
+  })
 
 
   //RETURN SIGN UP FORM ON CLICK ON SIGN UP BUTTON. THIS OPENS MODAL
@@ -62,6 +69,21 @@ function App() {
     setOpenModal(false)
     setLabels(signUpLabels)
   }
+
+  //HANDLE MOBILE MENU, FUNCTION TO OPEN MOBILE MENU
+  const showMenuOption = (e) => {
+    setOpenMenu({
+      open: true,
+      anchorEl: e.target
+    })
+  }
+  const closeMenu = () => {
+    setOpenMenu({
+      open: false,
+      anchorEl: null
+    })
+  }
+
 
 
   //GET NEW USER SIGN UP INFO
@@ -111,27 +133,10 @@ function App() {
   }
 
 
-  // const getUser = async () => {
-  //   const token = userSignedIn.token
-  //   console.log(token)
-  //   await fetch(
-  //     `${BASE_URL}/user`, {
-  //     method: 'GET',
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Authorization':`Bearer ${token}`
-  //     },
-  //   })
-  //   .then(response => response.json())
-  //   .then(data => console.log(data))
-  //   .catch(err => console.log(err))
-  // }
-
   //USE LOGIN DETAIL OBJECT TO AUTHENTICATE USER: WRITE AUTH FUNCTION
-  const signInUser = async () => {
-
+  const signInUser = async (e) => {
+    e.preventDefault();
     console.log(logInDetails)
-
     //Write a POST request to user login route on the back end
     await fetch(`${BASE_URL}/login`, {
       method: 'POST',
@@ -145,63 +150,87 @@ function App() {
       .then(data => {
         setUserSignedIn({
           signedIn: true,
-          token: data.token
+          token: data.token,
+          currentUser: data.user
         })
-        setcurrentUser(
-          data.user
-        )
+        //Store User in LocalStorage. Remove from localstorage only on logout
+        localStorage.setItem('user', JSON.stringify(data.user))
       })
       .catch(err => console.log(err))
+
+    //Reset login details to empty strings
     setLogInDetails({
       username: "",
       password: ""
     })
-    // getUser()
+
   }
 
-  //HANDLE UPDATE USERS
+  //LOG USER OUT
+  const logOut = () => {
+    console.log('im clicking button')
+    setUserSignedIn({
+      signedIn: false,
+      currentUser: {},
+      token: "",
+    })
+    setOpenMenu({
+      open: false,
+      anchorEl: null
+    })
+    localStorage.clear()
+  }
+
+  //HANDLE UPDATE USER CHANGE
   function handleChange(e) {
     const value = e.target.value;
     // console.log(e.target.name, value)
-    setcurrentUser({
-      ...currentUser,
-      [e.target.name]: value,
-    })
+    // setcurrentUser({
+    //   ...currentUser,
+    //   [e.target.name]: value,
+    // })
+
+    setUserSignedIn(prevState => ({
+      ...prevState,
+      currentUser: {
+        ...prevState.currentUser,
+        [e.target.name]: value
+      }
+    }))
   }
 
 
   //UPDATE USER
   const updateUser = async () => {
-    const token = userSignedIn.token
-    // console.log(token)
-    await fetch(
-      `${BASE_URL}/user`, {
+    console.log('I AM CLICKING SUBMIT')
+    console.log(userSignedIn.token)
+    console.log(userSignedIn.currentUser)
+    await fetch(`${BASE_URL}/user`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${userSignedIn.token}`
       },
       body: JSON.stringify({
-        username: currentUser.username,
-        zipcode: currentUser.zipcode
+        username: userSignedIn.currentUser.username,
+        zipcode: userSignedIn.currentUser.zipcode
       })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
     })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
   }
-
 
   //delete route 
   const deleteUser = async () => {
-    const token = userSignedIn.token
+    // const token = userSignedIn.token
     //Write a POST request to user login route on the back end
     await fetch(`${BASE_URL}/user`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${userSignedIn.token}`
       },
     })
       .then(response => {
@@ -211,12 +240,55 @@ function App() {
       .catch(err => console.log(err))
   }
 
+  //GET ALL LOCATIONS
+  const getAllLocations = async () => {
+    await fetch(`${BASE_URL}/locations`, {
+      headers: {
+        'Accept': 'application/json',
+      },
+    })
+      .then(response => response.json())
+      .then(data => {
+        setLocations(data.locations)
+      })
+      .catch(err => console.log(err))
+  }
+
+  //FILTER LOCATIONS BY EITHER ZIP CODE OR BOROUGH
+
+  const filterLocations = async () => {
+    //get the filter label value, if it is zip, make a all to the '/getLocations/:zipcode' route, 
+    //if it is Borugh make a call to the Borugh route
+  }
+
+  //CHECK LOCAL STORAGE EACH TIME APP LOADS TO SEE IF THERE IS A USESR
+  React.useEffect(() => {
+    console.log(localStorage)
+    const loggedInUser = localStorage.getItem("user")
+    console.log(loggedInUser)
+    if (loggedInUser) {
+      const userFound = JSON.parse(loggedInUser)
+      console.log(userFound, loggedInUser)
+      setUserSignedIn(prevState => ({
+        ...prevState,
+        signedIn: true,
+        currentUser: userFound
+      }))
+    }
+    getAllLocations()
+    filterLocations()
+  }, [], [])
 
   return (
     <div className="App">
       <Header
         clickSignUpBtn={handleSignUpClick}
         clickSignInBtn={handleSignInClick}
+        userSignedIn={userSignedIn}
+        logout={logOut}
+        closeMenu={closeMenu}
+        openMenu={showMenuOption}
+        menuOpt={openMenu}
       />
       <Announce />
       {!userSignedIn.signedIn ?
@@ -230,10 +302,22 @@ function App() {
           loginVal={logInDetails}
           onSubmitUser={signUpUser}
           onSubmitLogIn={signInUser}
+          locations={locations}
         /> :
-        <Favorites user={currentUser} handleUser={handleChange} updateUser={updateUser} deleteUser={deleteUser} />
+        <Favorites
+          user={userSignedIn.currentUser}
+          handleUser={handleChange}
+          updateUser={updateUser}
+          deleteUser={deleteUser}
+        />
       }
-      <Footer />
+      {/* <Favorites 
+          user={userSignedIn.currentUser} 
+          handleUser={handleChange} 
+          updateUser={updateUser} 
+          deleteUser={deleteUser} 
+        />
+      <Footer /> */}
     </div>
   );
 }
