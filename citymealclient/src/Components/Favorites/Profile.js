@@ -77,7 +77,8 @@ function ShowProfile(props) {
     //     });
     // }
 
-    function onClick() {
+    function handleClick() {
+        // { props.updateUser }
         setCurrentZipcode(!currentZipcode)
     }
 
@@ -103,8 +104,7 @@ function ShowProfile(props) {
                         <TextField className={classes.editInput} id="standard-search" name="zipcode" label="zipcode" value={props.currentUser.zipcode} onChange={props.handleChange} />
                     </form>
                 }
-                <Button className={classes.editform} variant="contained" color="primary" onClick={onClick} >{currentZipcode ? 'edit' : 'submit'}</Button>
-                <Button className={classes.editform} variant="outlined" color="primary" onClick={props.deleteUser}>Delete Account</Button>
+                <Button className={classes.editform} variant="contained" color="primary" onClick={handleClick}>{currentZipcode ? 'edit' : 'submit'}</Button>                <Button className={classes.editform} variant="outlined" color="primary" onClick={props.deleteUser}>Delete Account</Button>
 
             </Box>
         </div>
@@ -118,7 +118,7 @@ function Profile(props) {
     return (
         <div>
             <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Profile</p></Box>
-            <ShowProfile currentUser={props.currentUser} handleChange={props.handleChange} deleteUser={props.deleteUser} />
+            <ShowProfile currentUser={props.currentUser} handleChange={props.handleChange} updateUser={props.updateUser} deleteUser={props.deleteUser} />
         </div>
     )
 }

@@ -173,7 +173,7 @@ function App() {
   //UPDATE USER
   const updateUser = async () => {
     const token = userSignedIn.token
-    console.log(token)
+    // console.log(token)
     await fetch(
       `${BASE_URL}/user`, {
       method: 'PUT',
@@ -181,7 +181,9 @@ function App() {
         'Accept': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify(userSignedIn.currentUser)
+      // body: JSON.stringify(userSignedIn.currentUser)
+      body: JSON.stringify(currentUser)
+
     })
       .then(response => response.json())
       .then(data => console.log(data))
@@ -227,7 +229,7 @@ function App() {
           onSubmitUser={signUpUser}
           onSubmitLogIn={signInUser}
         /> :
-        <Favorites user={currentUser} updateUser={handleChange} deleteUser={deleteUser} />
+        <Favorites user={currentUser} handleUser={handleChange} updateUser={updateUser} deleteUser={deleteUser} />
       }
       <Footer />
     </div>

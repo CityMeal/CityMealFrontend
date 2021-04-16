@@ -89,7 +89,7 @@ function Favorites(props) {
     <div>
       <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Favorite Meal Sites</p></Box>
       <EachList />
-      <Profile currentUser={props.user} handleChange={props.updateUser} deleteUser={props.deleteUser} />
+      <Profile currentUser={props.user} handleChange={props.handleUser} updateUser={props.updateUser} deleteUser={props.deleteUser} />
     </div>
   );
 }
