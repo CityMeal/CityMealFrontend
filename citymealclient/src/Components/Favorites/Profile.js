@@ -64,7 +64,6 @@ function ShowProfile(props) {
     function handleClick() {
         // { props.updateUser }
         setCurrentZipcode(!currentZipcode)
-        console.log(props.updateUser)
     }
 
     return (
@@ -81,9 +80,10 @@ function ShowProfile(props) {
                     {!currentZipcode && <div>
                         <TextField className={classes.editInput} id="standard-search" name="username" label="username" value={props.currentUser.username} onChange={props.handleChange} />
                         <TextField className={classes.editInput} id="standard-search" name="zipcode" label="zipcode" value={props.currentUser.zipcode} onChange={props.handleChange} />
-                        <Button onClick={props.updateUser}>test</Button>
+                        {/* <Button onClick={props.updateUser}>test</Button> */}
                     </div>
                     }
+                    {/* onClick={() => {{props.updateUser} {handleClick}}} */}
                     <Button className={classes.editform} variant="contained" color="primary" onClick={handleClick}>{currentZipcode ? 'edit' : 'submit'}</Button>
                 </form>
 
