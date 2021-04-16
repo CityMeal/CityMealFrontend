@@ -161,6 +161,7 @@ function App() {
       <Header
         clickSignUpBtn={handleSignUpClick}
         clickSignInBtn={handleSignInClick}
+        userSignedIn={userSignedIn}
       />
       <Announce />
       {!userSignedIn.signedIn ?

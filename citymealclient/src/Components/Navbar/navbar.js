@@ -17,7 +17,7 @@ import {Button, Menu, MenuItem, makeStyles, createMuiTheme,ThemeProvider, useMed
 
 //Styled-Component Styling
 const DivStyle = styled.div`
-  // border: solid red;
+  border: solid red;
   width: 100vw;
   height: 6.5em;
   background-color: #4484CE;
@@ -92,22 +92,18 @@ const logoStyles = makeStyles(() => ({
 }))
 
 function Header(props) {
-
+  const[openMenu, setOpenMenu] = React.useState(false)
   const buttons = ['Sign Up', 'Sign In']
   const btnClasses = btnstyles()
   const logoClasses = logoStyles()
 
-  // const handleClick = (e) => {
-  //   const button = e.target
-  //   console.log('im  clicking', button, button.id)
-  //   button.id === "button0" ? console.log('im  clicking Sign Up') : console.log('im  clicking Sign In')
-  // }
 
   return (
-    <DivStyle className="Nav">
-      <img src={logo} alt="logo" id='logo'  className={logoClasses.root} />
-      {buttons.map ((button, index) => (
-        <Button 
+      <DivStyle className="Nav">
+        <img src={logo} alt="logo" id='logo'  className={logoClasses.root} />
+        {!props.userSignedIn.signedIn ? 
+        buttons.map ((button, index) => (
+          <Button 
           variant="contained" 
           id={`button${index}`} 
           key={button} 
@@ -115,10 +111,20 @@ function Header(props) {
           size="small" 
           onClick={button === 'Sign Up' ? props.clickSignUpBtn: props.clickSignInBtn}
         >
-          {button}
-        </Button>
-      ))}
-    </DivStyle>
+        {button}
+        </Button> )) :
+        <div>
+          <Button className={btnClasses.root}>{props.userSignedIn.currentUser.username}</Button>
+          <Menu>
+            <MenuItem>HOME</MenuItem>
+            <MenuItem>LIST</MenuItem>
+            <MenuItem>PROFILE</MenuItem>
+            <MenuItem>SIGN OUT</MenuItem>
+          </Menu>
+        </div>
+        } 
+        
+    </DivStyle> 
   );
 }
 
