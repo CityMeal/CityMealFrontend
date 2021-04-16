@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
-import userSignedIn from '../../App'
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,35 +57,13 @@ const useStyles = makeStyles((theme) => ({
 
 function ShowProfile(props) {
     const classes = useStyles();
-    const BASE_URL = "http://localhost:3030"
-
-    console.log(props)
 
     const [currentZipcode, setCurrentZipcode] = React.useState(true);
-
-    // const [state, setState] = React.useState({
-    //     username: props.currentUser.username,
-    //     zipcode: props.currentUser.zipcode
-    // })
-
-    // function handleChange(e) {
-    //     const value = e.target.value;
-    //     console.log(e.target.name, value)
-    //     setState({
-    //         ...state,
-    //         [e.target.name]: value
-    //     });
-    // }
 
     function handleClick() {
         // { props.updateUser }
         setCurrentZipcode(!currentZipcode)
     }
-
-    //add delete user function
-    // function handleClick() {
-
-    // }
 
     return (
         <div>
@@ -100,11 +78,12 @@ function ShowProfile(props) {
 
                 {!currentZipcode &&
                     <form className={classes.editform}>
-                        <TextField className={classes.editInput} id="standard-search" name="username" label="username" value={props.currentUser.username} onChange={props.handleChange} />
-                        <TextField className={classes.editInput} id="standard-search" name="zipcode" label="zipcode" value={props.currentUser.zipcode} onChange={props.handleChange} />
+                        <TextField className={classes.editInput} id="standard-search" name="username" label={props.currentUser.username} value={props.currentUser.username} onChange={props.handleChange} />
+                        <TextField className={classes.editInput} id="standard-search" name="zipcode" label={props.currentUser.zipcode} value={props.currentUser.zipcode} onChange={props.handleChange} />
                     </form>
                 }
-                <Button className={classes.editform} variant="contained" color="primary" onClick={handleClick}>{currentZipcode ? 'edit' : 'submit'}</Button>                <Button className={classes.editform} variant="outlined" color="primary" onClick={props.deleteUser}>Delete Account</Button>
+                <Button className={classes.editform} variant="contained" color="primary" onClick={!currentZipcode ? props.updateUser: handleClick}>{currentZipcode ? 'edit' : 'submit'}</Button> 
+                <Button className={classes.editform} variant="outlined" color="primary" onClick={props.deleteUser}>Delete Account</Button>
 
             </Box>
         </div>

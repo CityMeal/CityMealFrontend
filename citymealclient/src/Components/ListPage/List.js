@@ -1,9 +1,23 @@
 import React from 'react';
 import Filter from './Filter'
 import { makeStyles } from '@material-ui/core/styles';
+import styled from 'styled-components'
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+
+const ListWrapper = styled.div`
+  // border: solid red;
+  width: 100%;
+  height:24em;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: scroll;
+  position: absolute;
+  box-sizing: border-box;
+  margin-top: -4em;
+
+`
 
 
 const useStyles = makeStyles((theme) => ({
@@ -11,13 +25,18 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     paddingBottom: '5%',
+    position: 'relative',
+    top: -4 +'em',
+    left: 3 + 'em',
   },
   list: {
+    // border: 0.5 +'px solid black',
     display: 'flex',
     justifyContent: 'center',
     marginLeft: '5%',
     marginRight: '5%',
     marginBottom: '5%',
+    boxShadow: (2 +'px ' + 3 + 'px ' + 3 +'px ' + 2 +'px ' + ' lightgrey')
   },
   pic: {
     display: 'flex',
@@ -62,48 +81,88 @@ const useStyles = makeStyles((theme) => ({
       display: 'block',
     }
   },
+  listDiv: {
+    // border: solid red;
+    width: 100 + '%',
+    height:24 + 'em',
+    display: 'flex',
+    flexWrap: 'wrap',
+    overflow: 'scroll',
+    position: 'absolute',
+    boxSizing: 'border-box',
+    marginTop: -4 + 'em',
+  }
 
 }));
 
-function EachList() {
-  const classes = useStyles();
 
-  return (
-    <Box className={classes.list} maxWidth="xl" >
-      <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src="https://res.cloudinary.com/dqduwnrb1/image/upload/v1618158659/GoogleMapTA_nkou2y.jpg" alt="map" /></Box>
-      <Box className={classes.info} width={1 / 2}>
-        <p>Franklin Delano Roosevelt High School - 5800 20 Avenue, 11204</p>
-        {/* <Button variant="contained" color="primary"><a style={{ textDecoration: "none", color: "white" }} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a></Button> */}
-        <a className={classes.link} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a>
-        <p>⭐️⭐️⭐️⭐️⭐️</p>
-        <p>❤️</p>
-      </Box>
-    </Box>
-  )
+const divStyle = {
+  // border: 'solid green',
+  width: 100 + '%',
+  height:27 + 'em',
+  position: 'relative',
+  top: 0 + 'em',
 }
 
-function TwoLists() {
-  const classes = useStyles();
-
-  return (
-    <Box className={classes.twolists}>
-      <EachList />
-      <EachList />
-    </Box>
-
-  )
+const directionStyle = {
+  // border: 'solid red',
+  position: 'relative',
+  left: -0.5 + 'em',
 }
 
-function List() {
+function List(props) {
   const classes = useStyles();
+
+  // const classes = useStyles();
+  // console.log(props.allLocations)
   return (
-    <div >
+    <div style={divStyle}>
+      {/* <FilterStyle> */}
       <Filter />
-      {/* <div className={classes.zipcodeInput}><TextField id="standard-search" label="zipcode" type="search" /></div> */}
-      <div className={classes.showList}><EachList /></div>
-      <div className={classes.showListLg}><TwoLists /></div>
+      <div className={classes.zipcodeInput}><TextField id="standard-search" label="zipcode" type="search" /></div>
+      {/* </FilterStyle> */}
+    <ListWrapper>
+      {props.locations.map(location => (
+        <Box className={classes.list} maxWidth="xl" key={location.id} >
+          <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src="https://res.cloudinary.com/dqduwnrb1/image/upload/v1618158659/GoogleMapTA_nkou2y.jpg" alt="map" /></Box>
+          <Box className={classes.info} width={1 / 2}>
+            <p>{location.name}</p>
+            <p>{location.city}</p>
+            <Button variant="contained" color="primary" style={directionStyle}><a style={{ textDecoration: "none", color: "white" }} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a></Button>
+            {/* <a className={classes.link} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a> */}
+            <p>⭐️⭐️⭐️⭐️⭐️</p>
+            <p>❤️</p>
+          </Box>
+        </Box>
+      ))} 
+    </ListWrapper>
     </div>
-  );
+  )
 }
+
+// function TwoLists(props) {
+//   const classes = useStyles();
+
+//   return (
+//     <Box className={classes.twolists}>
+//       <EachList />
+//       <EachList />
+//     </Box>
+
+//   )
+// }
+
+// function List(props) {
+//   console.log(props.locations)
+//   const classes = useStyles();
+//   return (
+//     <div >
+//       <Filter />
+//       <div className={classes.zipcodeInput}><TextField id="standard-search" label="zipcode" type="search" /></div>
+//       <div className={classes.showList}><EachList siteLocations={props.locations}/></div>
+//       {/* <div className={classes.showListLg}><TwoLists /></div> */}
+//     </div>
+//   );
+// }
 
 export default List;
