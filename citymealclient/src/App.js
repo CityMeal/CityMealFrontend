@@ -162,7 +162,7 @@ function App() {
   //HANDLE UPDATE USERS
   function handleChange(e) {
     const value = e.target.value;
-    console.log(e.target.name, value)
+    // console.log(e.target.name, value)
     setcurrentUser({
       ...currentUser,
       [e.target.name]: value,
@@ -179,11 +179,13 @@ function App() {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
+        'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      // body: JSON.stringify(userSignedIn.currentUser)
-      body: JSON.stringify(currentUser)
-
+      body: JSON.stringify({
+        username: currentUser.username,
+        zipcode: currentUser.zipcode
+      })
     })
       .then(response => response.json())
       .then(data => console.log(data))
