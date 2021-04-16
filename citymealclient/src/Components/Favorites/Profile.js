@@ -75,14 +75,17 @@ function ShowProfile(props) {
                     </div>
                 }
 
+                <form className={classes.editform}>
+                    {!currentZipcode && <div>
+                        <TextField className={classes.editInput} id="standard-search" name="username" label="username" value={props.currentUser.username} onChange={props.handleChange} />
+                        <TextField className={classes.editInput} id="standard-search" name="zipcode" label="zipcode" value={props.currentUser.zipcode} onChange={props.handleChange} />
+                        <Button onClick={props.updateUser}>test</Button>
+                    </div>
+                    }
+                    {/* onClick={() => { { props.updateUser } { handleClick } }} */}
+                    <Button className={classes.editform} variant="contained" color="primary" onClick={handleClick}>{currentZipcode ? 'edit' : 'submit'}</Button>
+                </form>
 
-                {!currentZipcode &&
-                    <form className={classes.editform}>
-                        <TextField className={classes.editInput} id="standard-search" name="username" label={props.currentUser.username} value={props.currentUser.username} onChange={props.handleChange} />
-                        <TextField className={classes.editInput} id="standard-search" name="zipcode" label={props.currentUser.zipcode} value={props.currentUser.zipcode} onChange={props.handleChange} />
-                    </form>
-                }
-                <Button className={classes.editform} variant="contained" color="primary" onClick={!currentZipcode ? props.updateUser: handleClick}>{currentZipcode ? 'edit' : 'submit'}</Button> 
                 <Button className={classes.editform} variant="outlined" color="primary" onClick={props.deleteUser}>Delete Account</Button>
 
             </Box>

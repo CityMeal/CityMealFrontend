@@ -45,10 +45,10 @@ function App() {
   })
   //SET MOBILE MENU STATE
   const [openMenu, setOpenMenu] = React.useState({
-    open:false,
+    open: false,
     anchorEl: null
   })
- 
+
 
   //RETURN SIGN UP FORM ON CLICK ON SIGN UP BUTTON. THIS OPENS MODAL
   const handleSignUpClick = (e) => {
@@ -73,13 +73,13 @@ function App() {
   //HANDLE MOBILE MENU, FUNCTION TO OPEN MOBILE MENU
   const showMenuOption = (e) => {
     setOpenMenu({
-      open:true,
+      open: true,
       anchorEl: e.target
     })
   }
-  const closeMenu =  () => {
+  const closeMenu = () => {
     setOpenMenu({
-      open:false,
+      open: false,
       anchorEl: null
     })
   }
@@ -146,18 +146,18 @@ function App() {
       },
       body: JSON.stringify(logInDetails)
     })
-    .then(response => response.json())
-    .then(data => {
-      setUserSignedIn({
-        signedIn: true,
-        token: data.token,
-        currentUser: data.user
+      .then(response => response.json())
+      .then(data => {
+        setUserSignedIn({
+          signedIn: true,
+          token: data.token,
+          currentUser: data.user
+        })
+        //Store User in LocalStorage. Remove from localstorage only on logout
+        localStorage.setItem('user', JSON.stringify(data.user))
       })
-      //Store User in LocalStorage. Remove from localstorage only on logout
-      localStorage.setItem('user', JSON.stringify(data.user))
-    })
-    .catch(err => console.log(err))
-    
+      .catch(err => console.log(err))
+
     //Reset login details to empty strings
     setLogInDetails({
       username: "",
@@ -184,12 +184,17 @@ function App() {
   //HANDLE UPDATE USER CHANGE
   function handleChange(e) {
     const value = e.target.value;
+    // console.log(e.target.name, value)
+    // setcurrentUser({
+    //   ...currentUser,
+    //   [e.target.name]: value,
+    // })
 
     setUserSignedIn(prevState => ({
       ...prevState,
-      currentUser:{
+      currentUser: {
         ...prevState.currentUser,
-       [e.target.name]:value
+        [e.target.name]: value
       }
     }))
   }
@@ -204,25 +209,28 @@ function App() {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
+        'Content-Type': 'application/json',
         'Authorization': `Bearer ${userSignedIn.token}`
       },
-      body: JSON.stringify(userSignedIn.currentUser)
+      body: JSON.stringify({
+        username: userSignedIn.currentUser.username,
+        zipcode: userSignedIn.currentUser.zipcode
+      })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
     })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
   }
-
 
   //delete route 
   const deleteUser = async () => {
-    const token = userSignedIn.token
+    // const token = userSignedIn.token
     //Write a POST request to user login route on the back end
     await fetch(`${BASE_URL}/user`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${userSignedIn.token}`
       },
     })
       .then(response => {
@@ -234,16 +242,16 @@ function App() {
 
   //GET ALL LOCATIONS
   const getAllLocations = async () => {
-    await fetch(`${BASE_URL}/locations`,{
+    await fetch(`${BASE_URL}/locations`, {
       headers: {
         'Accept': 'application/json',
       },
     })
-    .then(response => response.json())
-    .then(data => {
-      setLocations(data.locations)
-    })
-    .catch(err => console.log(err))
+      .then(response => response.json())
+      .then(data => {
+        setLocations(data.locations)
+      })
+      .catch(err => console.log(err))
   }
 
   //FILTER LOCATIONS BY EITHER ZIP CODE OR BOROUGH
@@ -258,18 +266,18 @@ function App() {
     console.log(localStorage)
     const loggedInUser = localStorage.getItem("user")
     console.log(loggedInUser)
-    if(loggedInUser){
+    if (loggedInUser) {
       const userFound = JSON.parse(loggedInUser)
       console.log(userFound, loggedInUser)
       setUserSignedIn(prevState => ({
         ...prevState,
         signedIn: true,
-        currentUser:userFound
+        currentUser: userFound
       }))
     }
     getAllLocations()
     filterLocations()
-  },[],[])
+  }, [], [])
 
   return (
     <div className="App">
@@ -296,14 +304,14 @@ function App() {
           onSubmitLogIn={signInUser}
           locations={locations}
         /> :
-        <Favorites 
-          user={userSignedIn.currentUser} 
-          handleUser={handleChange} 
-          updateUser={updateUser} 
-          deleteUser={deleteUser} 
+        <Favorites
+          user={userSignedIn.currentUser}
+          handleUser={handleChange}
+          updateUser={updateUser}
+          deleteUser={deleteUser}
         />
-        }
-         {/* <Favorites 
+      }
+      {/* <Favorites 
           user={userSignedIn.currentUser} 
           handleUser={handleChange} 
           updateUser={updateUser} 
