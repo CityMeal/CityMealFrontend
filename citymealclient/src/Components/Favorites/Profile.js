@@ -58,37 +58,47 @@ const useStyles = makeStyles((theme) => ({
 function ShowProfile(props) {
     const classes = useStyles();
 
-    const [currentZipcode, setCurrentZipcode] = React.useState(true);
+    
 
-    function handleClick() {
-        // { props.updateUser }
+    const [currentZipcode, setCurrentZipcode] = React.useState('true')
+    const[currentBtn, setCurrentBtn] = React.useState('EDIT')
+
+    function handleClick(e) {
+        console.log('im clicking current btn')
         setCurrentZipcode(!currentZipcode)
+        setCurrentBtn('SUBMIT')
     }
+
 
     return (
         <div>
             <Box className={classes.profile}>
-                {currentZipcode &&
-                    <div className={classes.currentProfileDiv}>
-                        <div className={classes.currentProfile}><label>username:</label>{props.currentUser.username}</div>
-                        <div className={classes.currentProfile}><label>zipcode:</label>{props.currentUser.zipcode}</div>
-                    </div>
+                {currentBtn === 'EDIT' ? 
+                    (currentZipcode &&
+                        <div className={classes.currentProfileDiv}>
+                            <div className={classes.currentProfile}><label>username:</label>{props.currentUser.username}</div>
+                            <div className={classes.currentProfile}><label>zipcode:</label>{props.currentUser.zipcode}</div>
+                        </div>
+                    )
+                    :
+                    <form className={classes.editform}>
+                        {!currentZipcode && 
+                        <div>
+                            <TextField className={classes.editInput} id="standard-search" name="username" label="username" value={props.currentUser.username} onChange={props.handleChange} />
+                            <TextField className={classes.editInput} id="standard-search" name="zipcode" label="zipcode" value={props.currentUser.zipcode} onChange={props.handleChange} />
+                        </div>
+                        }
+                    </form>
                 }
-
-                <form className={classes.editform}>
-                    {!currentZipcode && <div>
-                        <TextField className={classes.editInput} id="standard-search" name="username" label="username" value={props.currentUser.username} onChange={props.handleChange} />
-                        <TextField className={classes.editInput} id="standard-search" name="zipcode" label="zipcode" value={props.currentUser.zipcode} onChange={props.handleChange} />
-                        <Button onClick={props.updateUser}>test</Button>
-                    </div>
-                    }
-                    {/* onClick={() => { { props.updateUser } { handleClick } }} */}
-                    <Button className={classes.editform} variant="contained" color="primary" onClick={handleClick}>{currentZipcode ? 'edit' : 'submit'}</Button>
-                </form>
-
-                <Button className={classes.editform} variant="outlined" color="primary" onClick={props.deleteUser}>Delete Account</Button>
-
-            </Box>
+             </Box>
+            <Button 
+                className={classes.editform} 
+                variant="contained" 
+                color="primary" 
+                onClick={currentBtn === 'EDIT' ? handleClick : props.updateUser}
+            >{currentBtn}
+            </Button>
+            <Button className={classes.editform} variant="outlined" color="primary" onClick={props.deleteUser}>Delete Account</Button>
         </div>
     )
 }

@@ -155,6 +155,7 @@ function App() {
         })
         //Store User in LocalStorage. Remove from localstorage only on logout
         localStorage.setItem('user', JSON.stringify(data.user))
+        localStorage.setItem('token', JSON.stringify(data.token))
       })
       .catch(err => console.log(err))
 
@@ -184,11 +185,6 @@ function App() {
   //HANDLE UPDATE USER CHANGE
   function handleChange(e) {
     const value = e.target.value;
-    // console.log(e.target.name, value)
-    // setcurrentUser({
-    //   ...currentUser,
-    //   [e.target.name]: value,
-    // })
 
     setUserSignedIn(prevState => ({
       ...prevState,
@@ -216,10 +212,15 @@ function App() {
         username: userSignedIn.currentUser.username,
         zipcode: userSignedIn.currentUser.zipcode
       })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(err => console.log(err))
     })
+      .then(response => response.json())
+      .then(data => {
+        setUserSignedIn(prevState => ({
+          ...prevState,
+          currentUser: data.user
+        }))
+      })
+      .catch(err => console.log(err))
   }
 
   //delete route 
@@ -265,6 +266,7 @@ function App() {
   React.useEffect(() => {
     console.log(localStorage)
     const loggedInUser = localStorage.getItem("user")
+    const token = localStorage.getItem("token")
     console.log(loggedInUser)
     if (loggedInUser) {
       const userFound = JSON.parse(loggedInUser)
@@ -272,12 +274,14 @@ function App() {
       setUserSignedIn(prevState => ({
         ...prevState,
         signedIn: true,
-        currentUser: userFound
+        currentUser: userFound,
+        token: token
       }))
     }
+    console.log(userSignedIn)
     getAllLocations()
     filterLocations()
-  }, [], [])
+  }, [])
 
   return (
     <div className="App">
@@ -311,13 +315,7 @@ function App() {
           deleteUser={deleteUser}
         />
       }
-      {/* <Favorites 
-          user={userSignedIn.currentUser} 
-          handleUser={handleChange} 
-          updateUser={updateUser} 
-          deleteUser={deleteUser} 
-        />
-      <Footer /> */}
+      <Footer />
     </div>
   );
 }

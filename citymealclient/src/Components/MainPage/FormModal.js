@@ -141,7 +141,7 @@ function Forms(props) {
 
     return (
         <div>
-            {webForm !== true ?
+            {!webForm ?
             //This is the Mobile form version for sign up
                 <Modal open={props.modalOpen} onClose={props.modalClose} className={modalClass.root}> 
                     <form className={formClass.root}>
