@@ -8,9 +8,9 @@ function Welcome(props) {
   return (
     <div className="welcome">
 
-      <List locations={props.locations}/>
+      <List locations={props.locations} addFav={props.addFav} />
 
-      <Forms 
+      <Forms
         formLabels={props.labels}
         modalOpen={props.modalOpen}
         modalClose={props.modalClose}
@@ -20,7 +20,7 @@ function Welcome(props) {
         loginVals={props.loginVal}
         onSubmitUserDetails={props.onSubmitUser}
         onSubmitLoginDetails={props.onSubmitLogIn}
-      
+
       />
     </div>
   );
