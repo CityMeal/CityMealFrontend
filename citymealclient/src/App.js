@@ -22,7 +22,6 @@ function App() {
   //SET SITES LOCATIONS
   const [locations, setLocations] = React.useState([])
 
-
   //SET NEW USER STATE
   const [newUser, setNewUser] = React.useState({
     username: "",
@@ -198,6 +197,7 @@ function App() {
 
   //UPDATE USER
   const updateUser = async () => {
+    const token = userSignedIn.token
     console.log('I AM CLICKING SUBMIT')
     console.log(userSignedIn.token)
     console.log(userSignedIn.currentUser)
@@ -206,7 +206,7 @@ function App() {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${userSignedIn.token}`
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({
         username: userSignedIn.currentUser.username,
@@ -223,7 +223,7 @@ function App() {
       .catch(err => console.log(err))
   }
 
-  //delete route 
+  //DELETE USER
   const deleteUser = async () => {
     // const token = userSignedIn.token
     //Write a POST request to user login route on the back end
@@ -278,10 +278,37 @@ function App() {
         token: token
       }))
     }
-    console.log(userSignedIn)
     getAllLocations()
     filterLocations()
   }, [])
+
+
+  //ADD FAVORITE SITE
+  const addFav = async (e) => {
+    // let locationId = locations.map(location => { location.id })
+    // e.preventDefault();
+    console.log(typeof e.target.name)
+    const id = userSignedIn.currentUser.id
+    const locationId = parseInt(e.target.name)
+
+    await fetch(`${BASE_URL}/user/${id}/savefavorite`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        location_id: locationId,
+        user_id: userSignedIn.currentUser.id
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+      })
+      .catch(err => console.log(err))
+  }
+
 
   return (
     <div className="App">
@@ -295,7 +322,21 @@ function App() {
         menuOpt={openMenu}
       />
       <Announce />
-      {!userSignedIn.signedIn ?
+      <Welcome
+        labels={labels}
+        modalOpen={openModal}
+        modalClose={handleModalClose}
+        valueChange={handleValueChange}
+        // logInChange={handleLogInChange}
+        userVal={newUser}
+        loginVal={logInDetails}
+        onSubmitUser={signUpUser}
+        onSubmitLogIn={signInUser}
+        locations={locations}
+        addFav={addFav}
+      />
+      <Footer />
+      {/* {!userSignedIn.signedIn ?
         <Welcome
           labels={labels}
           modalOpen={openModal}
@@ -307,6 +348,7 @@ function App() {
           onSubmitUser={signUpUser}
           onSubmitLogIn={signInUser}
           locations={locations}
+          addFav={addFav}
         /> :
         <Favorites
           user={userSignedIn.currentUser}
@@ -314,8 +356,14 @@ function App() {
           updateUser={updateUser}
           deleteUser={deleteUser}
         />
-      }
-      <Footer />
+      } */}
+      {/* <Favorites 
+          user={userSignedIn.currentUser} 
+          handleUser={handleChange} 
+          updateUser={updateUser} 
+          deleteUser={deleteUser} 
+        />
+      <Footer /> */}
     </div>
   );
 }

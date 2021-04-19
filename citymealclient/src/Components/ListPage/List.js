@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
 const ListWrapper = styled.div`
-  // border: solid red;
+  border: solid red;
   width: 100%;
   height:24em;
   display: flex;
@@ -26,17 +26,17 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     paddingBottom: '5%',
     position: 'relative',
-    top: -4 +'em',
+    top: -4 + 'em',
     left: 3 + 'em',
   },
   list: {
-    // border: 0.5 +'px solid black',
+    border: 0.5 +'px solid black',
     display: 'flex',
     justifyContent: 'center',
     marginLeft: '5%',
     marginRight: '5%',
     marginBottom: '5%',
-    boxShadow: (2 +'px ' + 3 + 'px ' + 3 +'px ' + 2 +'px ' + ' lightgrey')
+    boxShadow: (2 + 'px ' + 3 + 'px ' + 3 + 'px ' + 2 + 'px ' + ' lightgrey')
   },
   pic: {
     display: 'flex',
@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
   listDiv: {
     // border: solid red;
     width: 100 + '%',
-    height:24 + 'em',
+    height: 24 + 'em',
     display: 'flex',
     flexWrap: 'wrap',
     overflow: 'scroll',
@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
 const divStyle = {
   // border: 'solid green',
   width: 100 + '%',
-  height:27 + 'em',
+  height: 27 + 'em',
   position: 'relative',
   top: 0 + 'em',
 }
@@ -113,29 +113,30 @@ const directionStyle = {
 function List(props) {
   const classes = useStyles();
 
-  // const classes = useStyles();
-  // console.log(props.allLocations)
   return (
     <div style={divStyle}>
       {/* <FilterStyle> */}
       <Filter />
-      <div className={classes.zipcodeInput}><TextField id="standard-search" label="zipcode" type="search" /></div>
+      <div ><TextField id="standard-search" label="zipcode" type="search" /></div>
       {/* </FilterStyle> */}
-    <ListWrapper>
-      {props.locations.map(location => (
-        <Box className={classes.list} maxWidth="xl" key={location.id} >
-          <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src="https://res.cloudinary.com/dqduwnrb1/image/upload/v1618158659/GoogleMapTA_nkou2y.jpg" alt="map" /></Box>
-          <Box className={classes.info} width={1 / 2}>
-            <p>{location.name}</p>
-            <p>{location.city}</p>
-            <Button variant="contained" color="primary" style={directionStyle}><a style={{ textDecoration: "none", color: "white" }} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a></Button>
-            {/* <a className={classes.link} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a> */}
-            <p>⭐️⭐️⭐️⭐️⭐️</p>
-            <p>❤️</p>
+      <ListWrapper addFav={props.addFav}>
+        {props.locations.map(location => (
+          <Box className={classes.list} maxWidth="xl" key={location.id} >
+            <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src="https://res.cloudinary.com/dqduwnrb1/image/upload/v1618158659/GoogleMapTA_nkou2y.jpg" alt="map" /></Box>
+            <Box className={classes.info} width={1 / 2}>
+              <p>{location.name}</p>
+              <p>{location.city}</p>
+              <Button variant="contained" color="primary" style={directionStyle}><a style={{ textDecoration: "none", color: "white" }} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a></Button>
+              {/* <a className={classes.link} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a> */}
+              <p>⭐️⭐️⭐️⭐️⭐️</p>
+              {/* This material ui button doesn't work, but I'll leave it hear for now */}
+              {/* <Button onClick={props.addFav} name={location.id}>test</Button> */}
+              {/* This normal button works */}
+              <button onClick={props.addFav} name={location.id}>❤️</button>
+            </Box>
           </Box>
-        </Box>
-      ))} 
-    </ListWrapper>
+        ))}
+      </ListWrapper>
     </div>
   )
 }
