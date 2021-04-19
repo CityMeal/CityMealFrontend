@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import Header from './Components/Navbar/navbar';
 import Footer from './Components/Footer/footer'
@@ -22,8 +22,7 @@ function App() {
   //SET SITES LOCATIONS
   const [locations, setLocations] = React.useState([])
 
-  //SET FAVORITE SITES 
-  const [favorites, setFavorites] = React.useState([])
+
 
   //SET NEW USER STATE
   const [newUser, setNewUser] = React.useState({
@@ -259,12 +258,12 @@ function App() {
 
   //FILTER LOCATIONS BY EITHER ZIP CODE OR BOROUGH
 
-  const filterLocations = async () => {
-    //get the filter label value, if it is zip, make a all to the '/getLocations/:zipcode' route, 
-    //if it is Borugh make a call to the Borugh route
-  }
+  // const filterLocations = async () => {
+  //   //get the filter label value, if it is zip, make a all to the '/getLocations/:zipcode' route, 
+  //   //if it is Borugh make a call to the Borugh route
+  // }
 
-  //CHECK LOCAL STORAGE EACH TIME APP LOADS TO SEE IF THERE IS A USESR
+  //CHECK LOCAL STORAGE EACH TIME APP LOADS TO SEE IF THERE IS A USERS
   React.useEffect(() => {
     console.log(localStorage)
     const loggedInUser = localStorage.getItem("user")
@@ -282,6 +281,31 @@ function App() {
     filterLocations()
   }, [], [])
 
+  React.useEffect(() => {
+    const getFav = () => {
+      const id = userSignedIn.currentUser.id
+      if (!id) {
+        console.log('no user id')
+        return
+      }
+
+      fetch(`${BASE_URL}/user/${id}/getfavorites`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          setFavorites(data.favorites)
+          // console.log(data.favorites)
+          // console.log(favorites)
+        })
+        .catch(err => console.log(err))
+    }
+    getFav()
+  }, [userSignedIn])
+
 
   //ADD FAVORITE SITE
   const addFav = async (e) => {
@@ -291,8 +315,6 @@ function App() {
 
     const id = userSignedIn.currentUser.id
     const locationId = parseInt(e.target.name)
-    const locationName = parseInt(e.target.name)
-    const locationCity = parseInt(e.target.name)
     console.log(locationId)
 
 
@@ -305,8 +327,6 @@ function App() {
       body: JSON.stringify({
         user_id: userSignedIn.currentUser.name,
         location_id: locationId,
-        name: locationName,
-        city: locationCity
       })
     })
       .then(response => response.json())
@@ -315,35 +335,44 @@ function App() {
       })
       .catch(err => console.log(err))
   }
+
+  //SET FAVORITE SITES 
+  const [favorites, setFavorites] = React.useState([])
 
   //GET ALL FAVORITE SITES
-  const getFav = async (e) => {
-    const id = userSignedIn.currentUser.id
+  // const getFav = async () => {
+  //   const id = userSignedIn.currentUser.id
+  //   if (!id) {
+  //     console.log('no user id')
+  //     return
+  //   }
 
-    await fetch(`${BASE_URL}/user/${id}/getfavorites`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .then(data => {
-        // setFavorites(data)
-        console.log(data)
-      })
-      .catch(err => console.log(err))
-  }
+  //   await fetch(`${BASE_URL}/user/${id}/getfavorites`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //     },
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       setFavorites(data.favorites)
+  //       // console.log(data.favorites)
+  //       // console.log(favorites)
+  //     })
+  //     .catch(err => console.log(err))
+  // }
+
 
   // DELETE FAVORITE
   const deleteFav = async () => {
+    const token = userSignedIn.token
     const id = userSignedIn.currentUser.id
 
     await fetch(`${BASE_URL}/${id}/deletefavorite`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
-        'Authorization': `Bearer ${userSignedIn.token}`
+        'Authorization': `Bearer ${token}`
       },
     })
       .then(response => {
@@ -352,6 +381,30 @@ function App() {
       .then(data => console.log(data))
       .catch(err => console.log(err))
   }
+
+  // //POST RATE 
+  // const rate = async (e) => {
+  //   const token = userSignedIn.token
+  //   const userId = userSignedIn.currentUser.id
+  //   // const locationId
+
+  //   await fetch(`${BASE_URL}/users/${userId}/locations/:location_id/ratings`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `Bearer ${token}`
+  //     },
+  //     body: JSON.stringify({
+
+  //     })
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       console.log(data)
+  //     })
+  //     .catch(err => console.log(err))
+  // }
 
   return (
     <div className="App">
@@ -386,6 +439,7 @@ function App() {
         locations={locations}
         favorites={favorites}
         getFav={getFav}
+        deleteFav={deleteFav}
       /> */}
       {!userSignedIn.signedIn ?
         <Welcome
@@ -406,6 +460,9 @@ function App() {
           handleUser={handleChange}
           updateUser={updateUser}
           deleteUser={deleteUser}
+          locations={locations}
+          favorites={favorites}
+          deleteFav={deleteFav}
         />
       }
       <Footer />

@@ -1,5 +1,6 @@
 import React from 'react';
 import Filter from './Filter'
+import Rating from './Rating'
 import { makeStyles } from '@material-ui/core/styles';
 import styled from 'styled-components'
 import TextField from '@material-ui/core/TextField';
@@ -86,6 +87,8 @@ const useStyles = makeStyles((theme) => ({
     border: 'none',
     backgroundColor: 'white',
     width: '5%',
+    marginTop: '3%',
+    cursor: 'pointer',
   },
   listDiv: {
     // border: solid red;
@@ -128,16 +131,16 @@ function List(props) {
       <Filter />
       {/* <div className={classes.zipcodeInput}><TextField id="standard-search" label="zipcode" type="search" /></div> */}
       {/* </FilterStyle> */}
-      <ListWrapper addFav={props.addFav}>
+      <ListWrapper>
         {props.locations.map(location => (
           <Box className={classes.list} maxWidth="xl" key={location.id} >
             <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src="https://res.cloudinary.com/dqduwnrb1/image/upload/v1618158659/GoogleMapTA_nkou2y.jpg" alt="map" /></Box>
             <Box className={classes.info} width={1 / 2}>
               <p>{location.name}</p>
               <p>{location.city}</p>
+              <Rating />
               <Button variant="contained" color="primary" style={directionStyle}><a style={{ textDecoration: "none", color: "white" }} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a></Button>
-              {/* <a className={classes.link} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a> */}
-              <p>⭐️⭐️⭐️⭐️⭐️</p>
+
               {/* This material ui button doesn't work, but I'll leave it hear for now */}
               {/* <Button onClick={props.addFav} name={location.id}>test</Button> */}
               {/* This normal button works */}
