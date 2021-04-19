@@ -23,7 +23,7 @@ function App() {
   const [locations, setLocations] = React.useState([])
 
   //SET FAVORITE SITES 
-  const [favorites, setFavorites] = React.useState([])
+  // const [favorites, setFavorites] = React.useState([])
 
   //SET NEW USER STATE
   const [newUser, setNewUser] = React.useState({
@@ -283,75 +283,75 @@ function App() {
   }, [], [])
 
 
-  //ADD FAVORITE SITE
-  const addFav = async (e) => {
-    // let locationId = locations.map(location => { location.id })
-    // e.preventDefault();
-    // console.log(typeof e.target.name)
+  // //ADD FAVORITE SITE
+  // const addFav = async (e) => {
+  //   // let locationId = locations.map(location => { location.id })
+  //   // e.preventDefault();
+  //   // console.log(typeof e.target.name)
 
-    const id = userSignedIn.currentUser.id
-    const locationId = parseInt(e.target.name)
-    const locationName = parseInt(e.target.name)
-    const locationCity = parseInt(e.target.name)
-    console.log(locationId)
+  //   const id = userSignedIn.currentUser.id
+  //   const locationId = parseInt(e.target.name)
+  //   const locationName = parseInt(e.target.name)
+  //   const locationCity = parseInt(e.target.name)
+  //   console.log(locationId)
 
 
-    await fetch(`${BASE_URL}/user/${id}/savefavorite`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        user_id: userSignedIn.currentUser.name,
-        location_id: locationId,
-        name: locationName,
-        city: locationCity
-      })
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-      })
-      .catch(err => console.log(err))
-  }
+  //   await fetch(`${BASE_URL}/user/${id}/savefavorite`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       user_id: userSignedIn.currentUser.name,
+  //       location_id: locationId,
+  //       name: locationName,
+  //       city: locationCity
+  //     })
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       console.log(data)
+  //     })
+  //     .catch(err => console.log(err))
+  // }
 
-  //GET ALL FAVORITE SITES
-  const getFav = async (e) => {
-    const id = userSignedIn.currentUser.id
+  // //GET ALL FAVORITE SITES
+  // const getFav = async (e) => {
+  //   const id = userSignedIn.currentUser.id
 
-    await fetch(`${BASE_URL}/user/${id}/getfavorites`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .then(data => {
-        // setFavorites(data)
-        console.log(data)
-      })
-      .catch(err => console.log(err))
-  }
+  //   await fetch(`${BASE_URL}/user/${id}/getfavorites`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       // setFavorites(data)
+  //       console.log(data)
+  //     })
+  //     .catch(err => console.log(err))
+  // }
 
-  // DELETE FAVORITE
-  const deleteFav = async () => {
-    const id = userSignedIn.currentUser.id
+  // // DELETE FAVORITE
+  // const deleteFav = async () => {
+  //   const id = userSignedIn.currentUser.id
 
-    await fetch(`${BASE_URL}/${id}/deletefavorite`, {
-      method: 'DELETE',
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${userSignedIn.token}`
-      },
-    })
-      .then(response => {
-        return response.json()
-      })
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
-  }
+  //   await fetch(`${BASE_URL}/${id}/deletefavorite`, {
+  //     method: 'DELETE',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Authorization': `Bearer ${userSignedIn.token}`
+  //     },
+  //   })
+  //     .then(response => {
+  //       return response.json()
+  //     })
+  //     .then(data => console.log(data))
+  //     .catch(err => console.log(err))
+  // }
 
   return (
     <div className="App">
@@ -399,7 +399,7 @@ function App() {
           onSubmitUser={signUpUser}
           onSubmitLogIn={signInUser}
           locations={locations}
-          addFav={addFav}
+        // addFav={addFav}
         /> :
         <Favorites
           user={userSignedIn.currentUser}
