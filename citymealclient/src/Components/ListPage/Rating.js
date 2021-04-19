@@ -23,7 +23,7 @@ const Rating = () => {
 
 
                 return (
-                    <label>
+                    <label key={i}>
                         <input
                             style={inputStlye}
                             type="radio"

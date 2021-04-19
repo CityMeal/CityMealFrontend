@@ -87,6 +87,8 @@ const useStyles = makeStyles((theme) => ({
     border: 'none',
     backgroundColor: 'white',
     width: '5%',
+    marginTop: '3%',
+    cursor: 'pointer',
   },
   listDiv: {
     // border: solid red;
@@ -142,7 +144,7 @@ function List(props) {
               {/* This material ui button doesn't work, but I'll leave it hear for now */}
               {/* <Button onClick={props.addFav} name={location.id}>test</Button> */}
               {/* This normal button works */}
-              {/* <button className={classes.favBtn} onClick={props.addFav} name={location.id}>❤️</button> */}
+              <button className={classes.favBtn} onClick={props.addFav} name={location.id}>❤️</button>
             </Box>
           </Box>
         ))}
