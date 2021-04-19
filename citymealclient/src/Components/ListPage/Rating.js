@@ -9,12 +9,12 @@ const inputStlye = {
 const starStyle = {
     cursor: 'pointer',
     marginTop: '3%',
-
+    marginBottom: '3%',
 }
 
 const Rating = () => {
-    const [rating, setRating] = React.useState(null);
-    // console.log(rating)
+    const [rating, setRating] = React.useState(5);
+
     return (
 
         <div>
@@ -31,9 +31,11 @@ const Rating = () => {
                             value={ratingValue}
                             onClick={() => setRating(ratingValue)}
                         />
-                        <FaStar style={starStyle} size={20} color={ratingValue <= rating ? "#ffc107" : "#e4e5e9"} />
-                        {/* <p className="star">⭐️</p> */}
-                        {/* <i style={starStyle} className="fas fa-star"></i> */}
+                        <FaStar
+                            style={starStyle}
+                            size={20}
+                            color={ratingValue <= rating ? "#ffc107" : "#e4e5e9"}
+                        />
                     </label>
                 )
             })}

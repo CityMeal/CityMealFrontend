@@ -136,10 +136,9 @@ function List(props) {
             <Box className={classes.info} width={1 / 2}>
               <p>{location.name}</p>
               <p>{location.city}</p>
-              <Button variant="contained" color="primary" style={directionStyle}><a style={{ textDecoration: "none", color: "white" }} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a></Button>
-              {/* <a className={classes.link} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a> */}
               <Rating />
-              {/* <p>⭐️⭐️⭐️⭐️⭐️</p> */}
+              <Button variant="contained" color="primary" style={directionStyle}><a style={{ textDecoration: "none", color: "white" }} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a></Button>
+
               {/* This material ui button doesn't work, but I'll leave it hear for now */}
               {/* <Button onClick={props.addFav} name={location.id}>test</Button> */}
               {/* This normal button works */}
