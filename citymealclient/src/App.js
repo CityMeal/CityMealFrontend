@@ -278,9 +278,8 @@ function App() {
       }))
     }
     getAllLocations()
-    // filterLocations()
-    // getFav()
-  }, [])
+    filterLocations()
+  }, [], [])
 
   React.useEffect(() => {
     const getFav = () => {
