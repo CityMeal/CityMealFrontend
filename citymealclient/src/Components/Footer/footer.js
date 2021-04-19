@@ -29,10 +29,10 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: '5%',
     paddingRight: '5%',
     paddingTop: '1%',
-    paddingBottom: '1%',
+    // paddingBottom: '1%',
     marginTop: 'auto',
     backgroundColor: '#4484CE',
-    color: '#D9D9D9'
+    color: '#D9D9D9',
   },
   copyright: {
     display: 'flex',

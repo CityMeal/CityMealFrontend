@@ -16,6 +16,7 @@ const ListWrapper = styled.div`
   // position: absolute;
   box-sizing: border-box;
   // margin-top: -4em;
+  margin-bottom: 5%;
 
 `
 
@@ -52,34 +53,39 @@ const useStyles = makeStyles((theme) => ({
     // height: '15rem',
     paddingLeft: '5%',
   },
-  link: {
-    textDecoration: 'none',
-    color: '#D9D9D9',
-    backgroundColor: '#4484CE',
-    textAlign: 'center',
-    width: '50%',
-    paddingTop: '2%',
-    paddingBottom: '2%',
-  },
-  twolists: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  showList: {
-    [theme.breakpoints.down('md')]: {
-      display: 'block',
-    },
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    }
-  },
-  showListLg: {
-    [theme.breakpoints.down('md')]: {
-      display: 'none',
-    },
-    [theme.breakpoints.up('md')]: {
-      display: 'block',
-    }
+  // link: {
+  //   textDecoration: 'none',
+  //   color: '#D9D9D9',
+  //   backgroundColor: '#4484CE',
+  //   textAlign: 'center',
+  //   width: '50%',
+  //   paddingTop: '2%',
+  //   paddingBottom: '2%',
+  // },
+  // twolists: {
+  //   display: 'flex',
+  //   flexDirection: 'row',
+  // },
+  // showList: {
+  //   [theme.breakpoints.down('md')]: {
+  //     display: 'block',
+  //   },
+  //   [theme.breakpoints.up('md')]: {
+  //     display: 'none',
+  //   }
+  // },
+  // showListLg: {
+  //   [theme.breakpoints.down('md')]: {
+  //     display: 'none',
+  //   },
+  //   [theme.breakpoints.up('md')]: {
+  //     display: 'block',
+  //   }
+  // },
+  favBtn: {
+    border: 'none',
+    backgroundColor: 'white',
+    width: '5%',
   },
   listDiv: {
     // border: solid red;
@@ -122,7 +128,7 @@ function List(props) {
       <Filter />
       {/* <div className={classes.zipcodeInput}><TextField id="standard-search" label="zipcode" type="search" /></div> */}
       {/* </FilterStyle> */}
-      <ListWrapper className={classes.showList} addFav={props.addFav}>
+      <ListWrapper addFav={props.addFav}>
         {props.locations.map(location => (
           <Box className={classes.list} maxWidth="xl" key={location.id} >
             <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src="https://res.cloudinary.com/dqduwnrb1/image/upload/v1618158659/GoogleMapTA_nkou2y.jpg" alt="map" /></Box>
@@ -135,7 +141,7 @@ function List(props) {
               {/* This material ui button doesn't work, but I'll leave it hear for now */}
               {/* <Button onClick={props.addFav} name={location.id}>test</Button> */}
               {/* This normal button works */}
-              <button onClick={props.addFav} name={location.id}>❤️</button>
+              <button className={classes.favBtn} onClick={props.addFav} name={location.id}>❤️</button>
             </Box>
           </Box>
         ))}
