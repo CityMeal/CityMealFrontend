@@ -13,22 +13,22 @@ const ListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   overflow: scroll;
-  position: absolute;
+  // position: absolute;
   box-sizing: border-box;
-  margin-top: -4em;
+  // margin-top: -4em;
 
 `
 
 
 const useStyles = makeStyles((theme) => ({
-  zipcodeInput: {
-    display: 'flex',
-    justifyContent: 'center',
-    paddingBottom: '5%',
-    position: 'relative',
-    top: -4 + 'em',
-    left: 3 + 'em',
-  },
+  // zipcodeInput: {
+  //   display: 'flex',
+  //   justifyContent: 'center',
+  //   paddingBottom: '5%',
+  //   position: 'relative',
+  //   top: -4 + 'em',
+  //   left: 3 + 'em',
+  // },
   list: {
     // border: 0.5 +'px solid black',
     display: 'flex',
@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
 const divStyle = {
   // border: 'solid green',
   width: 100 + '%',
-  height: 27 + 'em',
+  // height: 27 + 'em',
   position: 'relative',
   top: 0 + 'em',
 }
@@ -115,14 +115,14 @@ function List(props) {
 
   // const classes = useStyles();
   // console.log(props.allLocations)
-  console.log(props.locations)
+  // console.log(props.locations)
   return (
     <div style={divStyle}>
       {/* <FilterStyle> */}
       <Filter />
-      <div className={classes.zipcodeInput}><TextField id="standard-search" label="zipcode" type="search" /></div>
+      {/* <div className={classes.zipcodeInput}><TextField id="standard-search" label="zipcode" type="search" /></div> */}
       {/* </FilterStyle> */}
-      <ListWrapper addFav={props.addFav}>
+      <ListWrapper className={classes.showList} addFav={props.addFav}>
         {props.locations.map(location => (
           <Box className={classes.list} maxWidth="xl" key={location.id} >
             <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src="https://res.cloudinary.com/dqduwnrb1/image/upload/v1618158659/GoogleMapTA_nkou2y.jpg" alt="map" /></Box>

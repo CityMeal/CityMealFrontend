@@ -6,7 +6,7 @@ import Link from '@material-ui/core/Link';
 
 function Copyright() {
   return (
-    <Typography variant="h6" style={{color: "#D9D9D9"}} >
+    <Typography variant="h6" style={{ color: "#D9D9D9" }} >
       {/* {'© '}
       {new Date().getFullYear()}
       <Link color="inherit" href="https://material-ui.com/">
