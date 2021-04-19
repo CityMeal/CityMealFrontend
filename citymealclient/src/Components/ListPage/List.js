@@ -5,20 +5,20 @@ import styled from 'styled-components'
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import {createMuiTheme, useMediaQuery} from '@material-ui/core';
 
-const ListWrapper = styled.div`
-  border: solid red;
-  width: 100%;
-  height:24em;
-  display: flex;
-  flex-wrap: wrap;
-  overflow: scroll;
-  position: absolute;
-  box-sizing: border-box;
-  margin-top: -4em;
 
-`
-
+const themes2 = createMuiTheme({
+  breakpoints: {
+      values: {
+          xs: 0,
+          sm: 340,
+          md: 360,
+          lg: 411,
+          xl: 700,
+      },
+  },
+})
 
 const useStyles = makeStyles((theme) => ({
   zipcodeInput: {
@@ -29,14 +29,80 @@ const useStyles = makeStyles((theme) => ({
     top: -4 + 'em',
     left: 3 + 'em',
   },
+  divStyle : {
+    border: 'solid green',
+    width: '100 %',
+    position: 'absolute',
+
+    [theme.breakpoints.up('md')]: {
+      // border: 'solid black',
+      top: '3em'
+    },
+    [theme.breakpoints.up('lg')]: {
+      // border: 'solid black',
+      top: 3 + 'em',
+    },
+    
+  },
+  filterDiv: {
+    // border: 'solid orange',
+    display: 'flex',
+    width: '28em',
+    // padding: '3em',
+    margin: 'auto',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+    position: 'relative',
+    [themes2.breakpoints.between('xs', 'sm')]: {
+      border: 'solid black',
+      width: '18em',
+
+    },
+    [theme.breakpoints.up('lg')]: {
+      border: 'solid yellow',
+    }
+  },
+  listWrap: {
+    border: 'solid red',
+    width: '100%',
+    height: '60vh',
+    display: 'flex',
+    flexWrap: 'wrap',
+    overflow: 'scroll',
+    boxSizing: 'border-box',
+    [theme.breakpoints.up('md')]: {
+      // border: 'solid green',
+      height: '65vh',
+    },
+    [theme.breakpoints.up('lg')]: {
+      // border: 'solid blue',
+      height: '70vh',
+    },
+  },
   list: {
-    border: 0.5 +'px solid black',
+    // border: 0.5 +'px solid black',
+    width: '25em',
     display: 'flex',
     justifyContent: 'center',
-    marginLeft: '5%',
-    marginRight: '5%',
-    marginBottom: '5%',
-    boxShadow: (2 + 'px ' + 3 + 'px ' + 3 + 'px ' + 2 + 'px ' + ' lightgrey')
+    position: 'relative',
+    margin: '2%',
+    left: '4.5%',
+    boxShadow: (2 + 'px ' + 3 + 'px ' + 3 + 'px ' + 2 + 'px ' + ' lightgrey'),
+    
+    [theme.breakpoints.up('md')]: {
+      width: '26em',
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '35em',
+    },
+    [theme.breakpoints.up('xl')]: {
+      width: '40em',
+    },
+  },
+  directionBtn:{
+    // border: 'solid red',
+    position: 'relative',
+    left: -0.5 + 'em',
   },
   pic: {
     display: 'flex',
@@ -80,53 +146,28 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       display: 'block',
     }
-  },
-  listDiv: {
-    // border: solid red;
-    width: 100 + '%',
-    height: 24 + 'em',
-    display: 'flex',
-    flexWrap: 'wrap',
-    overflow: 'scroll',
-    position: 'absolute',
-    boxSizing: 'border-box',
-    marginTop: -4 + 'em',
   }
-
 }));
 
-
-const divStyle = {
-  // border: 'solid green',
-  width: 100 + '%',
-  height: 27 + 'em',
-  position: 'relative',
-  top: 0 + 'em',
-}
-
-const directionStyle = {
-  // border: 'solid red',
-  position: 'relative',
-  left: -0.5 + 'em',
-}
 
 function List(props) {
   const classes = useStyles();
 
   return (
-    <div style={divStyle}>
-      {/* <FilterStyle> */}
-      <Filter />
-      <div ><TextField id="standard-search" label="zipcode" type="search" /></div>
-      {/* </FilterStyle> */}
-      <ListWrapper addFav={props.addFav}>
+    <div className={classes.divStyle}>
+      <div className={classes.filterDiv}>
+        <Filter />
+        <TextField id="standard-search" label="zipcode" type="search" />
+      </div>
+      
+      <div addFav={props.addFav} className={classes.listWrap}>
         {props.locations.map(location => (
           <Box className={classes.list} maxWidth="xl" key={location.id} >
             <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src="https://res.cloudinary.com/dqduwnrb1/image/upload/v1618158659/GoogleMapTA_nkou2y.jpg" alt="map" /></Box>
             <Box className={classes.info} width={1 / 2}>
               <p>{location.name}</p>
               <p>{location.city}</p>
-              <Button variant="contained" color="primary" style={directionStyle}><a style={{ textDecoration: "none", color: "white" }} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a></Button>
+              <Button variant="contained" color="primary" className={classes.directionBtn}><a style={{ textDecoration: "none", color: "white" }} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a></Button>
               {/* <a className={classes.link} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a> */}
               <p>⭐️⭐️⭐️⭐️⭐️</p>
               {/* This material ui button doesn't work, but I'll leave it hear for now */}
@@ -136,34 +177,9 @@ function List(props) {
             </Box>
           </Box>
         ))}
-      </ListWrapper>
+      </div>
     </div>
   )
 }
-
-// function TwoLists(props) {
-//   const classes = useStyles();
-
-//   return (
-//     <Box className={classes.twolists}>
-//       <EachList />
-//       <EachList />
-//     </Box>
-
-//   )
-// }
-
-// function List(props) {
-//   console.log(props.locations)
-//   const classes = useStyles();
-//   return (
-//     <div >
-//       <Filter />
-//       <div className={classes.zipcodeInput}><TextField id="standard-search" label="zipcode" type="search" /></div>
-//       <div className={classes.showList}><EachList siteLocations={props.locations}/></div>
-//       {/* <div className={classes.showListLg}><TwoLists /></div> */}
-//     </div>
-//   );
-// }
 
 export default List;

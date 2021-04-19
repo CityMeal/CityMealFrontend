@@ -312,29 +312,31 @@ function App() {
 
   return (
     <div className="App">
-      <Header
-        clickSignUpBtn={handleSignUpClick}
-        clickSignInBtn={handleSignInClick}
-        userSignedIn={userSignedIn}
-        logout={logOut}
-        closeMenu={closeMenu}
-        openMenu={showMenuOption}
-        menuOpt={openMenu}
-      />
-      <Announce />
-      <Welcome
-        labels={labels}
-        modalOpen={openModal}
-        modalClose={handleModalClose}
-        valueChange={handleValueChange}
-        // logInChange={handleLogInChange}
-        userVal={newUser}
-        loginVal={logInDetails}
-        onSubmitUser={signUpUser}
-        onSubmitLogIn={signInUser}
-        locations={locations}
-        addFav={addFav}
-      />
+      <div className="otherContent">
+        <Header
+          clickSignUpBtn={handleSignUpClick}
+          clickSignInBtn={handleSignInClick}
+          userSignedIn={userSignedIn}
+          logout={logOut}
+          closeMenu={closeMenu}
+          openMenu={showMenuOption}
+          menuOpt={openMenu}
+        />
+        <Announce />
+        <Welcome
+          labels={labels}
+          modalOpen={openModal}
+          modalClose={handleModalClose}
+          valueChange={handleValueChange}
+          // logInChange={handleLogInChange}
+          userVal={newUser}
+          loginVal={logInDetails}
+          onSubmitUser={signUpUser}
+          onSubmitLogIn={signInUser}
+          locations={locations}
+          addFav={addFav}
+        />
+      </div>
       <Footer />
       {/* {!userSignedIn.signedIn ?
         <Welcome

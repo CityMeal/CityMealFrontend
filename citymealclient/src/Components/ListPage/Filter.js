@@ -102,7 +102,6 @@ function Filter() {
                     <TextField id="standard-search" label="zip code" type="search" value={zipcode} onChange={handleChange} />
                 </form>
             }
-
             {boroughFilter && <FilterByBorough />}
         </div>
     );

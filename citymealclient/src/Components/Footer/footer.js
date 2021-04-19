@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { emphasize, makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 
@@ -24,13 +24,23 @@ const useStyles = makeStyles((theme) => ({
     // minHeight: '100vh', (to make the footer sticky)
   },
   footer: {
+    // border: 'solid red',
     display: 'flex',
     flexDirection: 'row',
-    paddingLeft: '5%',
-    paddingRight: '5%',
-    paddingTop: '1%',
-    paddingBottom: '1%',
-    marginTop: 'auto',
+    // paddingLeft: '5%',
+    // paddingRight: '5%',
+    // paddingTop: '1%',
+    // paddingBottom: '1%',
+    // position: 'relative',
+    width: 100 + '%',
+    height: 5 + 'em',
+    position: 'absolute',
+    bottom: '0em',
+    left: '0em',
+    right: '0em',
+
+    // top: 10 + 'em',
+    // marginTop: ,
     backgroundColor: '#4484CE',
     color: '#D9D9D9'
   },
