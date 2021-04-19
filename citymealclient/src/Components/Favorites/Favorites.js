@@ -3,6 +3,7 @@ import Profile from './Profile'
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Rating from '../ListPage/Rating'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -63,7 +64,22 @@ const useStyles = makeStyles((theme) => ({
   },
   editform: {
     marginTop: '2%',
-  }
+  },
+  rating: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginTop: '2%',
+  },
+  ratingBtn: {
+    marginLeft: '2%',
+  },
+  favBtn: {
+    border: 'none',
+    backgroundColor: 'white',
+    width: '5%',
+    cursor: 'pointer',
+    marginTop: '3%',
+  },
 }));
 
 function EachList(props) {
@@ -77,8 +93,12 @@ function EachList(props) {
         <Box className={classes.info} width={1 / 2}>
           <p>Franklin Delano Roosevelt High School - 5800 20 Avenue, 11204</p>
           <p>Train: D, E, 2, 3</p>
-          <p>⭐️⭐️⭐️⭐️⭐️</p>
-          <p>❤️</p>
+          <Box className={classes.rating}>
+            <Rating />
+            <Button className={classes.ratingBtn} variant="contained" color="primary">rate this site</Button>
+          </Box>
+
+          <button className={classes.favBtn} onClick={props.deleteFav}>❤️</button>
         </Box>
       </Box>
     </div >
@@ -93,7 +113,7 @@ function Favorites(props) {
     <div>
       <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Favorite Meal Sites</p></Box>
       {/* <EachList getFav={props.getFav} /> */}
-      <EachList />
+      <EachList locations={props.locations} />
       <Profile currentUser={props.user} handleChange={props.handleUser} updateUser={props.updateUser} deleteUser={props.deleteUser} />
     </div>
   );

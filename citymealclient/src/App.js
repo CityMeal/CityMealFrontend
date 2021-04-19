@@ -335,23 +335,48 @@ function App() {
   //     .catch(err => console.log(err))
   // }
 
-  // // DELETE FAVORITE
-  // const deleteFav = async () => {
-  //   const id = userSignedIn.currentUser.id
+  // DELETE FAVORITE
+  const deleteFav = async () => {
+    const token = userSignedIn.token
+    const id = userSignedIn.currentUser.id
 
-  //   await fetch(`${BASE_URL}/${id}/deletefavorite`, {
-  //     method: 'DELETE',
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Authorization': `Bearer ${userSignedIn.token}`
-  //     },
-  //   })
-  //     .then(response => {
-  //       return response.json()
-  //     })
-  //     .then(data => console.log(data))
-  //     .catch(err => console.log(err))
-  // }
+    await fetch(`${BASE_URL}/${id}/deletefavorite`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    })
+      .then(response => {
+        return response.json()
+      })
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
+  }
+
+  //POST RATE 
+  const rate = async (e) => {
+    const token = userSignedIn.token
+    const userId = userSignedIn.currentUser.id
+    // const locationId
+
+    await fetch(`${BASE_URL}/users/${userId}/locations/:location_id/ratings`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+      })
+      .catch(err => console.log(err))
+  }
 
   return (
     <div className="App">
@@ -406,6 +431,8 @@ function App() {
           handleUser={handleChange}
           updateUser={updateUser}
           deleteUser={deleteUser}
+          locations={locations}
+          deleteFav={deleteFav}
         />
       }
       <Footer />
