@@ -13,22 +13,23 @@ const ListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   overflow: scroll;
-  position: absolute;
+  // position: absolute;
   box-sizing: border-box;
-  margin-top: -4em;
+  // margin-top: -4em;
+  margin-bottom: 5%;
 
 `
 
 
 const useStyles = makeStyles((theme) => ({
-  zipcodeInput: {
-    display: 'flex',
-    justifyContent: 'center',
-    paddingBottom: '5%',
-    position: 'relative',
-    top: -4 + 'em',
-    left: 3 + 'em',
-  },
+  // zipcodeInput: {
+  //   display: 'flex',
+  //   justifyContent: 'center',
+  //   paddingBottom: '5%',
+  //   position: 'relative',
+  //   top: -4 + 'em',
+  //   left: 3 + 'em',
+  // },
   list: {
     // border: 0.5 +'px solid black',
     display: 'flex',
@@ -52,34 +53,39 @@ const useStyles = makeStyles((theme) => ({
     // height: '15rem',
     paddingLeft: '5%',
   },
-  link: {
-    textDecoration: 'none',
-    color: '#D9D9D9',
-    backgroundColor: '#4484CE',
-    textAlign: 'center',
-    width: '50%',
-    paddingTop: '2%',
-    paddingBottom: '2%',
-  },
-  twolists: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  showList: {
-    [theme.breakpoints.down('md')]: {
-      display: 'block',
-    },
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    }
-  },
-  showListLg: {
-    [theme.breakpoints.down('md')]: {
-      display: 'none',
-    },
-    [theme.breakpoints.up('md')]: {
-      display: 'block',
-    }
+  // link: {
+  //   textDecoration: 'none',
+  //   color: '#D9D9D9',
+  //   backgroundColor: '#4484CE',
+  //   textAlign: 'center',
+  //   width: '50%',
+  //   paddingTop: '2%',
+  //   paddingBottom: '2%',
+  // },
+  // twolists: {
+  //   display: 'flex',
+  //   flexDirection: 'row',
+  // },
+  // showList: {
+  //   [theme.breakpoints.down('md')]: {
+  //     display: 'block',
+  //   },
+  //   [theme.breakpoints.up('md')]: {
+  //     display: 'none',
+  //   }
+  // },
+  // showListLg: {
+  //   [theme.breakpoints.down('md')]: {
+  //     display: 'none',
+  //   },
+  //   [theme.breakpoints.up('md')]: {
+  //     display: 'block',
+  //   }
+  // },
+  favBtn: {
+    border: 'none',
+    backgroundColor: 'white',
+    width: '5%',
   },
   listDiv: {
     // border: solid red;
@@ -99,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
 const divStyle = {
   // border: 'solid green',
   width: 100 + '%',
-  height: 27 + 'em',
+  // height: 27 + 'em',
   position: 'relative',
   top: 0 + 'em',
 }
@@ -115,12 +121,12 @@ function List(props) {
 
   // const classes = useStyles();
   // console.log(props.allLocations)
-  console.log(props.locations)
+  // console.log(props.locations)
   return (
     <div style={divStyle}>
       {/* <FilterStyle> */}
       <Filter />
-      <div className={classes.zipcodeInput}><TextField id="standard-search" label="zipcode" type="search" /></div>
+      {/* <div className={classes.zipcodeInput}><TextField id="standard-search" label="zipcode" type="search" /></div> */}
       {/* </FilterStyle> */}
       <ListWrapper addFav={props.addFav}>
         {props.locations.map(location => (
@@ -135,7 +141,7 @@ function List(props) {
               {/* This material ui button doesn't work, but I'll leave it hear for now */}
               {/* <Button onClick={props.addFav} name={location.id}>test</Button> */}
               {/* This normal button works */}
-              <button onClick={props.addFav} name={location.id}>❤️</button>
+              <button className={classes.favBtn} onClick={props.addFav} name={location.id}>❤️</button>
             </Box>
           </Box>
         ))}

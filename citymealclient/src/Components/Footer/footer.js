@@ -6,7 +6,7 @@ import Link from '@material-ui/core/Link';
 
 function Copyright() {
   return (
-    <Typography variant="h6" style={{color: "#D9D9D9"}} >
+    <Typography variant="h6" style={{ color: "#D9D9D9" }} >
       {/* {'© '}
       {new Date().getFullYear()}
       <Link color="inherit" href="https://material-ui.com/">
@@ -29,10 +29,10 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: '5%',
     paddingRight: '5%',
     paddingTop: '1%',
-    paddingBottom: '1%',
+    // paddingBottom: '1%',
     marginTop: 'auto',
     backgroundColor: '#4484CE',
-    color: '#D9D9D9'
+    color: '#D9D9D9',
   },
   copyright: {
     display: 'flex',
