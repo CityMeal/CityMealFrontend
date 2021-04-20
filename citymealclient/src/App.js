@@ -1,26 +1,25 @@
 import React from 'react';
 import './App.css';
 import Header from './Components/Navbar/navbar';
-import Footer from './Components/Footer/footer'
-import Announce from './Components/Others/announce'
-import Welcome from './Components/MainPage/WelcomePage'
-import Favorites from './Components/Favorites/Favorites'
-import List from './Components/ListPage/List'
+import Footer from './Components/Footer/footer';
+import Announce from './Components/Others/announce';
+import ListView from './Components/MainPage/ListViewPage';
+import HomePage from './Components/MainPage/HomePage';
+import Favorites from './Components/Favorites/Favorites';
 
 const BASE_URL = "http://localhost:3030"
+console.log(process.env.REACT_APP_key)
 
 function App() {
 
-  const signUpLabels = ['username', 'email', 'address', 'city', 'zipcode', 'password']
-  const signInLabels = ['email', 'password']
-
-  const [labels, setLabels] = React.useState(signUpLabels)
-
-  //SET SIGN UP SIGN IN MODAL STATE
-  const [openModal, setOpenModal] = React.useState(false)
-
   //SET SITES LOCATIONS
   const [locations, setLocations] = React.useState([])
+
+  //SET SITE COORDINATES
+  const [siteCoords, setSiteCoords] = React.useState([])
+
+  //SET FAVORITE SITES 
+  const [favorites, setFavorites] = React.useState([])
 
   //SET NEW USER STATE
   const [newUser, setNewUser] = React.useState({
@@ -37,75 +36,36 @@ function App() {
     email: "",
     password: ""
   })
+
   const [userSignedIn, setUserSignedIn] = React.useState({
     signedIn: false,
     token: '',
     currentUser: {}
   })
-  //SET MOBILE MENU STATE
-  const [openMenu, setOpenMenu] = React.useState({
-    open: false,
-    anchorEl: null
-  })
-
-
-  //RETURN SIGN UP FORM ON CLICK ON SIGN UP BUTTON. THIS OPENS MODAL
-  const handleSignUpClick = (e) => {
-    setOpenModal(true)
-    // console.log('clicking sign up', openModal)
-  }
-
-  //RETURN SIGN IN FORM ON CLICK OF SIGN IN BUTTON 
-  const handleSignInClick = (e) => {
-    console.log(e.target)
-    setLabels(signInLabels)
-    setOpenModal(true)
-    console.log('clicking sign in', openModal)
-  }
-
-  //CLOSE MODAL FUNCTION
-  const handleModalClose = () => {
-    setOpenModal(false)
-    setLabels(signUpLabels)
-  }
-
-  //HANDLE MOBILE MENU, FUNCTION TO OPEN MOBILE MENU
-  const showMenuOption = (e) => {
-    setOpenMenu({
-      open: true,
-      anchorEl: e.target
-    })
-  }
-  const closeMenu = () => {
-    setOpenMenu({
-      open: false,
-      anchorEl: null
-    })
-  }
-
-
+  
 
   //GET NEW USER SIGN UP INFO
-  const handleValueChange = (event) => {
+  const handleUserValueChange = (event) => {
     const { name, value } = event.target
-
-    labels.length > 2
-      ? setNewUser({
+    setNewUser({
         ...newUser,
         [name]: value
       })
-      :
-      setLogInDetails({
-        ...logInDetails,
-        [name]: value
-      });
-
   };
 
+  const handleLoginValueChange = (event) => {
+    const { name, value } = event.target
+    setLogInDetails({
+      ...logInDetails,
+      [name]: value
+    });
+  }
 
   //FUNCTION MAKING A NEW USER POST REQUEST TO THE DATABASE
-  const signUpUser = async () => {
+  const signUpUser = async (e) => {
+    e.preventDefault()
     console.log(newUser)
+    console.log('i clicked signup user func')
     //Write a function to post user in database
     await fetch(
       `${BASE_URL}/register`, {
@@ -174,10 +134,6 @@ function App() {
       currentUser: {},
       token: "",
     })
-    setOpenMenu({
-      open: false,
-      anchorEl: null
-    })
     localStorage.clear()
   }
 
@@ -241,27 +197,118 @@ function App() {
       .catch(err => console.log(err))
   }
 
-  //GET ALL LOCATIONS
-  const getAllLocations = async () => {
-    await fetch(`${BASE_URL}/locations`, {
+
+  //ADD FAVORITE SITE
+  const addFav = async (e) => {
+    // let locationId = locations.map(location => { location.id })
+    // e.preventDefault();
+    // console.log(typeof e.target.name)
+
+    const id = userSignedIn.currentUser.id
+    const locationId = parseInt(e.target.name)
+    const locationName = parseInt(e.target.name)
+    const locationCity = parseInt(e.target.name)
+    console.log(locationId)
+
+
+    await fetch(`${BASE_URL}/user/${id}/savefavorite`, {
+      method: 'POST',
       headers: {
         'Accept': 'application/json',
+        'Content-Type': 'application/json',
       },
+      body: JSON.stringify({
+        user_id: userSignedIn.currentUser.name,
+        location_id: locationId,
+        name: locationName,
+        city: locationCity
+      })
     })
       .then(response => response.json())
       .then(data => {
-        setLocations(data.locations)
+        console.log(data)
       })
       .catch(err => console.log(err))
   }
 
-  //FILTER LOCATIONS BY EITHER ZIP CODE OR BOROUGH
+  //GET ALL FAVORITE SITES
+  const getFav = async (e) => {
+    const id = userSignedIn.currentUser.id
 
-  const filterLocations = async () => {
-    //get the filter label value, if it is zip, make a all to the '/getLocations/:zipcode' route, 
-    //if it is Borugh make a call to the Borugh route
+    await fetch(`${BASE_URL}/user/${id}/getfavorites`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => response.json())
+      .then(data => {
+        // setFavorites(data)
+        console.log(data)
+      })
+      .catch(err => console.log(err))
   }
 
+  // DELETE FAVORITE
+  const deleteFav = async () => {
+    const id = userSignedIn.currentUser.id
+
+    await fetch(`${BASE_URL}/${id}/deletefavorite`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${userSignedIn.token}`
+      },
+    })
+      .then(response => {
+        return response.json()
+      })
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
+  }
+
+  //GET ALL LOCATIONS AND CREATE SITE POSITION COORDINATES FOR MAP VIEW
+  React.useEffect(() => {
+    let coordObj = {
+      name: '',
+      zip: '',
+      address:'',
+      position: {
+          lat: '',
+          lng: ''
+      }
+    }
+    const  getAllLocation = async () => {
+      await fetch(`${BASE_URL}/locations`, {
+        headers: {
+          'Accept': 'application/json',
+        },
+      })
+      .then(response => response.json())
+      .then(data => {
+        const sites = data.locations.map(site => {
+          return coordObj = {
+            name: site.name,
+            zip: site.zip,
+            address: site.siteAddress,
+            position: {
+              lat: parseFloat(site.latitude),
+              lng: parseFloat(site.longitude)
+            }
+          }
+        })
+        localStorage.setItem('sites', JSON.stringify(sites)) //NOT FULLY SURE IF THIS IS DOING WHAT I WANT IT TO DO
+        setSiteCoords(sites)
+        setLocations(data.locations)
+      })
+      .catch(err => console.log(err))
+    }
+    getAllLocation()
+  }, [])
+
+
+  
   //CHECK LOCAL STORAGE EACH TIME APP LOADS TO SEE IF THERE IS A USESR
   React.useEffect(() => {
     console.log(localStorage)
@@ -278,94 +325,30 @@ function App() {
         token: token
       }))
     }
-    getAllLocations()
-    filterLocations()
   }, [])
 
-
-  //ADD FAVORITE SITE
-  const addFav = async (e) => {
-    // let locationId = locations.map(location => { location.id })
-    // e.preventDefault();
-    console.log(typeof e.target.name)
-    const id = userSignedIn.currentUser.id
-    const locationId = parseInt(e.target.name)
-
-    await fetch(`${BASE_URL}/user/${id}/savefavorite`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        location_id: locationId,
-        user_id: userSignedIn.currentUser.id
-      })
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-      })
-      .catch(err => console.log(err))
-  }
-
+ 
 
   return (
     <div className="App">
       <div className="otherContent">
         <Header
-          clickSignUpBtn={handleSignUpClick}
-          clickSignInBtn={handleSignInClick}
           userSignedIn={userSignedIn}
           logout={logOut}
-          closeMenu={closeMenu}
-          openMenu={showMenuOption}
-          menuOpt={openMenu}
-        />
-        <Announce />
-        <Welcome
-          labels={labels}
-          modalOpen={openModal}
-          modalClose={handleModalClose}
-          valueChange={handleValueChange}
-          // logInChange={handleLogInChange}
-          userVal={newUser}
-          loginVal={logInDetails}
+          userVals = {newUser}
+          signUpOnChange={handleUserValueChange}
+          signInOnChange={handleLoginValueChange}
+          loginVals={logInDetails}
           onSubmitUser={signUpUser}
           onSubmitLogIn={signInUser}
-          locations={locations}
-          addFav={addFav}
+        />
+        <HomePage 
+          siteCoords={siteCoords}
+          signedIn={userSignedIn.signedIn}
+
         />
       </div>
       <Footer />
-      {/* {!userSignedIn.signedIn ?
-        <Welcome
-          labels={labels}
-          modalOpen={openModal}
-          modalClose={handleModalClose}
-          valueChange={handleValueChange}
-          // logInChange={handleLogInChange}
-          userVal={newUser}
-          loginVal={logInDetails}
-          onSubmitUser={signUpUser}
-          onSubmitLogIn={signInUser}
-          locations={locations}
-          addFav={addFav}
-        /> :
-        <Favorites
-          user={userSignedIn.currentUser}
-          handleUser={handleChange}
-          updateUser={updateUser}
-          deleteUser={deleteUser}
-        />
-      } */}
-      {/* <Favorites 
-          user={userSignedIn.currentUser} 
-          handleUser={handleChange} 
-          updateUser={updateUser} 
-          deleteUser={deleteUser} 
-        />
-      <Footer /> */}
     </div>
   );
 }

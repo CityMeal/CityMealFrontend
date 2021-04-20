@@ -1,15 +1,15 @@
 import React from 'react';
-import Forms from './FormModal'
-import List from '../ListPage/List'
+import Forms from './FormModal';
+import List from '../ListComponent/List';
+import Announcement from '../Others/announce';
 
-
-function Welcome(props) {
+function ListView(props) {
 
   return (
     <div className="welcome">
-
-      <List locations={props.locations} addFav={props.addFav} />
-
+      <Announcement />
+      <List locations={props.locations} />
+{/*       
       <Forms
         formLabels={props.labels}
         modalOpen={props.modalOpen}
@@ -21,9 +21,9 @@ function Welcome(props) {
         onSubmitUserDetails={props.onSubmitUser}
         onSubmitLoginDetails={props.onSubmitLogIn}
 
-      />
+      /> */}
     </div>
   );
 }
 
-export default Welcome;
+export default ListView;

@@ -67,19 +67,23 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function EachList() {
+function EachList(props) {
   const classes = useStyles();
 
   return (
-    <Box className={classes.list} maxWidth="xl" border={1} borderRadius={16}>
-      <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src="https://res.cloudinary.com/dqduwnrb1/image/upload/v1618158659/GoogleMapTA_nkou2y.jpg" alt="map" /></Box>
-      <Box className={classes.info} width={1 / 2}>
-        <p>Franklin Delano Roosevelt High School - 5800 20 Avenue, 11204</p>
-        <p>Train: D, E, 2, 3</p>
-        <p>⭐️⭐️⭐️⭐️⭐️</p>
-        <p>❤️</p>
+    <div>
+      {/* < Button onClick={props.getFav} > test</Button > */}
+      <Box className={classes.list} maxWidth="xl" border={1} borderRadius={16}>
+        <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src="https://res.cloudinary.com/dqduwnrb1/image/upload/v1618158659/GoogleMapTA_nkou2y.jpg" alt="map" /></Box>
+        <Box className={classes.info} width={1 / 2}>
+          <p>Franklin Delano Roosevelt High School - 5800 20 Avenue, 11204</p>
+          <p>Train: D, E, 2, 3</p>
+          <p>⭐️⭐️⭐️⭐️⭐️</p>
+          <p>❤️</p>
+        </Box>
       </Box>
-    </Box>
+    </div >
+
   )
 }
 
@@ -89,7 +93,7 @@ function Favorites(props) {
   return (
     <div>
       <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Favorite Meal Sites</p></Box>
-      <EachList />
+      <EachList getFav={props.getFav} />
       <Profile currentUser={props.user} handleChange={props.handleUser} updateUser={props.updateUser} deleteUser={props.deleteUser} />
     </div>
   );

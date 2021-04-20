@@ -2,6 +2,7 @@ import React from 'react';
 import './navbar.css'
 import styled from 'styled-components'
 import logo from'../Images/logo.png'
+import Forms from '../MainPage/FormModal'
 import {Button, Menu, MenuItem, makeStyles, createMuiTheme,ThemeProvider, useMediaQuery} from '@material-ui/core';
 
 //NOTE ::
@@ -141,66 +142,110 @@ const menuOptionStyle = makeStyles(() => ({
 
 function Header(props) {
 
-  const buttons = ['Sign Up', 'Sign In']
+
   const btnClasses = btnstyles()
   const userNameBtnStyles = userNameBtnStyle()
-  const desktopMenuStyles = desktopMenuStyle()
-  const menuOptionStyles = menuOptionStyle()
-  const logoClasses = logoStyles()
-  const menuList = ['HOME', 'LIST', 'FAVORITES', 'PROFILE', 'SIGN OUT'] //LIST PAGE IS THE HOMEPAGE FOR NOW
-   //SET MOBILE MENU STATE
-  //  const [openMenu, setOpenMenu] = React.useState(false)
-  //  const [anchorEl, setAnchorEl] = React.useState(null)
 
-  // //HANDLE MOBILE MENU, FUNCTION TO OPEN MOBILE MENU
-  // const showMenuOption = (e) => {
-  //   console.log(e.target,  openMenu, anchorEl, 'why is menu shwoing up')
-  //   setAnchorEl(e.target)
-  //   setOpenMenu(true)
-  //   console.log(e.target,  openMenu, anchorEl, 'why is menu shwoing up')
-  // }
-  // const closeMenu =  () => {
-  //   console.log('im closing menu', openMenu, anchorEl)
-  //   setOpenMenu(false)
-  //   setAnchorEl(null)
-  // }
+  const logoClasses = logoStyles()
+
+  const buttons = ['Sign Up', 'Sign In']
+
+  const signUpLabels = ['username', 'email', 'address', 'city', 'zipcode', 'password']
+  const signInLabels = ['email', 'password']
+
+  const menuList = ['HOME', 'LIST', 'FAVORITES', 'PROFILE', 'SIGN OUT'] //LIST PAGE IS THE HOMEPAGE FOR NOW
+  
+  const [labels, setLabels] = React.useState(signUpLabels)
+
+  //SET SIGN UP/ SIGN IN MODAL STATE
+  const [openModal, setOpenModal] = React.useState(false)
+
+  //SET LOGGED DROP DOWN MENU STATE
+  const [openMenu, setOpenMenu] = React.useState({
+    open: false,
+    anchorEl: null
+  })
+
+  //RETURN SIGN UP FORM ON CLICK ON SIGN UP BUTTON. THIS OPENS MODAL
+  const handleSignUpClick = (e) => {
+    setOpenModal(true)
+    console.log('clicking sign up', openModal)
+  }
+
+  //RETURN SIGN IN FORM ON CLICK OF SIGN IN BUTTON 
+  const handleSignInClick = (e) => {
+    console.log(e.target)
+    setLabels(signInLabels)
+    setOpenModal(true)
+    console.log('clicking sign in', openModal)
+  }
+
+  //CLOSE MODAL FUNCTION
+  const handleModalClose = () => {
+    setOpenModal(false)
+    setLabels(signUpLabels)
+  }
+
+  //HANDLE MOBILE MENU, FUNCTION TO OPEN MOBILE MENU
+  const showMenuOption = (e) => {
+    setOpenMenu({
+    open: true,
+    anchorEl: e.target
+    })
+  }
+  const closeMenu = () => {
+    setOpenMenu({
+      open: false,
+      anchorEl: null
+    })
+  } 
 
 
 
   return (
-      <DivStyle className="Nav">
-        <img src={logo} alt="logo" id='logo'  className={logoClasses.root} />
-        {!props.userSignedIn.signedIn ? 
+    <DivStyle className="Nav">
+      <img src={logo} alt="logo" id='logo'  className={logoClasses.root} />
+      {!props.userSignedIn.signedIn ? 
         buttons.map ((button, index) => (
-          <Button 
+        <Button 
           variant="contained" 
           id={`button${index}`} 
           key={button} 
           className={btnClasses.root} 
           size="small" 
-          onClick={button === 'Sign Up' ? props.clickSignUpBtn: props.clickSignInBtn}
+          onClick={button === 'Sign Up' ? handleSignUpClick: handleSignInClick}
         >
-        {button}
+          {button}
         </Button> )) :
         <div>
           <Button 
             className={userNameBtnStyles.root}
-            onClick={props.openMenu}
+            onClick={showMenuOption}
           >
             {props.userSignedIn.currentUser.username}
           </Button>
-          <Menu open={props.menuOpt.open} anchorEl={props.menuOpt.anchorEl} onClose={props.closeMenu}>
+          <Menu open={openMenu.open} anchorEl={openMenu.anchorEl} onClose={closeMenu}>
             {menuList.map(option => (
               <MenuItem 
                 key={option} 
-                onClick={option === 'SIGN OUT'? props.logout: props.closeMenu}
+                onClick={option === 'SIGN OUT'? props.logout: closeMenu}
               >{option}
               </MenuItem>
             ))}
           </Menu>
         </div>
-        } 
-        
+      }
+      <Forms
+        formLabels={labels}
+        modalOpen={openModal}
+        modalClose={handleModalClose}
+        signupChange={props.signUpOnChange}
+        signinChange={props.signInOnChange}
+        userVals={props.userVals}
+        loginVals={props.loginVals}
+        submitUser={props.onSubmitUser}
+        submitLogin={props.onSubmitLogIn}
+      />
     </DivStyle> 
   );
 }

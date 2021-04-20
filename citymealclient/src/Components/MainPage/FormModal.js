@@ -137,8 +137,8 @@ function Forms(props) {
     const modalClass = modalStyle()
     const formClass = formStyle()
     const webForm = useMediaQuery(themes2.breakpoints.up('tablet'))
-    
 
+    console.log(props.formLabels)
     return (
         <div>
             {!webForm ?
@@ -155,13 +155,13 @@ function Forms(props) {
                                 name={label}
                                 value= {props.formLabels.length > 2 ? props.userVals.label : props.loginVals.label}
                                 required
-                                onChange= {props.valueChange}
+                                onChange= {props.formLabels.length > 2 ? props.signupChange : props.signinChange}
                             />
                         ))}
                         <Button 
                             variant="contained" 
                             size='small'
-                            onClick={props.formLabels.length > 2 ? props.onSubmitUserDetails : props.onSubmitLoginDetails}
+                            onClick={props.formLabels.length > 2 ? props.submitUser : props.submitLogin}
                         >
                             {props.formLabels.length > 2 ? 'SIGN UP' : 'SIGN IN'}
                         </Button>
@@ -178,8 +178,8 @@ function Forms(props) {
                                     size="small"
                                     name={label}
                                     className='MuiInput-formControl' 
-                                    value={props.formLabels.length > 2 ? props.userVals.label : props.loginVals.label} 
-                                    onChange= {props.valueChange}
+                                    value={props.formLabels > 2 ? props.userVals.label : props.loginVals.label} 
+                                    onChange= {props.formLabels.length > 2 ? props.signupChange : props.signinChange}
                                     type={label === 'password'? "password": null}
                                 />
                             </FormControl>
