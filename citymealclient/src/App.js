@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import Header from './Components/Navbar/navbar';
 import Footer from './Components/Footer/footer';
@@ -62,12 +62,11 @@ function App() {
   }
 
   //FUNCTION MAKING A NEW USER POST REQUEST TO THE DATABASE
-  const signUpUser = async (e) => {
-    e.preventDefault()
+  const signUpUser = () => {
     console.log(newUser)
     console.log('i clicked signup user func')
     //Write a function to post user in database
-    await fetch(
+    fetch(
       `${BASE_URL}/register`, {
       method: 'POST',
       headers: {
@@ -93,11 +92,11 @@ function App() {
 
 
   //USE LOGIN DETAIL OBJECT TO AUTHENTICATE USER: WRITE AUTH FUNCTION
-  const signInUser = async (e) => {
+  const signInUser = (e) => {
     e.preventDefault();
     console.log(logInDetails)
     //Write a POST request to user login route on the back end
-    await fetch(`${BASE_URL}/login`, {
+    fetch(`${BASE_URL}/login`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -152,12 +151,12 @@ function App() {
 
 
   //UPDATE USER
-  const updateUser = async () => {
+  const updateUser = () => {
     const token = userSignedIn.token
     console.log('I AM CLICKING SUBMIT')
     console.log(userSignedIn.token)
     console.log(userSignedIn.currentUser)
-    await fetch(`${BASE_URL}/user`, {
+    fetch(`${BASE_URL}/user`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -180,10 +179,10 @@ function App() {
   }
 
   //DELETE USER
-  const deleteUser = async () => {
+  const deleteUser = () => {
     // const token = userSignedIn.token
     //Write a POST request to user login route on the back end
-    await fetch(`${BASE_URL}/user`, {
+    fetch(`${BASE_URL}/user`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
@@ -197,21 +196,58 @@ function App() {
       .catch(err => console.log(err))
   }
 
+  // //GET ALL LOCATIONS
+  // const getAllLocations = () => {
+  //   fetch(`${BASE_URL}/locations`, {
+  //     headers: {
+  //       'Accept': 'application/json',
+  //     },
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       setLocations(data.locations)
+  //     })
+  //     .catch(err => console.log(err))
+  // }
+
+  // //FILTER LOCATIONS BY EITHER ZIP CODE OR BOROUGH
+
+  // // const filterLocations = async () => {
+  // //   //get the filter label value, if it is zip, make a all to the '/getLocations/:zipcode' route, 
+  // //   //if it is Borugh make a call to the Borugh route
+  // // }
+
+  // //CHECK LOCAL STORAGE EACH TIME APP LOADS TO SEE IF THERE IS A USERS
+  // React.useEffect(() => {
+  //   console.log(localStorage)
+  //   const loggedInUser = localStorage.getItem("user")
+  //   console.log(loggedInUser)
+  //   if (loggedInUser) {
+  //     const userFound = JSON.parse(loggedInUser)
+  //     console.log(userFound, loggedInUser)
+  //     setUserSignedIn(prevState => ({
+  //       ...prevState,
+  //       signedIn: true,
+  //       currentUser: userFound
+  //     }))
+  //   }
+  //   getAllLocations()
+  //   // filterLocations()
+  // }, [], [])
+
 
   //ADD FAVORITE SITE
-  const addFav = async (e) => {
+  const addFav = (e) => {
     // let locationId = locations.map(location => { location.id })
     // e.preventDefault();
     // console.log(typeof e.target.name)
 
     const id = userSignedIn.currentUser.id
     const locationId = parseInt(e.target.name)
-    const locationName = parseInt(e.target.name)
-    const locationCity = parseInt(e.target.name)
     console.log(locationId)
 
 
-    await fetch(`${BASE_URL}/user/${id}/savefavorite`, {
+    fetch(`${BASE_URL}/user/${id}/savefavorite`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -220,8 +256,6 @@ function App() {
       body: JSON.stringify({
         user_id: userSignedIn.currentUser.name,
         location_id: locationId,
-        name: locationName,
-        city: locationCity
       })
     })
       .then(response => response.json())
@@ -231,34 +265,40 @@ function App() {
       .catch(err => console.log(err))
   }
 
-  //GET ALL FAVORITE SITES
-  const getFav = async (e) => {
-    const id = userSignedIn.currentUser.id
+  React.useEffect(() => {
+    const getFav = () => {
+      const id = userSignedIn.currentUser.id
+      if (!id) {
+        console.log('There is no user id')
+        return
+      }
 
-    await fetch(`${BASE_URL}/user/${id}/getfavorites`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .then(data => {
-        // setFavorites(data)
-        console.log(data)
+      fetch(`${BASE_URL}/user/${id}/getfavorites`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        },
       })
-      .catch(err => console.log(err))
-  }
+        .then(response => response.json())
+        .then(data => {
+          setFavorites(data.favorites)
+        })
+        .catch(err => console.log(err))
+    }
+    getFav()
+  }, [userSignedIn])
+
 
   // DELETE FAVORITE
-  const deleteFav = async () => {
+  const deleteFav = () => {
+    const token = userSignedIn.token
     const id = userSignedIn.currentUser.id
 
-    await fetch(`${BASE_URL}/${id}/deletefavorite`, {
+    fetch(`${BASE_URL}/${id}/deletefavorite`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
-        'Authorization': `Bearer ${userSignedIn.token}`
+        'Authorization': `Bearer ${token}`
       },
     })
       .then(response => {
@@ -307,6 +347,30 @@ function App() {
     getAllLocation()
   }, [])
 
+  // //POST RATE 
+  // const rate = async (e) => {
+  //   const token = userSignedIn.token
+  //   const userId = userSignedIn.currentUser.id
+  //   // const locationId
+
+  //   await fetch(`${BASE_URL}/users/${userId}/locations/:location_id/ratings`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `Bearer ${token}`
+  //     },
+  //     body: JSON.stringify({
+
+  //     })
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       console.log(data)
+  //     })
+  //     .catch(err => console.log(err))
+  // }
+
 
   
   //CHECK LOCAL STORAGE EACH TIME APP LOADS TO SEE IF THERE IS A USESR
@@ -342,11 +406,22 @@ function App() {
           onSubmitUser={signUpUser}
           onSubmitLogIn={signInUser}
         />
-        <HomePage 
-          siteCoords={siteCoords}
-          signedIn={userSignedIn.signedIn}
-
-        />
+        {!userSignedIn.signedIn ?
+          <HomePage 
+            siteCoords={siteCoords}
+            signedIn={userSignedIn.signedIn}
+          /> :
+          // <ListView locations={locations} addFav={addFav}/>
+          <Favorites
+            user={userSignedIn.currentUser}
+            handleUser={handleChange}
+            updateUser={updateUser}
+            deleteUser={deleteUser}
+            locations={locations}
+            favorites={favorites}
+            deleteFav={deleteFav}
+          />
+        }
       </div>
       <Footer />
     </div>
