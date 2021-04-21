@@ -119,7 +119,7 @@ function EachList(props) {
               <p>{favorite.city}</p>
               <Rating />
               <Button variant="contained" color="primary" style={directionStyle}><a style={{ textDecoration: "none", color: "white" }} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a></Button>
-              <button className={classes.favBtn} onClick={props.deleteFav} >❤️</button>
+              <button className={classes.favBtn} onClick={props.deleteFav} name={favorite.id} >❤️</button>
             </Box>
           </Box>
         ))}
@@ -136,8 +136,8 @@ function Favorites(props) {
     <div>
       <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Favorite Meal Sites</p></Box>
       {/* <EachList getFav={props.getFav} /> */}
-      <EachList favorites={props.favorites} />
-      <Profile currentUser={props.user} handleChange={props.handleUser} updateUser={props.updateUser} deleteUser={props.deleteUser} />
+      <EachList favorites={props.favorites} deleteFav={props.deleteFav} />
+      <Profile button={props.btn}userSignedIn={props.userSignedIn} currentUser={props.user} updateUser={props.updateUser} handleChange={props.handleUser} deleteUser={props.deleteUser} />
     </div>
   );
 }

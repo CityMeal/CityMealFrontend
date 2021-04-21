@@ -8,6 +8,7 @@ import HomePage from './Components/MainPage/HomePage';
 import Favorites from './Components/Favorites/Favorites';
 
 const BASE_URL = "http://localhost:3030"
+console.log(process.env.REACT_APP_key)
 
 function App() {
 
@@ -41,15 +42,15 @@ function App() {
     token: '',
     currentUser: {}
   })
-  
+
 
   //GET NEW USER SIGN UP INFO
   const handleUserValueChange = (event) => {
     const { name, value } = event.target
     setNewUser({
-        ...newUser,
-        [name]: value
-      })
+      ...newUser,
+      [name]: value
+    })
   };
 
   const handleLoginValueChange = (event) => {
@@ -92,6 +93,7 @@ function App() {
 
   //USE LOGIN DETAIL OBJECT TO AUTHENTICATE USER: WRITE AUTH FUNCTION
   const signInUser = (e) => {
+    console.log(e.target)
     e.preventDefault();
     console.log(logInDetails)
     //Write a POST request to user login route on the back end
@@ -121,7 +123,6 @@ function App() {
       username: "",
       password: ""
     })
-
   }
 
   //LOG USER OUT
@@ -149,12 +150,8 @@ function App() {
   }
 
 
-  //UPDATE USER
   const updateUser = () => {
     const token = userSignedIn.token
-    console.log('I AM CLICKING SUBMIT')
-    console.log(userSignedIn.token)
-    console.log(userSignedIn.currentUser)
     fetch(`${BASE_URL}/user`, {
       method: 'PUT',
       headers: {
@@ -173,6 +170,9 @@ function App() {
           ...prevState,
           currentUser: data.user
         }))
+        console.log(data.user)
+        localStorage.removeItem('user')
+        localStorage.setItem('user', JSON.stringify(data.user))
       })
       .catch(err => console.log(err))
   }
@@ -195,9 +195,52 @@ function App() {
       .catch(err => console.log(err))
   }
 
+  // //GET ALL LOCATIONS
+  // const getAllLocations = () => {
+  //   fetch(`${BASE_URL}/locations`, {
+  //     headers: {
+  //       'Accept': 'application/json',
+  //     },
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       setLocations(data.locations)
+  //     })
+  //     .catch(err => console.log(err))
+  // }
+
+  // //FILTER LOCATIONS BY EITHER ZIP CODE OR BOROUGH
+
+  // // const filterLocations = async () => {
+  // //   //get the filter label value, if it is zip, make a all to the '/getLocations/:zipcode' route, 
+  // //   //if it is Borugh make a call to the Borugh route
+  // // }
+
+  // //CHECK LOCAL STORAGE EACH TIME APP LOADS TO SEE IF THERE IS A USERS
+  // React.useEffect(() => {
+  //   console.log(localStorage)
+  //   const loggedInUser = localStorage.getItem("user")
+  //   console.log(loggedInUser)
+  //   if (loggedInUser) {
+  //     const userFound = JSON.parse(loggedInUser)
+  //     console.log(userFound, loggedInUser)
+  //     setUserSignedIn(prevState => ({
+  //       ...prevState,
+  //       signedIn: true,
+  //       currentUser: userFound
+  //     }))
+  //   }
+  //   getAllLocations()
+  //   // filterLocations()
+  // }, [], [])
+
 
   //ADD FAVORITE SITE
   const addFav = (e) => {
+    // let locationId = locations.map(location => { location.id })
+    // e.preventDefault();
+    // console.log(typeof e.target.name)
+
     const id = userSignedIn.currentUser.id
     const locationId = parseInt(e.target.name)
     console.log(locationId)
@@ -246,16 +289,24 @@ function App() {
 
 
   // DELETE FAVORITE
-  const deleteFav = () => {
+  const deleteFav = (e) => {
     const token = userSignedIn.token
+    console.log(token)
     const id = userSignedIn.currentUser.id
+    console.log(id)
+    const locationId = e.target.name
+    console.log(locationId)
 
-    fetch(`${BASE_URL}/${id}/deletefavorite`, {
+    fetch(`${BASE_URL}/user/${id}/${locationId}/deletefavorite`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
         'Authorization': `Bearer ${token}`
-      },
+      }
+      // ,
+      // body: {
+      //   location_id: locationId
+      // }
     })
       .then(response => {
         return response.json()
@@ -266,31 +317,39 @@ function App() {
 
   //GET ALL LOCATIONS AND CREATE SITE POSITION COORDINATES FOR MAP VIEW
   React.useEffect(() => {
-   
-    const  getAllLocation = () => {
-     fetch(`${BASE_URL}/locations`, {
+    let coordObj = {
+      name: '',
+      zip: '',
+      address: '',
+      position: {
+        lat: '',
+        lng: ''
+      }
+    }
+    const getAllLocation = async () => {
+      await fetch(`${BASE_URL}/locations`, {
         headers: {
           'Accept': 'application/json',
         },
       })
-      .then(response => response.json())
-      .then(data => {
-        const sites = data.locations.map(site => {
-          return {
-            name: site.name,
-            zip: site.zip,
-            address: site.siteAddress,
-            position: {
-              lat: parseFloat(site.latitude),
-              lng: parseFloat(site.longitude)
+        .then(response => response.json())
+        .then(data => {
+          const sites = data.locations.map(site => {
+            return coordObj = {
+              name: site.name,
+              zip: site.zip,
+              address: site.siteAddress,
+              position: {
+                lat: parseFloat(site.latitude),
+                lng: parseFloat(site.longitude)
+              }
             }
-          }
+          })
+          localStorage.setItem('sites', JSON.stringify(sites)) //NOT FULLY SURE IF THIS IS DOING WHAT I WANT IT TO DO
+          setSiteCoords(sites)
+          setLocations(data.locations)
         })
-        localStorage.setItem('sites', JSON.stringify(sites)) //NOT FULLY SURE IF THIS IS DOING WHAT I WANT IT TO DO
-        setSiteCoords(sites)
-        setLocations(data.locations)
-      })
-      .catch(err => console.log(err))
+        .catch(err => console.log(err))
     }
     getAllLocation()
   }, [])
@@ -320,11 +379,13 @@ function App() {
   // }
 
 
-  
+
   //CHECK LOCAL STORAGE EACH TIME APP LOADS TO SEE IF THERE IS A USESR
   React.useEffect(() => {
+    console.log(localStorage)
     const loggedInUser = localStorage.getItem("user")
     const token = localStorage.getItem("token")
+    console.log(loggedInUser)
     if (loggedInUser) {
       const userFound = JSON.parse(loggedInUser)
       console.log(userFound, loggedInUser)
@@ -335,9 +396,10 @@ function App() {
         token: token
       }))
     }
+    console.log(userSignedIn.currentUser)
   }, [])
 
- 
+
 
   return (
     <div className="App">
@@ -345,32 +407,38 @@ function App() {
         <Header
           userSignedIn={userSignedIn}
           logout={logOut}
-          userVals = {newUser}
+          userVals={newUser}
           signUpOnChange={handleUserValueChange}
           signInOnChange={handleLoginValueChange}
           loginVals={logInDetails}
           onSubmitUser={signUpUser}
           onSubmitLogIn={signInUser}
         />
+        {/* <ListView locations={locations} addFav={addFav} /> */}
 
         {!userSignedIn.signedIn ?
-          <HomePage 
+          <HomePage
             siteCoords={siteCoords}
             signedIn={userSignedIn.signedIn}
-          /> :
-          <ListView locations={locations} addFav={addFav}/>
-          // <Favorites
-          //   user={userSignedIn.currentUser}
-          //   handleUser={handleChange}
-          //   updateUser={updateUser}
-          //   deleteUser={deleteUser}
-          //   locations={locations}
-          //   favorites={favorites}
-          //   deleteFav={deleteFav}
-          // />
+          />
+          :
+          // <ListView locations={locations} addFav={addFav} />
+          // ,
+          <Favorites
+     
+            user={userSignedIn.currentUser}
+            handleUser={handleChange}
+            updateUser={updateUser}
+            deleteUser={deleteUser}
+            locations={locations}
+            favorites={favorites}
+            deleteFav={deleteFav}
+            userSignedIn={userSignedIn}
+          />
         }
+        <Footer />
       </div>
-      <Footer />
+
     </div>
   );
 }

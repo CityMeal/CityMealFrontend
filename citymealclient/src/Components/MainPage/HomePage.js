@@ -2,12 +2,11 @@ import React from 'react';
 import Announcement from '../Others/announce';
 import Filter from '../ListComponent/Filter';
 import Forms from '../MainPage/FormModal';
-import { makeStyles,createMuiTheme, useMediaQuery, Popover, Typography } from '@material-ui/core';
+import { makeStyles, createMuiTheme, useMediaQuery, Popover, Typography } from '@material-ui/core';
 
-import {GoogleMap, LoadScript, Marker, InfoWindow} from '@react-google-maps/api'
+import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api' //I need to hide this
 
-const key = 'AIzaSyC4DRbqgSVfVfyh8U1_TYcROL041wHGScE'  //I need to hide this
-
+const key = "AIzaSyC4DRbqgSVfVfyh8U1_TYcROL041wHGScE"
 
 const mapDiv = {
     // border: 'solid blue',
@@ -25,19 +24,19 @@ const alert = {
 }
 const themes2 = createMuiTheme({
     breakpoints: {
-      values: {
-        xs: 0,
-        sm: 340,
-        md: 360,
-        lg: 411,
-        xl: 700,
-        tablet: 760,
-        laptop: 1024,
-        desktop: 1280,
-      },
+        values: {
+            xs: 0,
+            sm: 340,
+            md: 360,
+            lg: 411,
+            xl: 700,
+            tablet: 760,
+            laptop: 1024,
+            desktop: 1280,
+        },
     }
-  })
-  
+})
+
 const homeStyles = makeStyles((theme) => ({
     mainDiv: {
         // border: 'solid red',
@@ -72,13 +71,13 @@ const homeStyles = makeStyles((theme) => ({
 }))
 
 
-function AlertComponent(props){
-    
-    return(
+function AlertComponent(props) {
+
+    return (
         <div>
-            <Popover 
-                open={props.open} 
-                anchorEl={props.anchorEl} 
+            <Popover
+                open={props.open}
+                anchorEl={props.anchorEl}
                 onClose={props.close}
                 anchorOrigin={{
                     vertical: 'bottom',
@@ -94,8 +93,8 @@ function AlertComponent(props){
         </div>
     )
 }
-function HomePage(props){
-    
+function HomePage(props) {
+
     const classes = homeStyles()
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -109,8 +108,8 @@ function HomePage(props){
         setAnchorEl(null);
     };
 
-     //SET USER POSITION
-    const[usersLocation, setUsersLocation] = React.useState({})
+    //SET USER POSITION
+    const [usersLocation, setUsersLocation] = React.useState({})
     const [siteSelected, setSiteSelected] = React.useState({})
 
     //SET USERS LOCATION STATE ONECE LOADED FROM USEEFFECT
@@ -129,17 +128,18 @@ function HomePage(props){
     React.useEffect(() => {
         //GET FIRST LOCATION OF USER ON PAGE LOAD
         navigator.geolocation.getCurrentPosition(success)
+        //Look up navigator.watchPosition 
     }, [])
 
-   
-    return(
+
+    return (
         <div className={classes.mainDiv}>
             <Announcement />
             <div className={classes.filterMapDiv}>
                 <Filter />
                 <LoadScript googleMapsApiKey={key}>
-                    <GoogleMap 
-                        mapContainerStyle={mapDiv} 
+                    <GoogleMap
+                        mapContainerStyle={mapDiv}
                         zoom={12}
                         center={usersLocation}
                     >
