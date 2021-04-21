@@ -4,16 +4,8 @@ import styled from 'styled-components'
 import logo from '../Images/logo.png'
 import Forms from '../MainPage/FormModal'
 import { Button, Menu, MenuItem, makeStyles, createMuiTheme, ThemeProvider, useMediaQuery } from '@material-ui/core';
-//NOTE ::
-// xs, extra-small: 0px
-// sm, small: 600px
-// md, medium: 960px
-// lg, large: 1280px
-// xl, extra-large: 1920px
-// theme.breakpoints.up(sm/600) =>  screen width >= sm/600
-// theme.breakpoints.down(sm/600) => screen width <= sm/600
-// theme.breakpoints.only(sm/600) => screen width === sm/600
-// theme.breakpoints.between(0/xm, sm/600) => screen width > 0, but <  sm/600 i.e between 0 & 600
+
+
 //Styled-Component Styling
 const DivStyle = styled.div`
   width: 100vw;
@@ -176,7 +168,8 @@ function Header(props) {
   return (
     <DivStyle className="Nav">
       <img src={logo} alt="logo" id='logo' className={logoClasses.root} />
-      {!props.userSignedIn.signedIn ?
+      {!props.userSignedIn.signedIn 
+      ?
         buttons.map((button, index) => (
           <Button
             variant="contained"
@@ -185,22 +178,16 @@ function Header(props) {
             className={btnClasses.root}
             size="small"
             onClick={button === 'Sign Up' ? handleSignUpClick : handleSignInClick}
-          >
-            {button}
-          </Button>)) :
+          >{button}</Button>)) 
+        :
         <div>
-          <Button
-            className={userNameBtnStyles.root}
-            onClick={showMenuOption}
-          >{props.userSignedIn.currentUser.username}</Button>
-
+          <Button className={userNameBtnStyles.root} onClick={showMenuOption}>{props.userSignedIn.currentUser.username}</Button>
           <Menu open={openMenu.open} anchorEl={openMenu.anchorEl} onClose={closeMenu}>
             {menuList.map(option => (
               <MenuItem
                 key={option}
                 onClick={option === 'SIGN OUT' ? props.logout : closeMenu}
-              >{option}
-              </MenuItem>
+              >{option}</MenuItem>
             ))}
           </Menu>
         </div>
