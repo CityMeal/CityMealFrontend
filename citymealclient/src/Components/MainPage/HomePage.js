@@ -4,9 +4,7 @@ import Filter from '../ListComponent/Filter';
 import Forms from '../MainPage/FormModal';
 import { makeStyles, createMuiTheme, useMediaQuery, Popover, Typography } from '@material-ui/core';
 
-import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api'
-
-// const key = process.env.REACT_APP_KEY
+import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api' //I need to hide this
 
 const key = "AIzaSyC4DRbqgSVfVfyh8U1_TYcROL041wHGScE"
 
@@ -130,6 +128,7 @@ function HomePage(props) {
     React.useEffect(() => {
         //GET FIRST LOCATION OF USER ON PAGE LOAD
         navigator.geolocation.getCurrentPosition(success)
+        //Look up navigator.watchPosition 
     }, [])
 
 
@@ -144,32 +143,32 @@ function HomePage(props) {
                         zoom={12}
                         center={usersLocation}
                     >
-                        {props.siteCoords.map(site => {
-                            return (
-                                <Marker
-                                    key={site.name}
-                                    position={site.position}
-                                    onClick={() => handleSeclect(site)}
-                                />
-                            )
-                        })}
-                        {
-                            siteSelected.position &&
-                            (
-                                <InfoWindow
-                                    position={siteSelected.position}
-                                    clickable={true}
-                                    onCloseClick={() => setSiteSelected({})}
-                                >
-                                    <div>
-                                        <p>Food Center: {siteSelected.name}</p>
-                                        <p>Address: {siteSelected.address}</p>
-                                        <p>Zip Code: {siteSelected.zip}</p>
-                                        <button onClick={() => window.alert('Please Sign In To Rate and Save Locations')}>❤️</button>
-                                    </div>
-                                </InfoWindow>
-                            )
-                        }
+                    {props.siteCoords.map(site => {
+                        return(
+                        <Marker 
+                            key={site.name} 
+                            position={site.position} 
+                            onClick={() => handleSeclect(site)}
+                        />
+                        )
+                    })}
+                    {
+                        siteSelected.position && 
+                        (
+                        <InfoWindow
+                            position={siteSelected.position}
+                            clickable={true}
+                            onCloseClick={() => setSiteSelected({})}
+                        >
+                            <div>
+                                <p>Food Center: {siteSelected.name}</p>
+                                <p>Address: {siteSelected.address}</p>
+                                <p>Zip Code: {siteSelected.zip}</p>
+                                <button onClick={() => window.alert('Please Sign In To Rate and Save Locations')}>❤️</button>
+                            </div>
+                        </InfoWindow>
+                        )
+                    }
                     </GoogleMap>
                 </LoadScript>
             </div>

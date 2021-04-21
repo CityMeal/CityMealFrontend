@@ -93,6 +93,7 @@ function App() {
 
   //USE LOGIN DETAIL OBJECT TO AUTHENTICATE USER: WRITE AUTH FUNCTION
   const signInUser = (e) => {
+    console.log(e.target)
     e.preventDefault();
     console.log(logInDetails)
     //Write a POST request to user login route on the back end
@@ -122,7 +123,6 @@ function App() {
       username: "",
       password: ""
     })
-
   }
 
   //LOG USER OUT
@@ -150,12 +150,8 @@ function App() {
   }
 
 
-  //UPDATE USER
   const updateUser = () => {
     const token = userSignedIn.token
-    console.log('I AM CLICKING SUBMIT')
-    console.log(userSignedIn.token)
-    console.log(userSignedIn.currentUser)
     fetch(`${BASE_URL}/user`, {
       method: 'PUT',
       headers: {
@@ -169,7 +165,15 @@ function App() {
       })
     })
       .then(response => response.json())
-      .then(data => console.log(data))
+      .then(data => {
+        setUserSignedIn(prevState => ({
+          ...prevState,
+          currentUser: data.user
+        }))
+        console.log(data.user)
+        localStorage.removeItem('user')
+        localStorage.setItem('user', JSON.stringify(data.user))
+      })
       .catch(err => console.log(err))
   }
 
@@ -381,6 +385,7 @@ function App() {
         token: token
       }))
     }
+    console.log(userSignedIn.currentUser)
   }, [])
 
 
@@ -409,6 +414,7 @@ function App() {
           // <ListView locations={locations} addFav={addFav} />
           // ,
           <Favorites
+
             user={userSignedIn.currentUser}
             handleUser={handleChange}
             updateUser={updateUser}

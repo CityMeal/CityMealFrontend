@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import logo from '../Images/logo.png'
 import Forms from '../MainPage/FormModal'
 import { Button, Menu, MenuItem, makeStyles, createMuiTheme, ThemeProvider, useMediaQuery } from '@material-ui/core';
-
 //NOTE ::
 // xs, extra-small: 0px
 // sm, small: 600px
@@ -15,14 +14,12 @@ import { Button, Menu, MenuItem, makeStyles, createMuiTheme, ThemeProvider, useM
 // theme.breakpoints.down(sm/600) => screen width <= sm/600
 // theme.breakpoints.only(sm/600) => screen width === sm/600
 // theme.breakpoints.between(0/xm, sm/600) => screen width > 0, but <  sm/600 i.e between 0 & 600
-
 //Styled-Component Styling
 const DivStyle = styled.div`
   width: 100vw;
   height: 6.5em;
   background-color: #4484CE;
 `
-
 const themes = createMuiTheme({
   breakpoints: {
     values: {
@@ -42,7 +39,6 @@ const themes2 = createMuiTheme({
     },
   },
 })
-
 const logoStyles = makeStyles(() => ({
   root: {
     position: 'relative',
@@ -50,14 +46,12 @@ const logoStyles = makeStyles(() => ({
     height: 5 + 'em',
     left: 1 + 'em',
     top: 0.6 + 'em',
-
     [themes2.breakpoints.up('laptop')]: {
       position: 'relative',
       left: 2 + 'em',
     }
   }
 }))
-
 const btnstyles = makeStyles(() => ({
   root: {
     backgroundColor: '#E5E5E5',
@@ -71,12 +65,10 @@ const btnstyles = makeStyles(() => ({
     [themes.breakpoints.between('md', 'lg')]: {//360 - 411
       position: 'relative',
       left: 30 + '%',
-
     },
     [themes.breakpoints.up('lg')]: {//412 or more/699
       position: 'relative',
       left: 40 + '%',
-
     },
     [themes.breakpoints.up('xl')]: { // 700 or more 1023
       border: 'solid black',
@@ -102,7 +94,6 @@ const desktopMenuStyle = makeStyles(() => ({
     },
   }
 }))
-
 const userNameBtnStyle = makeStyles(() => ({
   root: {
     width: 30 + '%',
@@ -110,7 +101,7 @@ const userNameBtnStyle = makeStyles(() => ({
     top: -3 + 'em',
     left: 14.5 + 'em',
     borderRadius: 2 + 'px',
-    color: '#ffffff',
+    color: '#FFFFFF',
     fontSize: 17 + 'px',
     [themes.breakpoints.down('sm')]: {//340
       position: 'relative',
@@ -119,7 +110,6 @@ const userNameBtnStyle = makeStyles(() => ({
     [themes.breakpoints.up('lg')]: {//412 or more/699
       position: 'relative',
       left: 16.8 + 'em',
-
     },
   }
 }))
@@ -136,56 +126,40 @@ const menuOptionStyle = makeStyles(() => ({
     left: 212 + 'px',
   }
 }))
-
-
-
-
 function Header(props) {
-
-
+  console.log(props.userSignedIn)
   const btnClasses = btnstyles()
   const userNameBtnStyles = userNameBtnStyle()
-
   const logoClasses = logoStyles()
-
   const buttons = ['Sign Up', 'Sign In']
-
   const signUpLabels = ['username', 'email', 'address', 'city', 'zipcode', 'password']
   const signInLabels = ['email', 'password']
-
   const menuList = ['HOME', 'LIST', 'FAVORITES', 'PROFILE', 'SIGN OUT'] //LIST PAGE IS THE HOMEPAGE FOR NOW
-
   const [labels, setLabels] = React.useState(signUpLabels)
-
   //SET SIGN UP/ SIGN IN MODAL STATE
   const [openModal, setOpenModal] = React.useState(false)
-
   //SET LOGGED DROP DOWN MENU STATE
   const [openMenu, setOpenMenu] = React.useState({
     open: false,
     anchorEl: null
   })
-
   //RETURN SIGN UP FORM ON CLICK ON SIGN UP BUTTON. THIS OPENS MODAL
   const handleSignUpClick = (e) => {
     setOpenModal(true)
     console.log('clicking sign up', openModal)
   }
-
-  //RETURN SIGN IN FORM ON CLICK OF SIGN IN BUTTON 
+  //RETURN SIGN IN FORM ON CLICK OF SIGN IN BUTTON
   const handleSignInClick = (e) => {
     console.log(e.target)
     setLabels(signInLabels)
     setOpenModal(true)
     console.log('clicking sign in', openModal)
   }
-
   //CLOSE MODAL FUNCTION
   const handleModalClose = () => {
     setOpenModal(false)
     setLabels(signUpLabels)
   }
-
   //HANDLE MOBILE MENU, FUNCTION TO OPEN MOBILE MENU
   const showMenuOption = (e) => {
     setOpenMenu({
@@ -199,9 +173,6 @@ function Header(props) {
       anchorEl: null
     })
   }
-
-
-
   return (
     <DivStyle className="Nav">
       <img src={logo} alt="logo" id='logo' className={logoClasses.root} />
@@ -221,9 +192,8 @@ function Header(props) {
           <Button
             className={userNameBtnStyles.root}
             onClick={showMenuOption}
-          >
-            {props.userSignedIn.currentUser.username}
-          </Button>
+          >{props.userSignedIn.currentUser.username}</Button>
+
           <Menu open={openMenu.open} anchorEl={openMenu.anchorEl} onClose={closeMenu}>
             {menuList.map(option => (
               <MenuItem
@@ -249,5 +219,4 @@ function Header(props) {
     </DivStyle>
   );
 }
-
 export default Header;

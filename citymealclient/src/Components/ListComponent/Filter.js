@@ -98,12 +98,16 @@ function Filter() {
     }
 
     React.useEffect(() => {
-
         //FILTER LOCATIONS BY EITHER ZIP CODE OR BOROUGH
         //get the filter label value, if it is zip, make a all to the '/getLocations/:zipcode' route, 
         //if it is Borugh make a call to the Borugh route
 
-        const filterLocation = async () => {
+
+        ///Update 
+        const filterLocation = async (e) => {
+
+            // let param = zipcode / [borughs] / addresss&newcuurentpositon //If it's an address, create it into a string or an object
+
             await fetch(`${BASE_URL}/getLocations/:${zipcode}`, {
                 headers: {
                     'Accept': 'application/json',
