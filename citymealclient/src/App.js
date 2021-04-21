@@ -169,12 +169,7 @@ function App() {
       })
     })
       .then(response => response.json())
-      .then(data => {
-        setUserSignedIn(prevState => ({
-          ...prevState,
-          currentUser: data.user
-        }))
-      })
+      .then(data => console.log(data))
       .catch(err => console.log(err))
   }
 
@@ -238,10 +233,6 @@ function App() {
 
   //ADD FAVORITE SITE
   const addFav = (e) => {
-    // let locationId = locations.map(location => { location.id })
-    // e.preventDefault();
-    // console.log(typeof e.target.name)
-
     const id = userSignedIn.currentUser.id
     const locationId = parseInt(e.target.name)
     console.log(locationId)
@@ -292,11 +283,8 @@ function App() {
   // DELETE FAVORITE
   const deleteFav = (e) => {
     const token = userSignedIn.token
-    console.log(token)
     const id = userSignedIn.currentUser.id
-    console.log(id)
     const locationId = e.target.name
-    console.log(locationId)
 
     fetch(`${BASE_URL}/user/${id}/${locationId}/deletefavorite`, {
       method: 'DELETE',
@@ -304,10 +292,6 @@ function App() {
         'Accept': 'application/json',
         'Authorization': `Bearer ${token}`
       }
-      // ,
-      // body: {
-      //   location_id: locationId
-      // }
     })
       .then(response => {
         return response.json()
@@ -427,6 +411,7 @@ function App() {
           <Favorites
             user={userSignedIn.currentUser}
             handleUser={handleChange}
+            updateUser={updateUser}
             deleteUser={deleteUser}
             locations={locations}
             favorites={favorites}

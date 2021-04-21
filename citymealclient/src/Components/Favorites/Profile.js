@@ -8,6 +8,9 @@ const BASE_URL = "http://localhost:3030"
 
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        marginBottom: '3%',
+    },
     msg: {
         display: 'flex',
         justifyContent: 'center',
@@ -69,7 +72,7 @@ function ShowProfile(props) {
     }
 
     return (
-        <div>
+        <div className={classes.root}>
             <Box className={classes.profile}>
                 {currentBtn === 'EDIT' ?
                     (currentZipcode &&
@@ -88,15 +91,24 @@ function ShowProfile(props) {
                         }
                     </form>
                 }
+
+                <Button
+                    className={classes.editform}
+                    variant="contained"
+                    color="primary"
+                    onClick={currentBtn === 'EDIT' ? handleClick : props.updateUser}
+                >{currentBtn}
+                </Button>
+                <Button
+                    className={classes.editform}
+                    variant="outlined"
+                    color="primary"
+                    onClick={props.deleteUser}>
+                    Delete Account
+                </Button>
+
             </Box>
-            <Button
-                className={classes.editform}
-                variant="contained"
-                color="primary"
-                onClick={currentBtn === 'EDIT' ? handleClick : props.updateUser}
-            >{currentBtn}
-            </Button>
-            <Button className={classes.editform} variant="outlined" color="primary" onClick={props.deleteUser}>Delete Account</Button>
+
         </div>
     )
 }
