@@ -6,9 +6,8 @@ import { makeStyles,createMuiTheme, useMediaQuery, Popover, Typography } from '@
 
 import {GoogleMap, LoadScript, Marker, InfoWindow} from '@react-google-maps/api'
 
-// const key = process.env.REACT_APP_KEY
+const key = 'AIzaSyC4DRbqgSVfVfyh8U1_TYcROL041wHGScE'  //I need to hide this
 
-const key = process.env.REACT_APP_key  //I need to hide this
 
 const mapDiv = {
     // border: 'solid blue',
@@ -156,18 +155,18 @@ function HomePage(props){
                     {
                         siteSelected.position && 
                         (
-                            <InfoWindow
-                                position={siteSelected.position}
-                                clickable={true}
-                                onCloseClick={() => setSiteSelected({})}
-                            >
-                                <div>
-                                    <p>Food Center: {siteSelected.name}</p>
-                                    <p>Address: {siteSelected.address}</p>
-                                    <p>Zip Code: {siteSelected.zip}</p>
-                                    <button onClick={() => window.alert('Please Sign In To Rate and Save Locations')}>❤️</button>
-                                </div>
-                            </InfoWindow>
+                        <InfoWindow
+                            position={siteSelected.position}
+                            clickable={true}
+                            onCloseClick={() => setSiteSelected({})}
+                        >
+                            <div>
+                                <p>Food Center: {siteSelected.name}</p>
+                                <p>Address: {siteSelected.address}</p>
+                                <p>Zip Code: {siteSelected.zip}</p>
+                                <button onClick={() => window.alert('Please Sign In To Rate and Save Locations')}>❤️</button>
+                            </div>
+                        </InfoWindow>
                         )
                     }
                     </GoogleMap>

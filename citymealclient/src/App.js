@@ -8,7 +8,6 @@ import HomePage from './Components/MainPage/HomePage';
 import Favorites from './Components/Favorites/Favorites';
 
 const BASE_URL = "http://localhost:3030"
-console.log(process.env.REACT_APP_key)
 
 function App() {
 
@@ -196,52 +195,9 @@ function App() {
       .catch(err => console.log(err))
   }
 
-  // //GET ALL LOCATIONS
-  // const getAllLocations = () => {
-  //   fetch(`${BASE_URL}/locations`, {
-  //     headers: {
-  //       'Accept': 'application/json',
-  //     },
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       setLocations(data.locations)
-  //     })
-  //     .catch(err => console.log(err))
-  // }
-
-  // //FILTER LOCATIONS BY EITHER ZIP CODE OR BOROUGH
-
-  // // const filterLocations = async () => {
-  // //   //get the filter label value, if it is zip, make a all to the '/getLocations/:zipcode' route, 
-  // //   //if it is Borugh make a call to the Borugh route
-  // // }
-
-  // //CHECK LOCAL STORAGE EACH TIME APP LOADS TO SEE IF THERE IS A USERS
-  // React.useEffect(() => {
-  //   console.log(localStorage)
-  //   const loggedInUser = localStorage.getItem("user")
-  //   console.log(loggedInUser)
-  //   if (loggedInUser) {
-  //     const userFound = JSON.parse(loggedInUser)
-  //     console.log(userFound, loggedInUser)
-  //     setUserSignedIn(prevState => ({
-  //       ...prevState,
-  //       signedIn: true,
-  //       currentUser: userFound
-  //     }))
-  //   }
-  //   getAllLocations()
-  //   // filterLocations()
-  // }, [], [])
-
 
   //ADD FAVORITE SITE
   const addFav = (e) => {
-    // let locationId = locations.map(location => { location.id })
-    // e.preventDefault();
-    // console.log(typeof e.target.name)
-
     const id = userSignedIn.currentUser.id
     const locationId = parseInt(e.target.name)
     console.log(locationId)
@@ -310,17 +266,9 @@ function App() {
 
   //GET ALL LOCATIONS AND CREATE SITE POSITION COORDINATES FOR MAP VIEW
   React.useEffect(() => {
-    let coordObj = {
-      name: '',
-      zip: '',
-      address:'',
-      position: {
-          lat: '',
-          lng: ''
-      }
-    }
-    const  getAllLocation = async () => {
-      await fetch(`${BASE_URL}/locations`, {
+   
+    const  getAllLocation = () => {
+     fetch(`${BASE_URL}/locations`, {
         headers: {
           'Accept': 'application/json',
         },
@@ -328,7 +276,7 @@ function App() {
       .then(response => response.json())
       .then(data => {
         const sites = data.locations.map(site => {
-          return coordObj = {
+          return {
             name: site.name,
             zip: site.zip,
             address: site.siteAddress,
@@ -375,10 +323,8 @@ function App() {
   
   //CHECK LOCAL STORAGE EACH TIME APP LOADS TO SEE IF THERE IS A USESR
   React.useEffect(() => {
-    console.log(localStorage)
     const loggedInUser = localStorage.getItem("user")
     const token = localStorage.getItem("token")
-    console.log(loggedInUser)
     if (loggedInUser) {
       const userFound = JSON.parse(loggedInUser)
       console.log(userFound, loggedInUser)
@@ -406,21 +352,22 @@ function App() {
           onSubmitUser={signUpUser}
           onSubmitLogIn={signInUser}
         />
+
         {!userSignedIn.signedIn ?
           <HomePage 
             siteCoords={siteCoords}
             signedIn={userSignedIn.signedIn}
           /> :
-          // <ListView locations={locations} addFav={addFav}/>
-          <Favorites
-            user={userSignedIn.currentUser}
-            handleUser={handleChange}
-            updateUser={updateUser}
-            deleteUser={deleteUser}
-            locations={locations}
-            favorites={favorites}
-            deleteFav={deleteFav}
-          />
+          <ListView locations={locations} addFav={addFav}/>
+          // <Favorites
+          //   user={userSignedIn.currentUser}
+          //   handleUser={handleChange}
+          //   updateUser={updateUser}
+          //   deleteUser={deleteUser}
+          //   locations={locations}
+          //   favorites={favorites}
+          //   deleteFav={deleteFav}
+          // />
         }
       </div>
       <Footer />

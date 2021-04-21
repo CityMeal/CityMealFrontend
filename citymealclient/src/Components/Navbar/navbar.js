@@ -5,16 +5,6 @@ import logo from'../Images/logo.png'
 import Forms from '../MainPage/FormModal'
 import {Button, Menu, MenuItem, makeStyles, createMuiTheme,ThemeProvider, useMediaQuery} from '@material-ui/core';
 
-//NOTE ::
-// xs, extra-small: 0px
-// sm, small: 600px
-// md, medium: 960px
-// lg, large: 1280px
-// xl, extra-large: 1920px
-// theme.breakpoints.up(sm/600) =>  screen width >= sm/600
-// theme.breakpoints.down(sm/600) => screen width <= sm/600
-// theme.breakpoints.only(sm/600) => screen width === sm/600
-// theme.breakpoints.between(0/xm, sm/600) => screen width > 0, but <  sm/600 i.e between 0 & 600
 
 //Styled-Component Styling
 const DivStyle = styled.div`

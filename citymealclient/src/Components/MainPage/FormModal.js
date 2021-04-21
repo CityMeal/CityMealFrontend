@@ -138,7 +138,6 @@ function Forms(props) {
     const formClass = formStyle()
     const webForm = useMediaQuery(themes2.breakpoints.up('tablet'))
 
-    console.log(props.formLabels)
     return (
         <div>
             {!webForm ?
