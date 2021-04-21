@@ -151,13 +151,16 @@ function App() {
 
 
   const updateUser = () => {
-    const token = userSignedIn.token
+    // const token = userSignedIn.token
+    // console.log(typeof userSignedIn.currentUser.username)
+    // console.log(typeof userSignedIn.currentUser.zipcode)
+
     fetch(`${BASE_URL}/user`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${userSignedIn.token}`
       },
       body: JSON.stringify({
         username: userSignedIn.currentUser.username,
@@ -174,6 +177,7 @@ function App() {
         localStorage.removeItem('user')
         localStorage.setItem('user', JSON.stringify(data.user))
       })
+
       .catch(err => console.log(err))
   }
 

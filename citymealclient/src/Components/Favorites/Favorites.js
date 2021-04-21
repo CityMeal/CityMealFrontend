@@ -106,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
 
 function EachList(props) {
   const classes = useStyles();
-  console.log("favorites", props.favorites)
+  // console.log("favorites", props.favorites)
   return (
     <div>
       <Box>

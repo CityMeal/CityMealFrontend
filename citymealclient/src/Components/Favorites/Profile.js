@@ -102,15 +102,6 @@ function ShowProfile(props) {
                 </Button>
 
             </Box>
-            <Button
-                className={classes.editform}
-                variant="contained"
-                color="primary"
-                onClick={currentBtn === 'EDIT' ? handleClick : props.updateUser}
-            >{currentBtn}</Button>
-            {/* <Button className={classes.editform}variant="contained" color="primary" onClick={handleClick}>EDIT</Button>
-            <Button className={classes.editform} variant="contained" color="primary" onClick={props.updateUser}>SUBMIT </Button> */}
-            <Button className={classes.editform} variant="outlined" color="primary" onClick={props.deleteUser}>Delete Account</Button>
         </div>
     )
 }
