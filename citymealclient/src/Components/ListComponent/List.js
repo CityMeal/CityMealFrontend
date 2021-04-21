@@ -1,137 +1,225 @@
 import React from 'react';
 import Filter from './Filter'
-import Rating from './Rating'
 import { makeStyles } from '@material-ui/core/styles';
 import styled from 'styled-components'
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Rating from './Rating';
+import {createMuiTheme, useMediaQuery} from '@material-ui/core';
 
-const ListWrapper = styled.div`
-  // border: solid red;
-  width: 100%;
-  height:24em;
-  display: flex;
-  flex-wrap: wrap;
-  overflow: scroll;
-  // position: absolute;
-  box-sizing: border-box;
-  // margin-top: -4em;
-  margin-bottom: 5%;
 
-`
-
+const themes2 = createMuiTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 340,
+      md: 360,
+      lg: 411,
+      xl: 700,
+      tablet: 760,
+      laptop: 1024,
+      desktop: 1280,
+    },
+  }
+})
 
 const useStyles = makeStyles((theme) => ({
-  // zipcodeInput: {
-  //   display: 'flex',
-  //   justifyContent: 'center',
-  //   paddingBottom: '5%',
-  //   position: 'relative',
-  //   top: -4 + 'em',
-  //   left: 3 + 'em',
-  // },
-  list: {
-    // border: 0.5 +'px solid black',
+  zipcodeInput: {
     display: 'flex',
     justifyContent: 'center',
-    marginLeft: '5%',
-    marginRight: '5%',
-    marginBottom: '5%',
-    boxShadow: (2 + 'px ' + 3 + 'px ' + 3 + 'px ' + 2 + 'px ' + ' lightgrey')
+    paddingBottom: '5%',
+    position: 'relative',
+    top: -4 + 'em',
+    left: 3 + 'em',
   },
-  pic: {
+  divStyle : {
+    // border: 'solid green',
+    width: '100 %',
+    position: 'relative',
+    top: '1em',
+
+    // [theme.breakpoints.up('md')]: {
+    //   // border: 'solid black',
+    //   marginTop: '9em',
+    // },
+    [theme.breakpoints.up('lg')]: {
+      // border: 'solid black',
+      position: 'absolute',
+      top: '4em'
+      // marginTop: '9em',
+    },
+    // [themes2.breakpoints.up('tablet')]: {
+    //   border: 'solid green',
+    //   width: '20em',
+    //   margin: '3.2%',
+    // },
+    [themes2.breakpoints.up('laptop')]: {
+      position: 'absolute',
+      top: '11em'
+    }
+
+  },
+  filterDiv: {
+    // border: 'solid orange',
     display: 'flex',
-    height: '15rem',
-    paddingTop: '0.5rem',
-    paddingBottom: '0.5rem',
-    paddingLeft: '0.5rem',
+    margin: 'auto',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+    position: 'relative',
+
+    [themes2.breakpoints.between('xs', 'sm')]: {
+      // border: 'solid black',
+      width: '18em',
+
+    },
+    [themes2.breakpoints.up('tablet')]: {
+      // border: 'solid pink',
+      width: '30em'
+    }
   },
-  info: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    // height: '15rem',
-    paddingLeft: '5%',
-  },
-  // link: {
-  //   textDecoration: 'none',
-  //   color: '#D9D9D9',
-  //   backgroundColor: '#4484CE',
-  //   textAlign: 'center',
-  //   width: '50%',
-  //   paddingTop: '2%',
-  //   paddingBottom: '2%',
-  // },
-  // twolists: {
-  //   display: 'flex',
-  //   flexDirection: 'row',
-  // },
-  // showList: {
-  //   [theme.breakpoints.down('md')]: {
-  //     display: 'block',
-  //   },
-  //   [theme.breakpoints.up('md')]: {
-  //     display: 'none',
-  //   }
-  // },
-  // showListLg: {
-  //   [theme.breakpoints.down('md')]: {
-  //     display: 'none',
-  //   },
-  //   [theme.breakpoints.up('md')]: {
-  //     display: 'block',
-  //   }
-  // },
-  favBtn: {
-    border: 'none',
-    backgroundColor: 'white',
-    width: '5%',
-    marginTop: '3%',
-    cursor: 'pointer',
-  },
-  listDiv: {
-    // border: solid red;
-    width: 100 + '%',
-    height: 24 + 'em',
+  listWrap: {
+    // border: 'solid red',
+    width: '100%',
+    height: '80vh',
     display: 'flex',
     flexWrap: 'wrap',
     overflow: 'scroll',
-    position: 'absolute',
     boxSizing: 'border-box',
-    marginTop: -4 + 'em',
-  }
 
+    // [theme.breakpoints.up('md')]: {
+    //   // border: 'solid green',
+    //   height: '65vh',
+    // },
+    [theme.breakpoints.up('lg')]: {
+      // border: 'solid blue',
+      height: '70vh',
+    },
+    [themes2.breakpoints.up('laptop')]: {
+      // border: 'solid blue',
+      height: '90vh',
+    },
+
+  },
+
+  list: {
+    // border: 0.5 +'px solid black',
+    width: '25em',
+    display: 'flex',
+    justifyContent: 'center',
+    position: 'relative',
+    margin: '1.5%',
+    boxShadow: (2 + 'px ' + 3 + 'px ' + 3 + 'px ' + 2 + 'px ' + ' lightgrey'),
+
+    [themes2.breakpoints.up('tablet')]: {
+      // border: 'solid pink',
+      width: '22em',
+    },
+    [themes2.breakpoints.up('laptop')]: {
+      width: '35em',
+      left: '6%',
+      margin: '1em',
+    }
+  },
+  directionBtn:{
+    // border: 'solid red',
+    position: 'relative',
+    left: -0.5 + 'em',
+  },
+  pic: {
+    display: 'flex',
+    paddingLeft: '5%',
+  },
+  link: {
+    textDecoration: 'none',
+    color: '#D9D9D9',
+    backgroundColor: '#4484CE',
+    textAlign: 'center',
+    width: '50%',
+    paddingTop: '2%',
+    paddingBottom: '2%',
+  },
+  twolists: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  showList: {
+    [theme.breakpoints.down('md')]: {
+      display: 'block',
+    },
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    }
+  },
+  showListLg: {
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
+    [theme.breakpoints.up('md')]: {
+      display: 'block',
+    }
+  }
+// =======
+//   // link: {
+//   //   textDecoration: 'none',
+//   //   color: '#D9D9D9',
+//   //   backgroundColor: '#4484CE',
+//   //   textAlign: 'center',
+//   //   width: '50%',
+//   //   paddingTop: '2%',
+//   //   paddingBottom: '2%',
+//   // },
+//   // twolists: {
+//   //   display: 'flex',
+//   //   flexDirection: 'row',
+//   // },
+//   // showList: {
+//   //   [theme.breakpoints.down('md')]: {
+//   //     display: 'block',
+//   //   },
+//   //   [theme.breakpoints.up('md')]: {
+//   //     display: 'none',
+//   //   }
+//   // },
+//   // showListLg: {
+//   //   [theme.breakpoints.down('md')]: {
+//   //     display: 'none',
+//   //   },
+//   //   [theme.breakpoints.up('md')]: {
+//   //     display: 'block',
+//   //   }
+//   // },
+//   favBtn: {
+//     border: 'none',
+//     backgroundColor: 'white',
+//     width: '5%',
+//   },
+//   listDiv: {
+//     // border: solid red;
+//     width: 100 + '%',
+//     height: 24 + 'em',
+//     display: 'flex',
+//     flexWrap: 'wrap',
+//     overflow: 'scroll',
+//     position: 'absolute',
+//     boxSizing: 'border-box',
+//     marginTop: -4 + 'em',
+// >>>>>>> af4402c4898febd5f4ebca3232321b388b4414de
+//   }
 }));
 
 
-const divStyle = {
-  // border: 'solid green',
-  width: 100 + '%',
-  // height: 27 + 'em',
-  position: 'relative',
-  top: 0 + 'em',
-}
-
-const directionStyle = {
-  // border: 'solid red',
-  position: 'relative',
-  left: -0.5 + 'em',
-}
-
+// <<<<<<< HEAD
 function List(props) {
   const classes = useStyles();
 
-  // const classes = useStyles();
-  // console.log(props.allLocations)
-  // console.log(props.locations)
   return (
-    <div style={divStyle}>
-      {/* <FilterStyle> */}
-      <Filter />
-      {/* <div className={classes.zipcodeInput}><TextField id="standard-search" label="zipcode" type="search" /></div> */}
-      {/* </FilterStyle> */}
-      <ListWrapper>
+    <div className={classes.divStyle}>
+      <div className={classes.filterDiv}>
+        <Filter />
+        <TextField id="standard-search" label="zipcode" type="search" />
+      </div>
+      <div addfav={props.addFav} className={classes.listWrap}>
         {props.locations.map(location => (
           <Box className={classes.list} maxWidth="xl" key={location.id} >
             <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src="https://res.cloudinary.com/dqduwnrb1/image/upload/v1618158659/GoogleMapTA_nkou2y.jpg" alt="map" /></Box>
@@ -139,43 +227,14 @@ function List(props) {
               <p>{location.name}</p>
               <p>{location.city}</p>
               <Rating />
-              <Button variant="contained" color="primary" style={directionStyle}><a style={{ textDecoration: "none", color: "white" }} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a></Button>
-
-              {/* This material ui button doesn't work, but I'll leave it hear for now */}
-              {/* <Button onClick={props.addFav} name={location.id}>test</Button> */}
-              {/* This normal button works */}
+              <Button variant="contained" color="primary" className={classes.directionBtn}><a style={{ textDecoration: "none", color: "white" }} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a></Button>
               <button className={classes.favBtn} onClick={props.addFav} name={location.id}>❤️</button>
             </Box>
           </Box>
         ))}
-      </ListWrapper>
+      </div>
     </div>
   )
 }
 
-// function TwoLists(props) {
-//   const classes = useStyles();
-
-//   return (
-//     <Box className={classes.twolists}>
-//       <EachList />
-//       <EachList />
-//     </Box>
-
-//   )
-// }
-
-// function List(props) {
-//   console.log(props.locations)
-//   const classes = useStyles();
-//   return (
-//     <div >
-//       <Filter />
-//       <div className={classes.zipcodeInput}><TextField id="standard-search" label="zipcode" type="search" /></div>
-//       <div className={classes.showList}><EachList siteLocations={props.locations}/></div>
-//       {/* <div className={classes.showListLg}><TwoLists /></div> */}
-//     </div>
-//   );
-// }
-
-export default List;
+export default List

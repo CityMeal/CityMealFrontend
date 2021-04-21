@@ -119,7 +119,7 @@ const menuOptionStyle = makeStyles(() => ({
   }
 }))
 function Header(props) {
-  console.log(props.userSignedIn)
+
   const btnClasses = btnstyles()
   const userNameBtnStyles = userNameBtnStyle()
   const logoClasses = logoStyles()
