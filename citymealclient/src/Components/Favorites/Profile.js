@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 
+const BASE_URL = "http://localhost:3030"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -58,10 +59,8 @@ const useStyles = makeStyles((theme) => ({
 function ShowProfile(props) {
     const classes = useStyles();
 
-    
-
     const [currentZipcode, setCurrentZipcode] = React.useState('true')
-    const[currentBtn, setCurrentBtn] = React.useState('EDIT')
+    const [currentBtn, setCurrentBtn] = React.useState('EDIT')
 
     function handleClick(e) {
         console.log('im clicking current btn')
@@ -69,11 +68,10 @@ function ShowProfile(props) {
         setCurrentBtn('SUBMIT')
     }
 
-
     return (
         <div>
             <Box className={classes.profile}>
-                {currentBtn === 'EDIT' ? 
+                {currentBtn === 'EDIT' ?
                     (currentZipcode &&
                         <div className={classes.currentProfileDiv}>
                             <div className={classes.currentProfile}><label>username:</label>{props.currentUser.username}</div>
@@ -82,19 +80,19 @@ function ShowProfile(props) {
                     )
                     :
                     <form className={classes.editform}>
-                        {!currentZipcode && 
-                        <div>
-                            <TextField className={classes.editInput} id="standard-search" name="username" label="username" value={props.currentUser.username} onChange={props.handleChange} />
-                            <TextField className={classes.editInput} id="standard-search" name="zipcode" label="zipcode" value={props.currentUser.zipcode} onChange={props.handleChange} />
-                        </div>
+                        {!currentZipcode &&
+                            <div>
+                                <TextField className={classes.editInput} id="standard-search" name="username" label="username" value={props.currentUser.username} onChange={props.handleChange} />
+                                <TextField className={classes.editInput} id="standard-search" name="zipcode" label="zipcode" value={props.currentUser.zipcode} onChange={props.handleChange} />
+                            </div>
                         }
                     </form>
                 }
-             </Box>
-            <Button 
-                className={classes.editform} 
-                variant="contained" 
-                color="primary" 
+            </Box>
+            <Button
+                className={classes.editform}
+                variant="contained"
+                color="primary"
                 onClick={currentBtn === 'EDIT' ? handleClick : props.updateUser}
             >{currentBtn}
             </Button>
@@ -110,7 +108,7 @@ function Profile(props) {
     return (
         <div>
             <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Profile</p></Box>
-            <ShowProfile currentUser={props.currentUser} handleChange={props.handleChange} updateUser={props.updateUser} deleteUser={props.deleteUser} />
+            <ShowProfile userSignedIn={props.userSignedIn} currentUser={props.currentUser} handleChange={props.handleChange} updateUser={props.updateUser} deleteUser={props.deleteUser} />
         </div>
     )
 }

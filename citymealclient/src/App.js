@@ -42,15 +42,15 @@ function App() {
     token: '',
     currentUser: {}
   })
-  
+
 
   //GET NEW USER SIGN UP INFO
   const handleUserValueChange = (event) => {
     const { name, value } = event.target
     setNewUser({
-        ...newUser,
-        [name]: value
-      })
+      ...newUser,
+      [name]: value
+    })
   };
 
   const handleLoginValueChange = (event) => {
@@ -290,16 +290,24 @@ function App() {
 
 
   // DELETE FAVORITE
-  const deleteFav = () => {
+  const deleteFav = (e) => {
     const token = userSignedIn.token
+    console.log(token)
     const id = userSignedIn.currentUser.id
+    console.log(id)
+    const locationId = e.target.name
+    console.log(locationId)
 
-    fetch(`${BASE_URL}/${id}/deletefavorite`, {
+    fetch(`${BASE_URL}/user/${id}/${locationId}/deletefavorite`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
         'Authorization': `Bearer ${token}`
-      },
+      }
+      // ,
+      // body: {
+      //   location_id: locationId
+      // }
     })
       .then(response => {
         return response.json()
@@ -313,36 +321,36 @@ function App() {
     let coordObj = {
       name: '',
       zip: '',
-      address:'',
+      address: '',
       position: {
-          lat: '',
-          lng: ''
+        lat: '',
+        lng: ''
       }
     }
-    const  getAllLocation = async () => {
+    const getAllLocation = async () => {
       await fetch(`${BASE_URL}/locations`, {
         headers: {
           'Accept': 'application/json',
         },
       })
-      .then(response => response.json())
-      .then(data => {
-        const sites = data.locations.map(site => {
-          return coordObj = {
-            name: site.name,
-            zip: site.zip,
-            address: site.siteAddress,
-            position: {
-              lat: parseFloat(site.latitude),
-              lng: parseFloat(site.longitude)
+        .then(response => response.json())
+        .then(data => {
+          const sites = data.locations.map(site => {
+            return coordObj = {
+              name: site.name,
+              zip: site.zip,
+              address: site.siteAddress,
+              position: {
+                lat: parseFloat(site.latitude),
+                lng: parseFloat(site.longitude)
+              }
             }
-          }
+          })
+          localStorage.setItem('sites', JSON.stringify(sites)) //NOT FULLY SURE IF THIS IS DOING WHAT I WANT IT TO DO
+          setSiteCoords(sites)
+          setLocations(data.locations)
         })
-        localStorage.setItem('sites', JSON.stringify(sites)) //NOT FULLY SURE IF THIS IS DOING WHAT I WANT IT TO DO
-        setSiteCoords(sites)
-        setLocations(data.locations)
-      })
-      .catch(err => console.log(err))
+        .catch(err => console.log(err))
     }
     getAllLocation()
   }, [])
@@ -372,7 +380,7 @@ function App() {
   // }
 
 
-  
+
   //CHECK LOCAL STORAGE EACH TIME APP LOADS TO SEE IF THERE IS A USESR
   React.useEffect(() => {
     console.log(localStorage)
@@ -391,7 +399,7 @@ function App() {
     }
   }, [])
 
- 
+
 
   return (
     <div className="App">
@@ -399,31 +407,36 @@ function App() {
         <Header
           userSignedIn={userSignedIn}
           logout={logOut}
-          userVals = {newUser}
+          userVals={newUser}
           signUpOnChange={handleUserValueChange}
           signInOnChange={handleLoginValueChange}
           loginVals={logInDetails}
           onSubmitUser={signUpUser}
           onSubmitLogIn={signInUser}
         />
+        {/* <ListView locations={locations} addFav={addFav} /> */}
+
         {!userSignedIn.signedIn ?
-          <HomePage 
+          <HomePage
             siteCoords={siteCoords}
             signedIn={userSignedIn.signedIn}
-          /> :
-          // <ListView locations={locations} addFav={addFav}/>
+          />
+          :
+          // <ListView locations={locations} addFav={addFav} />
+          // ,
           <Favorites
             user={userSignedIn.currentUser}
             handleUser={handleChange}
-            updateUser={updateUser}
             deleteUser={deleteUser}
             locations={locations}
             favorites={favorites}
             deleteFav={deleteFav}
+            userSignedIn={userSignedIn}
           />
         }
+        <Footer />
       </div>
-      <Footer />
+
     </div>
   );
 }
