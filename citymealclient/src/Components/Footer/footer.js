@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: '1%',
     // marginTop: 'auto',
 
-    backgroundColor: '#4484CE',
+    // backgroundColor: '#4484CE',
     color: '#D9D9D9',
   },
   copyright: {

@@ -373,18 +373,18 @@ function App() {
             signedIn={userSignedIn.signedIn}
           />
           :
-          <ListView locations={locations} addFav={addFav} />
+          // <ListView locations={locations} addFav={addFav} />
           // ,
-          // <Favorites
-          //   user={userSignedIn.currentUser}
-          //   handleUser={handleChange}
-          //   updateUser={updateUser}
-          //   deleteUser={deleteUser}
-          //   locations={locations}
-          //   favorites={favorites}
-          //   deleteFav={deleteFav}
-          //   userSignedIn={userSignedIn}
-          // />
+          <Favorites
+            user={userSignedIn.currentUser}
+            handleUser={handleChange}
+            updateUser={updateUser}
+            deleteUser={deleteUser}
+            locations={locations}
+            favorites={favorites}
+            deleteFav={deleteFav}
+            userSignedIn={userSignedIn}
+          />
         }
         <Footer />
       </div>
