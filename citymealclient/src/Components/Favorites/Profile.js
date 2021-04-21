@@ -76,8 +76,8 @@ function ShowProfile(props) {
                     <form className={classes.editform}>
                         {!currentZipcode &&
                             <div>
-                                <TextField className={classes.editInput} id="standard-search" name="username" label="username" value={props.currentUser.username} onChange={props.handleChange} />
-                                <TextField className={classes.editInput} id="standard-search" name="zipcode" label="zipcode" value={props.currentUser.zipcode} onChange={props.handleChange} />
+                                <TextField className={classes.editInput} id="standard-search" name="username" label="username" value={props.userSignedIn.currentUser.username} onChange={props.handleChange} />
+                                <TextField className={classes.editInput} id="standard-search" name="zipcode" label="zipcode" value={props.userSignedIn.currentUser.zipcode} onChange={props.handleChange} />
                             </div>
                         }
                     </form>

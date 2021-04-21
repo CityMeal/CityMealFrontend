@@ -125,17 +125,6 @@ function App() {
     })
   }
 
-  //LOG USER OUT
-  const logOut = () => {
-    console.log('im clicking button')
-    setUserSignedIn({
-      signedIn: false,
-      currentUser: {},
-      token: "",
-    })
-    localStorage.clear()
-  }
-
   //HANDLE UPDATE USER CHANGE
   function handleChange(e) {
     const value = e.target.value;
@@ -194,46 +183,6 @@ function App() {
       .then(data => console.log(data))
       .catch(err => console.log(err))
   }
-
-  // //GET ALL LOCATIONS
-  // const getAllLocations = () => {
-  //   fetch(`${BASE_URL}/locations`, {
-  //     headers: {
-  //       'Accept': 'application/json',
-  //     },
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       setLocations(data.locations)
-  //     })
-  //     .catch(err => console.log(err))
-  // }
-
-  // //FILTER LOCATIONS BY EITHER ZIP CODE OR BOROUGH
-
-  // // const filterLocations = async () => {
-  // //   //get the filter label value, if it is zip, make a all to the '/getLocations/:zipcode' route, 
-  // //   //if it is Borugh make a call to the Borugh route
-  // // }
-
-  // //CHECK LOCAL STORAGE EACH TIME APP LOADS TO SEE IF THERE IS A USERS
-  // React.useEffect(() => {
-  //   console.log(localStorage)
-  //   const loggedInUser = localStorage.getItem("user")
-  //   console.log(loggedInUser)
-  //   if (loggedInUser) {
-  //     const userFound = JSON.parse(loggedInUser)
-  //     console.log(userFound, loggedInUser)
-  //     setUserSignedIn(prevState => ({
-  //       ...prevState,
-  //       signedIn: true,
-  //       currentUser: userFound
-  //     }))
-  //   }
-  //   getAllLocations()
-  //   // filterLocations()
-  // }, [], [])
-
 
   //ADD FAVORITE SITE
   const addFav = (e) => {
@@ -317,15 +266,6 @@ function App() {
 
   //GET ALL LOCATIONS AND CREATE SITE POSITION COORDINATES FOR MAP VIEW
   React.useEffect(() => {
-    let coordObj = {
-      name: '',
-      zip: '',
-      address: '',
-      position: {
-        lat: '',
-        lng: ''
-      }
-    }
     const getAllLocation = async () => {
       await fetch(`${BASE_URL}/locations`, {
         headers: {
@@ -335,7 +275,7 @@ function App() {
         .then(response => response.json())
         .then(data => {
           const sites = data.locations.map(site => {
-            return coordObj = {
+            return {
               name: site.name,
               zip: site.zip,
               address: site.siteAddress,
@@ -352,7 +292,8 @@ function App() {
         .catch(err => console.log(err))
     }
     getAllLocation()
-  }, [])
+    console.log(locations, siteCoords)
+  }, [],[])
 
   // //POST RATE 
   // const rate = async (e) => {
@@ -399,7 +340,17 @@ function App() {
     console.log(userSignedIn.currentUser)
   }, [])
 
-
+    //LOG USER OUT
+  const logOut = () => {
+    console.log('im clicking button')
+    setUserSignedIn({
+      signedIn: false,
+      currentUser: {},
+      token: "",
+    })
+    localStorage.clear()
+  }
+  
 
   return (
     <div className="App">
@@ -425,7 +376,6 @@ function App() {
           // <ListView locations={locations} addFav={addFav} />
           // ,
           <Favorites
-     
             user={userSignedIn.currentUser}
             handleUser={handleChange}
             updateUser={updateUser}

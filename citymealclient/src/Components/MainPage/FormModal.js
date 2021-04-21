@@ -186,7 +186,7 @@ function Forms(props) {
                         <Button 
                             variant="contained" 
                             size='small'
-                            onClick={props.formLabels.length > 2 ? props.onSubmitUserDetails : props.onSubmitLoginDetails}
+                            onClick={props.formLabels.length > 2 ? props.suubmitUser : props.submitLogin}
                         >
                             {props.formLabels.length > 2 ? 'SIGN UP' : 'SIGN IN'}
                         </Button>
