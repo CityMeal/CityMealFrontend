@@ -164,6 +164,8 @@ function App() {
         localStorage.setItem('user', JSON.stringify(data.user))
       })
       .catch(err => console.log(err))
+      console.log(localStorage.getItem('user'))
+      console.log(userSignedIn.currentUser)
   }
 
   //DELETE USER
@@ -292,7 +294,8 @@ function App() {
         .catch(err => console.log(err))
     }
     getAllLocation()
-    console.log(locations, siteCoords)
+    console.log(userSignedIn.currentUser, 'should be updated one')
+    console.log(console.log(localStorage.getItem('user')))
   }, [],[])
 
   // //POST RATE 
@@ -324,9 +327,13 @@ function App() {
   //CHECK LOCAL STORAGE EACH TIME APP LOADS TO SEE IF THERE IS A USESR
   React.useEffect(() => {
     console.log(localStorage)
+
+    console.log(userSignedIn.currentUser, 'should be updated one')
+    console.log(console.log(localStorage.getItem('user')))
+
     const loggedInUser = localStorage.getItem("user")
     const token = localStorage.getItem("token")
-    console.log(loggedInUser)
+    console.log(loggedInUser, 'line 330')
     if (loggedInUser) {
       const userFound = JSON.parse(loggedInUser)
       console.log(userFound, loggedInUser)
@@ -373,18 +380,18 @@ function App() {
             signedIn={userSignedIn.signedIn}
           />
           :
-          // <ListView locations={locations} addFav={addFav} />
+          <ListView locations={locations} addFav={addFav} />
           // ,
-          <Favorites
-            user={userSignedIn.currentUser}
-            handleUser={handleChange}
-            updateUser={updateUser}
-            deleteUser={deleteUser}
-            locations={locations}
-            favorites={favorites}
-            deleteFav={deleteFav}
-            userSignedIn={userSignedIn}
-          />
+          // <Favorites
+          //   user={userSignedIn.currentUser}
+          //   handleUser={handleChange}
+          //   updateUser={updateUser}
+          //   deleteUser={deleteUser}
+          //   locations={locations}
+          //   favorites={favorites}
+          //   deleteFav={deleteFav}
+          //   userSignedIn={userSignedIn}
+          // />
         }
         <Footer />
       </div>
