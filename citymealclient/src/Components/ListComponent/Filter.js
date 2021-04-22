@@ -4,6 +4,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import { MenuList } from '@material-ui/core'
 
 const BASE_URL = "http://localhost:3030"
 
@@ -34,55 +35,60 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function FilterByBorough() {
+
+
+
+function Filter(props) {
     const classes = useStyles();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [boroughAnchorEl, setBoroughAnchorEl] = React.useState(null)
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    return (
-        <div className={classes.boroughBtn}>
-            <Button variant="outlined" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>Boroughs</Button>
-            <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-                <MenuItem onClick={handleClose}>Bronx</MenuItem>
-                <MenuItem onClick={handleClose}>Brooklyn</MenuItem>
-                <MenuItem onClick={handleClose}>Manhattan</MenuItem>
-                <MenuItem onClick={handleClose}>Staten Island</MenuItem>
-                <MenuItem onClick={handleClose}>Queens</MenuItem>
-            </Menu>
-        </div>
-    );
-}
-
-
-function Filter() {
-    const classes = useStyles();
-
-    const [anchorEl, setAnchorEl] = React.useState(null);
     const [zipcodeFilter, setZipcodeFilter] = React.useState(false)
-    const [zipcode, setZipcode] = React.useState("00000")
     const [boroughFilter, setBoroughFilter] = React.useState(false)
+
+    const [zipcode, setZipcode] = React.useState("00000")
+
+
+    const [selectedBorough, setSelectedBorough] = React.useState('')
+
+    const [param, setParam]  = React.useState({
+        parameter: '',
+        returnedSites: []
+    })
+
+    //BORUGH ANCHOR EL AND FUNCTION
+    const showBoroughOptions = (e) =>{
+        setBoroughAnchorEl(e.currentTarget)
+    }
+
+    const boroughClose = (e) => {
+        console.log(e.target.dataset)
+        setBoroughAnchorEl(null);
+        // setSelectedBorough(e.currentTarget.dataset)
+        const data = e.currentTarget.dataset
+        console.log(data)
+        // setParam(prevState => ({
+        //     ...prevState,
+        //     parameter: e.currentTarget.dataset.city
+        // }))
+    }
 
 
     const handleClick = (e) => {
         setAnchorEl(e.currentTarget);
+        setZipcodeFilter(false);
+        setBoroughFilter(false);
     };
 
-    const handleClose = () => {
+    const handleFilterClose = () => {
         setAnchorEl(null);
     };
 
     const handleZipcodeClick = () => {
         setAnchorEl(null);
         setZipcodeFilter(true);
-        setBoroughFilter(false);
+        // setBoroughFilter(false);
     }
 
     const handleChange = (e) => {
@@ -91,39 +97,52 @@ function Filter() {
         setZipcode(value);
     }
 
-    const handleBoroughClick = () => {
+    const handleBoroughClick = (e) => {
         setAnchorEl(null);
         setBoroughFilter(true);
         setZipcodeFilter(false);
+
     }
 
+    
+
+    //FILTER LOCATIONS BY EITHER ZIP CODE OR BOROUGH
+    const filterLocation = async () => {
+        const paramEntered = param.parameter
+        console.log(paramEntered)
+        // let param = zipcode / [borughs] / addresss&newcuurentpositon //If it's an address, create it into a string or an object
+        await fetch(`${BASE_URL}/getLocations/${paramEntered}`, {
+            headers: {
+                'Accept': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            setParam(prevState => ({
+                ...prevState,
+                returnedSites:data
+            }))
+            console.log(data)
+        })
+        .catch(err => console.log(err))
+    }
+   
+
     React.useEffect(() => {
-        //FILTER LOCATIONS BY EITHER ZIP CODE OR BOROUGH
-        //get the filter label value, if it is zip, make a all to the '/getLocations/:zipcode' route, 
-        //if it is Borugh make a call to the Borugh route
-
-
-        ///Update 
-        const filterLocation = async (e) => {
-
-            // let param = zipcode / [borughs] / addresss&newcuurentpositon //If it's an address, create it into a string or an object
-
-            await fetch(`${BASE_URL}/getLocations/:${zipcode}`, {
-                headers: {
-                    'Accept': 'application/json',
-                },
-            })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(err => console.log(err))
-        }
-        filterLocation()
+        console.log(!zipcodeFilter, zipcodeFilter, selectedBorough.city)
+        setParam(prevState => ({
+            ...prevState,
+            parameter: zipcode
+        }))
+        console.log(param.returnedSites)
     }, [zipcode])
+    // console.log(param.returnedSites)
+
 
     return (
         <div className={classes.root}>
             <Button variant="outlined" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} className={classes.filterBtn}>Filter By</Button>
-            <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+            <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleFilterClose}>
                 <MenuItem onClick={handleZipcodeClick}>zip code</MenuItem>
                 <MenuItem onClick={handleBoroughClick}>borough</MenuItem>
             </Menu>
@@ -131,11 +150,22 @@ function Filter() {
             {zipcodeFilter &&
                 <form className={classes.zipcodeInput}>
                     <TextField id="standard-search" label="zip code" type="search" value={zipcode} onChange={handleChange} />
+                    <Button variant="outlined" color="primary" onClick={filterLocation}>ENTER</Button>
                 </form>
                 
             }
-            <Button size="small" onClick={(e) => setZipcode(e.target.value)}>Enter</Button>
-            {boroughFilter && <FilterByBorough />}
+            {boroughFilter &&
+            <div> 
+                <Button variant="outlined" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={showBoroughOptions}>Boroughs</Button>
+                <Menu id="simple-menu" variant= 'selectedMenu' value='Brooklyn' anchorEl={boroughAnchorEl} keepMounted open={Boolean(boroughAnchorEl)} onClose={handleFilterClose}>
+                    <MenuItem onClick={boroughClose} data-city="Brooklyn">Brooklyn</MenuItem>
+                    <MenuItem onClick={boroughClose} data-city="Manhattan">Manhattan</MenuItem>
+                    <MenuItem onClick={boroughClose} data-city="Staten Island">Staten Island</MenuItem>
+                    <MenuItem onClick={boroughClose} data-city="Queens">Queens</MenuItem> 
+                </Menu>
+                <Button variant="outlined" color="primary" onClick={filterLocation}>ENTER</Button>
+            </div>
+            }
         </div>
     );
 }

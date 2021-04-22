@@ -184,10 +184,14 @@ function Header(props) {
           <Button className={userNameBtnStyles.root} onClick={showMenuOption}>{props.userSignedIn.currentUser.username}</Button>
           <Menu open={openMenu.open} anchorEl={openMenu.anchorEl} onClose={closeMenu}>
             {menuList.map(option => (
-              <MenuItem
-                key={option}
-                onClick={option === 'SIGN OUT' ? props.logout : closeMenu}
-              >{option}</MenuItem>
+              <Link to=`/${option}`>
+                <MenuItem
+                  // linkButton
+                  // containerElement={<Link to="/`${option}`" />}
+                  key={option}
+                  onClick={option === 'SIGN OUT' ? props.logout : closeMenu}
+                >{option}</MenuItem>
+              </Link>
             ))}
           </Menu>
         </div>

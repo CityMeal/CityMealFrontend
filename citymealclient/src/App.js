@@ -8,7 +8,7 @@ import HomePage from './Components/MainPage/HomePage';
 import Favorites from './Components/Favorites/Favorites';
 
 const BASE_URL = "http://localhost:3030"
-console.log(process.env.REACT_APP_key)
+console.log(process.env.REACT_APP_API_KEY)
 
 function App() {
 
