@@ -115,7 +115,7 @@ function App() {
           token: data.token,
           currentUser: data.user
         })
-        history.push("/HOME");
+        history.push("/LIST");
         //Store User in LocalStorage. Remove from localstorage only on logout
         localStorage.setItem('user', JSON.stringify(data.user))
         localStorage.setItem('token', JSON.stringify(data.token))
