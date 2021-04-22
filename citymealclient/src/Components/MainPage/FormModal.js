@@ -134,17 +134,45 @@ const formStyle = makeStyles(theme => ({
 
 function Forms(props) {
 
+    console.log(props.clickedBtn)
+
     const modalClass = modalStyle()
     const formClass = formStyle()
     const webForm = useMediaQuery(themes2.breakpoints.up('tablet'))
+
+    const signUpLabels = ['username', 'email', 'address', 'city', 'zipcode', 'password']
+    const signInLabels = ['email', 'password']
+
+    const [labels, setLabels] = React.useState(signUpLabels)
+
+    //SET SIGN UP/ SIGN IN MODAL STATE
+    const [openModal, setOpenModal] = React.useState(false)
+
+    //CLOSE MODAL FUNCTION
+    const handleModalClose = () => {
+        setLabels(signUpLabels)
+        props.closeModal()
+    }
+
+    //SET LABELS BASED ON WHICH BUTTON WAS CLICKED
+    React.useEffect(() => {
+        console.log(labels)
+        console.log(props.clickedBtn)
+
+        const updateLabels = () => {
+            props.clickedBtn.signIn == true ? setLabels(signInLabels) : setLabels(signUpLabels)
+        }
+        updateLabels()
+
+    }, [labels])
 
     return (
         <div>
             {!webForm ?
             //This is the Mobile form version for sign up
-                <Modal open={props.modalOpen} onClose={props.modalClose} className={modalClass.root}> 
-                    <form className={formClass.root}>
-                        {props.formLabels.map(label => (
+                <Modal open={(props.clickedBtn.signUp == true || props.clickedBtn.signIn == true) ? true : openModal} onClose={handleModalClose} className={modalClass.root}> 
+                    <form className={formClass.root} >
+                        {labels.map(label => (
                             <TextField id={`${label}field`} 
                                 key={label} 
                                 label={label === 'zipcode' ?  'zip code': label}
@@ -152,24 +180,24 @@ function Forms(props) {
                                 variant="outlined" 
                                 size="small" 
                                 name={label}
-                                value= {props.formLabels.length > 2 ? props.userVals.label : props.loginVals.label}
+                                value= {labels.length > 2 ? props.userVals.label : props.loginVals.label}
                                 required
-                                onChange= {props.formLabels.length > 2 ? props.signupChange : props.signinChange}
+                                onChange= {labels.length > 2 ? props.signupChange : props.signinChange}
                             />
                         ))}
                         <Button 
                             variant="contained" 
                             size='small'
-                            onClick={props.formLabels.length > 2 ? props.submitUser : props.submitLogin}
+                            onClick={labels.length > 2 ? props.submitUser : props.submitLogin}
                         >
-                            {props.formLabels.length > 2 ? 'SIGN UP' : 'SIGN IN'}
+                            {labels.length > 2 ? 'SIGN UP' : 'SIGN IN'}
                         </Button>
                     </form>
                 </Modal> :
                 //This is the Desktop form version for sign up
-                (<Modal open={props.modalOpen} onClose={props.modalClose} className={modalClass.root}> 
+                (<Modal open={!props.clickedBtn.signUp ||!props.clickedBtn.signIn ? openModal : true} onClose={handleModalClose} className={modalClass.root}> 
                     <form className={formClass.root}>
-                        {props.formLabels.map(label => (
+                        {labels.map(label => (
                             <FormControl htmlFor={label} key={label} required>
                                 <InputLabel>{label === 'zipCode' ? 'zip code' : label}</InputLabel>
                                 <OutlinedInput
@@ -177,8 +205,8 @@ function Forms(props) {
                                     size="small"
                                     name={label}
                                     className='MuiInput-formControl' 
-                                    value={props.formLabels > 2 ? props.userVals.label : props.loginVals.label} 
-                                    onChange= {props.formLabels.length > 2 ? props.signupChange : props.signinChange}
+                                    value={labels > 2 ? props.userVals.label : props.loginVals.label} 
+                                    onChange= {labels.length > 2 ? props.signupChange : props.signinChange}
                                     type={label === 'password'? "password": null}
                                 />
                             </FormControl>
@@ -186,9 +214,9 @@ function Forms(props) {
                         <Button 
                             variant="contained" 
                             size='small'
-                            onClick={props.formLabels.length > 2 ? props.suubmitUser : props.submitLogin}
+                            onClick={labels.length > 2 ? props.suubmitUser : props.submitLogin}
                         >
-                            {props.formLabels.length > 2 ? 'SIGN UP' : 'SIGN IN'}
+                            {labels.length > 2 ? 'SIGN UP' : 'SIGN IN'}
                         </Button>
                     </form>
                 </Modal>) 

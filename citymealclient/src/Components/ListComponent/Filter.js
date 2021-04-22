@@ -152,7 +152,7 @@ function Filter(props) {
                     <TextField id="standard-search" label="zip code" type="search" value={zipcode} onChange={handleChange} />
                     <Button variant="outlined" color="primary" onClick={filterLocation}>ENTER</Button>
                 </form>
-                
+
             }
             {boroughFilter &&
             <div> 

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
 import './App.css';
 import Header from './Components/Navbar/navbar';
 import Footer from './Components/Footer/footer';
@@ -6,11 +7,13 @@ import Announce from './Components/Others/announce';
 import ListView from './Components/MainPage/ListViewPage';
 import HomePage from './Components/MainPage/HomePage';
 import Favorites from './Components/Favorites/Favorites';
+import Profile from './Components/Favorites/Profile';
 
 const BASE_URL = "http://localhost:3030"
 console.log(process.env.REACT_APP_API_KEY)
 
 function App() {
+  const history = useHistory();
 
   //SET SITES LOCATIONS
   const [locations, setLocations] = React.useState([])
@@ -112,6 +115,7 @@ function App() {
           token: data.token,
           currentUser: data.user
         })
+        history.push("/HOME");
         //Store User in LocalStorage. Remove from localstorage only on logout
         localStorage.setItem('user', JSON.stringify(data.user))
         localStorage.setItem('token', JSON.stringify(data.token))
@@ -140,13 +144,16 @@ function App() {
 
 
   const updateUser = () => {
-    const token = userSignedIn.token
+    // const token = userSignedIn.token
+    // console.log(typeof userSignedIn.currentUser.username)
+    // console.log(typeof userSignedIn.currentUser.zipcode)
+
     fetch(`${BASE_URL}/user`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${userSignedIn.token}`
       },
       body: JSON.stringify({
         username: userSignedIn.currentUser.username,
@@ -163,9 +170,10 @@ function App() {
         localStorage.removeItem('user')
         localStorage.setItem('user', JSON.stringify(data.user))
       })
+
       .catch(err => console.log(err))
-      console.log(localStorage.getItem('user'))
-      console.log(userSignedIn.currentUser)
+    console.log(localStorage.getItem('user'))
+    console.log(userSignedIn.currentUser)
   }
 
   //DELETE USER
@@ -188,10 +196,6 @@ function App() {
 
   //ADD FAVORITE SITE
   const addFav = (e) => {
-    // let locationId = locations.map(location => { location.id })
-    // e.preventDefault();
-    // console.log(typeof e.target.name)
-
     const id = userSignedIn.currentUser.id
     const locationId = parseInt(e.target.name)
     console.log(locationId)
@@ -242,11 +246,8 @@ function App() {
   // DELETE FAVORITE
   const deleteFav = (e) => {
     const token = userSignedIn.token
-    console.log(token)
     const id = userSignedIn.currentUser.id
-    console.log(id)
     const locationId = e.target.name
-    console.log(locationId)
 
     fetch(`${BASE_URL}/user/${id}/${locationId}/deletefavorite`, {
       method: 'DELETE',
@@ -254,10 +255,6 @@ function App() {
         'Accept': 'application/json',
         'Authorization': `Bearer ${token}`
       }
-      // ,
-      // body: {
-      //   location_id: locationId
-      // }
     })
       .then(response => {
         return response.json()
@@ -296,7 +293,7 @@ function App() {
     getAllLocation()
     console.log(userSignedIn.currentUser, 'should be updated one')
     console.log(console.log(localStorage.getItem('user')))
-  }, [],[])
+  }, [], [])
 
   // //POST RATE 
   // const rate = async (e) => {
@@ -347,7 +344,7 @@ function App() {
     console.log(userSignedIn.currentUser)
   }, [])
 
-    //LOG USER OUT
+  //LOG USER OUT
   const logOut = () => {
     console.log('im clicking button')
     setUserSignedIn({
@@ -356,11 +353,14 @@ function App() {
       token: "",
     })
     localStorage.clear()
+    history.push("/");
   }
-  
+
 
   return (
+
     <div className="App">
+
       <div className="otherContent">
         <Header
           userSignedIn={userSignedIn}
@@ -375,28 +375,42 @@ function App() {
         {/* <ListView locations={locations} addFav={addFav} /> */}
 
         {!userSignedIn.signedIn ?
-          <HomePage
+          <Route exact path="/" render={() => <HomePage
             siteCoords={siteCoords}
             signedIn={userSignedIn.signedIn}
-          />
+          />} />
           :
-          <ListView locations={locations} addFav={addFav} />
-          // ,
-          // <Favorites
-          //   user={userSignedIn.currentUser}
-          //   handleUser={handleChange}
-          //   updateUser={updateUser}
-          //   deleteUser={deleteUser}
-          //   locations={locations}
-          //   favorites={favorites}
-          //   deleteFav={deleteFav}
-          //   userSignedIn={userSignedIn}
-          // />
+          < Switch >
+            <Route exact path="/HOME" render={() => <HomePage
+              siteCoords={siteCoords}
+              signedIn={userSignedIn.signedIn}
+            />} />
+            <Route exact path="/LIST" render={() => <ListView
+              locations={locations} addFav={addFav}
+            />} />
+            <Route exact path="/FAVORITES" render={() => <Favorites
+              user={userSignedIn.currentUser}
+              handleUser={handleChange}
+              updateUser={updateUser}
+              deleteUser={deleteUser}
+              locations={locations}
+              favorites={favorites}
+              deleteFav={deleteFav}
+              userSignedIn={userSignedIn}
+            />} />
+            <Route exact path="/PROFILE" render={() => <Profile
+              userSignedIn={userSignedIn}
+              updateUser={updateUser}
+              handleUser={handleChange}
+              deleteUser={deleteUser} />
+            } />
+          </Switch>
         }
-        <Footer />
-      </div>
 
-    </div>
+
+      </div>
+      <Footer />
+    </div >
   );
 }
 

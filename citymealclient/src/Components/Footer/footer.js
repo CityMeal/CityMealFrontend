@@ -21,35 +21,35 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
+    // minHeight: '100vh',
     // minHeight: '100vh', (to make the footer sticky)
   },
   footer: {
     // border: 'solid red',
     display: 'flex',
     flexDirection: 'row',
-// <<<<<<< HEAD
     // paddingLeft: '5%',
     // paddingRight: '5%',
-    // paddingTop: '1%',
-    // paddingBottom: '1%',
-    // position: 'relative',
-    width: 100 + '%',
-    height: 5 + 'em',
-    position: 'absolute',
-    bottom: '0em',
-    left: '0em',
-    right: '0em',
+    paddingTop: '1%',
+    paddingBottom: '1%',
+    position: 'relative',
+    // width: 100 + '%',
+    // height: 5 + 'em',
+    // position: 'absolute',
+    // bottom: '0em',
+    // left: '0em',
+    // right: '0em',
 
     // top: 10 + 'em',
     // marginTop: ,
-// =======
-//     paddingLeft: '5%',
-//     paddingRight: '5%',
-//     paddingTop: '1%',
-//     // paddingBottom: '1%',
-//     marginTop: 'auto',
-// >>>>>>> af4402c4898febd5f4ebca3232321b388b4414de
-    backgroundColor: '#4484CE',
+    // =======
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    paddingTop: '1%',
+    paddingBottom: '1%',
+    // marginTop: 'auto',
+
+    // backgroundColor: '#4484CE',
     color: '#D9D9D9',
   },
   copyright: {

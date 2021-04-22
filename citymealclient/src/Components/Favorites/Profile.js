@@ -6,6 +6,9 @@ import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 const BASE_URL = "http://localhost:3030"
 const useStyles = makeStyles((theme) => ({
+    root: {
+        marginBottom: '3%',
+    },
     msg: {
         display: 'flex',
         justifyContent: 'center',
@@ -63,7 +66,7 @@ function ShowProfile(props) {
     }
 
     return (
-        <div>
+        <div className={classes.root}>
             <Box className={classes.profile}>
                 {currentBtn === 'EDIT' ?
                     (currentZipcode &&
@@ -82,16 +85,23 @@ function ShowProfile(props) {
                         }
                     </form>
                 }
+
+                <Button
+                    className={classes.editform}
+                    variant="contained"
+                    color="primary"
+                    onClick={currentBtn === 'EDIT' ? handleClick : props.updateUser}
+                >{currentBtn}
+                </Button>
+                <Button
+                    className={classes.editform}
+                    variant="outlined"
+                    color="primary"
+                    onClick={props.deleteUser}>
+                    Delete Account
+                </Button>
+
             </Box>
-            <Button 
-                className={classes.editform}
-                variant="contained" 
-                color="primary"
-                onClick = {currentBtn === 'EDIT' ? handleClick : props.updateUser}
-           >{currentBtn}</Button>
-            {/* <Button className={classes.editform}variant="contained" color="primary" onClick={handleClick}>EDIT</Button>
-            <Button className={classes.editform} variant="contained" color="primary" onClick={props.updateUser}>SUBMIT </Button> */}
-            <Button className={classes.editform} variant="outlined" color="primary" onClick={props.deleteUser}>Delete Account</Button>
         </div>
     )
 }
@@ -101,7 +111,7 @@ function Profile(props) {
     return (
         <div>
             <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Profile</p></Box>
-            <ShowProfile button={props.button} userSignedIn={props.userSignedIn} currentUser={props.currentUser} handleChange={props.handleChange} updateUser={props.updateUser} deleteUser={props.deleteUser} />
+            <ShowProfile button={props.button} userSignedIn={props.userSignedIn} currentUser={props.currentUser} handleChange={props.handleUser} updateUser={props.updateUser} deleteUser={props.deleteUser} />
         </div>
     )
 }
