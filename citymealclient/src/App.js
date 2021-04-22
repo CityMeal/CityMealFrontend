@@ -215,11 +215,41 @@ function App() {
     })
       .then(response => response.json())
       .then(data => {
+        setFavorites(data.favorites)
         console.log(data)
         // history.push("/FAVORITES");
       })
       .catch(err => console.log(err))
   }
+  // React.userEffect(() => {
+  //   const addFav = (e) => {
+  //     const id = userSignedIn.currentUser.id
+  //     const locationId = parseInt(e.target.name)
+  //     // console.log(locationId)
+
+
+  //     fetch(`${BASE_URL}/user/${id}/savefavorite`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Accept': 'application/json',
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         user_id: userSignedIn.currentUser.name,
+  //         location_id: locationId,
+  //       })
+  //     })
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         setFavorites(data.favorites)
+  //         console.log(data)
+  //         // history.push("/FAVORITES");
+  //       })
+  //       .catch(err => console.log(err))
+  //   }
+  //   addFav()
+  // }, [])
+
 
   React.useEffect(() => {
     const getFav = () => {
@@ -267,7 +297,7 @@ function App() {
 
   //GET ALL LOCATIONS AND CREATE SITE POSITION COORDINATES FOR MAP VIEW
   React.useEffect(() => {
-    const getAllLocation =  () => {
+    const getAllLocation = () => {
       fetch(`${BASE_URL}/locations`, {
         headers: {
           'Accept': 'application/json',
@@ -296,7 +326,7 @@ function App() {
     console.log(userSignedIn.currentUser, 'should be updated one')
     console.log(console.log(localStorage.getItem('user')))
   }, [], [])
- 
+
   // //POST RATE 
   // const rate = async (e) => {
   //   const token = userSignedIn.token
@@ -351,9 +381,9 @@ function App() {
       currentUser: {},
       token: "",
     })
-    removItems.forEach(item =>{ 
+    removItems.forEach(item => {
       localStorage.removeItem(item)
-    }) 
+    })
     history.push("/");
   }
 
