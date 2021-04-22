@@ -128,10 +128,8 @@ function Header(props) {
   
   const menuList = ['HOME', 'LIST', 'FAVORITES', 'PROFILE', 'SIGNOUT'] //LIST PAGE IS THE HOMEPAGE FOR NOW
 
-  const [clickedBtn, setClickedBtn] = React.useState({
-    signUp: false,
-    signIn: false
-  })
+  const [clickedBtn, setClickedBtn] = React.useState(null)
+
 
   //SET LOGGED DROP DOWN MENU STATE
   const [openMenu, setOpenMenu] = React.useState({
@@ -142,30 +140,18 @@ function Header(props) {
   //RETURN SIGN UP FORM ON CLICK ON SIGN UP BUTTON. THIS OPENS MODAL
   const handleSignUpClick = (e) => {
     console.log('cliked sign up ')
-    setClickedBtn(prevState => ({
-      ...prevState,
-      signUp: true,
-      signIn: false
-    }))
+    setClickedBtn('SIGN UP')
   }
+
   //RETURN SIGN IN FORM ON CLICK OF SIGN IN BUTTON
   const handleSignInClick = (e) => {
     console.log('cliked sign in ')
-
-    setClickedBtn(prevState => ({
-      ...prevState,
-      signUp: false,
-      signIn: true,
-      
-    }))
+    setClickedBtn('SIGN IN')
   }
   //CLOSE MODAL FUNCTION
   const handleModalClose = () => {
     console.log(('clicking close modal'))
-    setClickedBtn({
-      signUp: false,
-      signIn: false,
-    })
+    setClickedBtn(null)
   }
   //HANDLE MOBILE MENU, FUNCTION TO OPEN MOBILE MENU
   const showMenuOption = (e) => {
