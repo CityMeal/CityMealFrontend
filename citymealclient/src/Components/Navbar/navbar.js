@@ -138,19 +138,16 @@ function Header(props) {
   })
 
   //RETURN SIGN UP FORM ON CLICK ON SIGN UP BUTTON. THIS OPENS MODAL
-  const handleSignUpClick = (e) => {
-    console.log('cliked sign up ')
+  const handleSignUpClick = () => {
     setClickedBtn('SIGN UP')
   }
 
   //RETURN SIGN IN FORM ON CLICK OF SIGN IN BUTTON
   const handleSignInClick = (e) => {
-    console.log('cliked sign in ')
     setClickedBtn('SIGN IN')
   }
   //CLOSE MODAL FUNCTION
   const handleModalClose = () => {
-    console.log(('clicking close modal'))
     setClickedBtn(null)
   }
   //HANDLE MOBILE MENU, FUNCTION TO OPEN MOBILE MENU
@@ -186,7 +183,7 @@ function Header(props) {
           <Button className={userNameBtnStyles.root} onClick={showMenuOption}>{props.userSignedIn.currentUser.username}</Button>
           <Menu open={openMenu.open} anchorEl={openMenu.anchorEl} onClose={closeMenu}>
             {menuList.map(option => (
-              (<Link to={option === 'SIGNOUT' ? '/' : option}>
+              (<Link to={option === 'SIGNOUT' ? '/' : option} key={`${option}link`}>
                 <MenuItem
                   key={option}
                   onClick={option === 'SIGNOUT' ? props.logout : closeMenu}

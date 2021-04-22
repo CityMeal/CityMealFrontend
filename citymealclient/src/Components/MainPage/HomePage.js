@@ -119,6 +119,7 @@ function HomePage(props) {
             lng: position.coords.longitude,
         }
         setUsersLocation(userposition)
+        localStorage.setItem('userPosition',JSON.stringify(userposition) )
     }
 
     const handleSeclect = (site) => {
@@ -129,8 +130,17 @@ function HomePage(props) {
         //GET FIRST LOCATION OF USER ON PAGE LOAD
         navigator.geolocation.getCurrentPosition(success)
         //Look up navigator.watchPosition 
+        
     })
 
+    React.useEffect(() => {
+        const userPosition = localStorage.getItem('userPosition')
+        console.log(userPosition)
+        if(userPosition){
+            const located = JSON.parse(userPosition)
+            setUsersLocation(located)
+        }
+    }, [])
 
     return (
         <div className={classes.mainDiv}>

@@ -134,7 +134,6 @@ const formStyle = makeStyles(theme => ({
 
 function Forms(props) {
 
-    console.log(props.clickedBtn)
 
     const modalClass = modalStyle()
     const formClass = formStyle()
@@ -143,15 +142,9 @@ function Forms(props) {
     const signUpLabels = ['username', 'email', 'address', 'city', 'zipcode', 'password']
     const signInLabels = ['email', 'password']
 
-    const [labels, setLabels] = React.useState(signUpLabels)
 
     //SET SIGN UP/ SIGN IN MODAL STATE
     const [openModal, setOpenModal] = React.useState(false)
-
-    //CLOSE MODAL FUNCTION
-    const handleModalClose = () => {
-        setLabels(signUpLabels)
-    }
 
 
     return (

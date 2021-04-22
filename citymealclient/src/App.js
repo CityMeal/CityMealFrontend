@@ -267,8 +267,8 @@ function App() {
 
   //GET ALL LOCATIONS AND CREATE SITE POSITION COORDINATES FOR MAP VIEW
   React.useEffect(() => {
-    const getAllLocation = async () => {
-      await fetch(`${BASE_URL}/locations`, {
+    const getAllLocation =  () => {
+      fetch(`${BASE_URL}/locations`, {
         headers: {
           'Accept': 'application/json',
         },
@@ -296,7 +296,7 @@ function App() {
     console.log(userSignedIn.currentUser, 'should be updated one')
     console.log(console.log(localStorage.getItem('user')))
   }, [], [])
-
+ 
   // //POST RATE 
   // const rate = async (e) => {
   //   const token = userSignedIn.token
@@ -325,10 +325,6 @@ function App() {
 
   //CHECK LOCAL STORAGE EACH TIME APP LOADS TO SEE IF THERE IS A USESR
   React.useEffect(() => {
-    console.log(localStorage)
-
-    console.log(userSignedIn.currentUser, 'should be updated one')
-    console.log(console.log(localStorage.getItem('user')))
 
     const loggedInUser = localStorage.getItem("user")
     const token = localStorage.getItem("token")
@@ -349,12 +345,15 @@ function App() {
   //LOG USER OUT
   const logOut = () => {
     console.log('im clicking button')
+    const removItems = ['user', 'token']
     setUserSignedIn({
       signedIn: false,
       currentUser: {},
       token: "",
     })
-    localStorage.clear()
+    removItems.forEach(item =>{ 
+      localStorage.removeItem(item)
+    }) 
     history.push("/");
   }
 
@@ -374,8 +373,6 @@ function App() {
           onSubmitUser={signUpUser}
           onSubmitLogIn={signInUser}
         />
-        {/* <ListView locations={locations} addFav={addFav} /> */}
-
         {!userSignedIn.signedIn ?
           <Route exact path="/" render={() => <HomePage
             siteCoords={siteCoords}
