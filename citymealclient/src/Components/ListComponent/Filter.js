@@ -113,9 +113,9 @@ function Filter() {
                     'Accept': 'application/json',
                 },
             })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(err => console.log(err))
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(err => console.log(err))
         }
         filterLocation()
     }, [zipcode])
@@ -132,7 +132,7 @@ function Filter() {
                 <form className={classes.zipcodeInput}>
                     <TextField id="standard-search" label="zip code" type="search" value={zipcode} onChange={handleChange} />
                 </form>
-                
+
             }
             <Button size="small" onClick={(e) => setZipcode(e.target.value)}>Enter</Button>
             {boroughFilter && <FilterByBorough />}

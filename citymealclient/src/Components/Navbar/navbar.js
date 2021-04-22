@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import logo from '../Images/logo.png'
 import Forms from '../MainPage/FormModal'
 import { Button, Menu, MenuItem, makeStyles, createMuiTheme, ThemeProvider, useMediaQuery } from '@material-ui/core';
-
+import { Link } from 'react-router-dom';
 
 //Styled-Component Styling
 const DivStyle = styled.div`
@@ -126,7 +126,7 @@ function Header(props) {
   const buttons = ['Sign Up', 'Sign In']
   const signUpLabels = ['username', 'email', 'address', 'city', 'zipcode', 'password']
   const signInLabels = ['email', 'password']
-  const menuList = ['HOME', 'LIST', 'FAVORITES', 'PROFILE', 'SIGN OUT'] //LIST PAGE IS THE HOMEPAGE FOR NOW
+  const menuList = ['HOME', 'LIST', 'FAVORITES', 'PROFILE', 'SIGNOUT'] //LIST PAGE IS THE HOMEPAGE FOR NOW
   const [labels, setLabels] = React.useState(signUpLabels)
   //SET SIGN UP/ SIGN IN MODAL STATE
   const [openModal, setOpenModal] = React.useState(false)
@@ -168,8 +168,8 @@ function Header(props) {
   return (
     <DivStyle className="Nav">
       <img src={logo} alt="logo" id='logo' className={logoClasses.root} />
-      {!props.userSignedIn.signedIn 
-      ?
+      {!props.userSignedIn.signedIn
+        ?
         buttons.map((button, index) => (
           <Button
             variant="contained"
@@ -178,16 +178,20 @@ function Header(props) {
             className={btnClasses.root}
             size="small"
             onClick={button === 'Sign Up' ? handleSignUpClick : handleSignInClick}
-          >{button}</Button>)) 
+          >{button}</Button>))
         :
         <div>
           <Button className={userNameBtnStyles.root} onClick={showMenuOption}>{props.userSignedIn.currentUser.username}</Button>
           <Menu open={openMenu.open} anchorEl={openMenu.anchorEl} onClose={closeMenu}>
             {menuList.map(option => (
-              <MenuItem
-                key={option}
-                onClick={option === 'SIGN OUT' ? props.logout : closeMenu}
-              >{option}</MenuItem>
+              (<Link to={option === 'SIGNOUT' ? '/' : option}>
+                <MenuItem
+                  // linkButton
+                  // containerElement={<Link to="/`${option}`" />}
+                  key={option}
+                  onClick={option === 'SIGNOUT' ? props.logout : closeMenu}
+                >{option}</MenuItem>
+              </Link>)
             ))}
           </Menu>
         </div>
@@ -203,7 +207,7 @@ function Header(props) {
         submitUser={props.onSubmitUser}
         submitLogin={props.onSubmitLogIn}
       />
-    </DivStyle>
+    </DivStyle >
   );
 }
 export default Header;

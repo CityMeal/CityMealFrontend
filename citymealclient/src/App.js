@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
 import './App.css';
 import Header from './Components/Navbar/navbar';
 import Footer from './Components/Footer/footer';
@@ -6,11 +7,13 @@ import Announce from './Components/Others/announce';
 import ListView from './Components/MainPage/ListViewPage';
 import HomePage from './Components/MainPage/HomePage';
 import Favorites from './Components/Favorites/Favorites';
+import Profile from './Components/Favorites/Profile';
 
 const BASE_URL = "http://localhost:3030"
 console.log("key: ", process.env.REACT_APP_key)
 
 function App() {
+  const history = useHistory();
 
   //SET SITES LOCATIONS
   const [locations, setLocations] = React.useState([])
@@ -112,6 +115,7 @@ function App() {
           token: data.token,
           currentUser: data.user
         })
+        history.push("/HOME");
         //Store User in LocalStorage. Remove from localstorage only on logout
         localStorage.setItem('user', JSON.stringify(data.user))
         localStorage.setItem('token', JSON.stringify(data.token))
@@ -349,11 +353,14 @@ function App() {
       token: "",
     })
     localStorage.clear()
+    history.push("/");
   }
 
 
   return (
+
     <div className="App">
+
       <div className="otherContent">
         <Header
           userSignedIn={userSignedIn}
@@ -368,28 +375,42 @@ function App() {
         {/* <ListView locations={locations} addFav={addFav} /> */}
 
         {!userSignedIn.signedIn ?
-          <HomePage
+          <Route exact path="/" render={() => <HomePage
             siteCoords={siteCoords}
             signedIn={userSignedIn.signedIn}
-          />
+          />} />
           :
-          // <ListView locations={locations} addFav={addFav} />
-          // ,
-          <Favorites
-            user={userSignedIn.currentUser}
-            handleUser={handleChange}
-            updateUser={updateUser}
-            deleteUser={deleteUser}
-            locations={locations}
-            favorites={favorites}
-            deleteFav={deleteFav}
-            userSignedIn={userSignedIn}
-          />
+          < Switch >
+            <Route exact path="/HOME" render={() => <HomePage
+              siteCoords={siteCoords}
+              signedIn={userSignedIn.signedIn}
+            />} />
+            <Route exact path="/LIST" render={() => <ListView
+              locations={locations} addFav={addFav}
+            />} />
+            <Route exact path="/FAVORITES" render={() => <Favorites
+              user={userSignedIn.currentUser}
+              handleUser={handleChange}
+              updateUser={updateUser}
+              deleteUser={deleteUser}
+              locations={locations}
+              favorites={favorites}
+              deleteFav={deleteFav}
+              userSignedIn={userSignedIn}
+            />} />
+            <Route exact path="/PROFILE" render={() => <Profile
+              userSignedIn={userSignedIn}
+              updateUser={updateUser}
+              handleUser={handleChange}
+              deleteUser={deleteUser} />
+            } />
+          </Switch>
         }
-        <Footer />
-      </div>
 
-    </div>
+
+      </div>
+      <Footer />
+    </div >
   );
 }
 

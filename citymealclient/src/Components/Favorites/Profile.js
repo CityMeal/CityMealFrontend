@@ -111,7 +111,7 @@ function Profile(props) {
     return (
         <div>
             <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Profile</p></Box>
-            <ShowProfile button={props.button} userSignedIn={props.userSignedIn} currentUser={props.currentUser} handleChange={props.handleChange} updateUser={props.updateUser} deleteUser={props.deleteUser} />
+            <ShowProfile button={props.button} userSignedIn={props.userSignedIn} currentUser={props.currentUser} handleChange={props.handleUser} updateUser={props.updateUser} deleteUser={props.deleteUser} />
         </div>
     )
 }
