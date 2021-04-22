@@ -144,10 +144,6 @@ function App() {
 
 
   const updateUser = () => {
-    // const token = userSignedIn.token
-    // console.log(typeof userSignedIn.currentUser.username)
-    // console.log(typeof userSignedIn.currentUser.zipcode)
-
     fetch(`${BASE_URL}/user`, {
       method: 'PUT',
       headers: {
@@ -170,8 +166,8 @@ function App() {
         localStorage.removeItem('user')
         localStorage.setItem('user', JSON.stringify(data.user))
       })
-
       .catch(err => console.log(err))
+      history.push("/HOME")
     console.log(localStorage.getItem('user'))
     console.log(userSignedIn.currentUser)
   }
@@ -403,8 +399,6 @@ function App() {
             } />
           </Switch>
         }
-
-
       </div>
       <Footer />
     </div >
