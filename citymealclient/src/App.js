@@ -394,6 +394,7 @@ function App() {
               updateUser={updateUser}
               deleteUser={deleteUser}
               locations={locations}
+              addFav={addFav}
               favorites={favorites}
               deleteFav={deleteFav}
               userSignedIn={userSignedIn}

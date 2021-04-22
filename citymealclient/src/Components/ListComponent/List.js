@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Rating from './Rating';
-import {createMuiTheme, useMediaQuery} from '@material-ui/core';
+import { createMuiTheme, useMediaQuery } from '@material-ui/core';
 
 
 const themes2 = createMuiTheme({
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     top: -4 + 'em',
     left: 3 + 'em',
   },
-  divStyle : {
+  divStyle: {
     // border: 'solid green',
     width: '100 %',
     position: 'relative',
@@ -101,7 +101,11 @@ const useStyles = makeStyles((theme) => ({
     },
 
   },
-
+  favBtn: {
+    border: 'none',
+    backgroundColor: 'white',
+    width: '5%',
+  },
   list: {
     // border: 0.5 +'px solid black',
     width: '25em',
@@ -121,7 +125,7 @@ const useStyles = makeStyles((theme) => ({
       margin: '1em',
     }
   },
-  directionBtn:{
+  directionBtn: {
     // border: 'solid red',
     position: 'relative',
     left: -0.5 + 'em',
@@ -130,82 +134,82 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     paddingLeft: '5%',
   },
-  link: {
-    textDecoration: 'none',
-    color: '#D9D9D9',
-    backgroundColor: '#4484CE',
-    textAlign: 'center',
-    width: '50%',
-    paddingTop: '2%',
-    paddingBottom: '2%',
-  },
-  twolists: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  showList: {
-    [theme.breakpoints.down('md')]: {
-      display: 'block',
-    },
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    }
-  },
-  showListLg: {
-    [theme.breakpoints.down('md')]: {
-      display: 'none',
-    },
-    [theme.breakpoints.up('md')]: {
-      display: 'block',
-    }
-  }
-// =======
-//   // link: {
-//   //   textDecoration: 'none',
-//   //   color: '#D9D9D9',
-//   //   backgroundColor: '#4484CE',
-//   //   textAlign: 'center',
-//   //   width: '50%',
-//   //   paddingTop: '2%',
-//   //   paddingBottom: '2%',
-//   // },
-//   // twolists: {
-//   //   display: 'flex',
-//   //   flexDirection: 'row',
-//   // },
-//   // showList: {
-//   //   [theme.breakpoints.down('md')]: {
-//   //     display: 'block',
-//   //   },
-//   //   [theme.breakpoints.up('md')]: {
-//   //     display: 'none',
-//   //   }
-//   // },
-//   // showListLg: {
-//   //   [theme.breakpoints.down('md')]: {
-//   //     display: 'none',
-//   //   },
-//   //   [theme.breakpoints.up('md')]: {
-//   //     display: 'block',
-//   //   }
-//   // },
-//   favBtn: {
-//     border: 'none',
-//     backgroundColor: 'white',
-//     width: '5%',
-//   },
-//   listDiv: {
-//     // border: solid red;
-//     width: 100 + '%',
-//     height: 24 + 'em',
-//     display: 'flex',
-//     flexWrap: 'wrap',
-//     overflow: 'scroll',
-//     position: 'absolute',
-//     boxSizing: 'border-box',
-//     marginTop: -4 + 'em',
-// >>>>>>> af4402c4898febd5f4ebca3232321b388b4414de
-//   }
+  // link: {
+  //   textDecoration: 'none',
+  //   color: '#D9D9D9',
+  //   backgroundColor: '#4484CE',
+  //   textAlign: 'center',
+  //   width: '50%',
+  //   paddingTop: '2%',
+  //   paddingBottom: '2%',
+  // },
+  // twolists: {
+  //   display: 'flex',
+  //   flexDirection: 'row',
+  // },
+  // showList: {
+  //   [theme.breakpoints.down('md')]: {
+  //     display: 'block',
+  //   },
+  //   [theme.breakpoints.up('md')]: {
+  //     display: 'none',
+  //   }
+  // },
+  // showListLg: {
+  //   [theme.breakpoints.down('md')]: {
+  //     display: 'none',
+  //   },
+  //   [theme.breakpoints.up('md')]: {
+  //     display: 'block',
+  //   }
+  // }
+  // =======
+  //   // link: {
+  //   //   textDecoration: 'none',
+  //   //   color: '#D9D9D9',
+  //   //   backgroundColor: '#4484CE',
+  //   //   textAlign: 'center',
+  //   //   width: '50%',
+  //   //   paddingTop: '2%',
+  //   //   paddingBottom: '2%',
+  //   // },
+  //   // twolists: {
+  //   //   display: 'flex',
+  //   //   flexDirection: 'row',
+  //   // },
+  //   // showList: {
+  //   //   [theme.breakpoints.down('md')]: {
+  //   //     display: 'block',
+  //   //   },
+  //   //   [theme.breakpoints.up('md')]: {
+  //   //     display: 'none',
+  //   //   }
+  //   // },
+  //   // showListLg: {
+  //   //   [theme.breakpoints.down('md')]: {
+  //   //     display: 'none',
+  //   //   },
+  //   //   [theme.breakpoints.up('md')]: {
+  //   //     display: 'block',
+  //   //   }
+  //   // },
+  //   favBtn: {
+  //     border: 'none',
+  //     backgroundColor: 'white',
+  //     width: '5%',
+  //   },
+  //   listDiv: {
+  //     // border: solid red;
+  //     width: 100 + '%',
+  //     height: 24 + 'em',
+  //     display: 'flex',
+  //     flexWrap: 'wrap',
+  //     overflow: 'scroll',
+  //     position: 'absolute',
+  //     boxSizing: 'border-box',
+  //     marginTop: -4 + 'em',
+  // >>>>>>> af4402c4898febd5f4ebca3232321b388b4414de
+  //   }
 }));
 
 
