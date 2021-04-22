@@ -169,6 +169,7 @@ function App() {
         console.log(data.user)
         localStorage.removeItem('user')
         localStorage.setItem('user', JSON.stringify(data.user))
+        history.push("/PROFILE");
       })
 
       .catch(err => console.log(err))
@@ -198,7 +199,7 @@ function App() {
   const addFav = (e) => {
     const id = userSignedIn.currentUser.id
     const locationId = parseInt(e.target.name)
-    console.log(locationId)
+    // console.log(locationId)
 
 
     fetch(`${BASE_URL}/user/${id}/savefavorite`, {
@@ -215,6 +216,7 @@ function App() {
       .then(response => response.json())
       .then(data => {
         console.log(data)
+        // history.push("/FAVORITES");
       })
       .catch(err => console.log(err))
   }
@@ -402,7 +404,7 @@ function App() {
             <Route exact path="/PROFILE" render={() => <Profile
               userSignedIn={userSignedIn}
               updateUser={updateUser}
-              handleUser={handleChange}
+              handleChange={handleChange}
               deleteUser={deleteUser} />
             } />
           </Switch>
@@ -410,7 +412,7 @@ function App() {
 
 
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div >
   );
 }
