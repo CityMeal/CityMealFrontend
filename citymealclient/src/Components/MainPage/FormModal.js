@@ -146,13 +146,18 @@ function Forms(props) {
     //SET SIGN UP/ SIGN IN MODAL STATE
     const [openModal, setOpenModal] = React.useState(false)
 
+    const onSubmitClose = (e) => {
+        console.log(e.target)
+        return props.closeModal
+    }
+
 
     return (
         <div>
             {!webForm ?
             //This is the Mobile form version for sign up
                 <Modal open={props.clickedBtn !== null ? true : openModal} onClose={props.closeModal} className={modalClass.root}> 
-                    <form className={formClass.root} >
+                    <form className={formClass.root} onSubmit={onSubmitClose}>
                         {props.clickedBtn === 'SIGN UP' ? signUpLabels.map(label => (
                             <TextField id={`${label}field`} 
                                 key={label} 
@@ -162,6 +167,7 @@ function Forms(props) {
                                 size="small" 
                                 name={label}
                                 value= {props.userVals.label}
+                                defaultValue =""
                                 required
                                 onChange= {props.signupChange}
                             />
@@ -180,9 +186,9 @@ function Forms(props) {
                             />
                         ))
                         }
-                        <Button variant="contained" size='small' onClick={props.clickedBtn === 'SIGN UP' ? props.submitUser : props.submitLogin}>
+                        <button variant="contained" size='small' type="submit" onClick={props.clickedBtn === 'SIGN UP' ? props.submitUser : props.submitLogin}>
                             {props.clickedBtn === 'SIGN UP' ? 'SIGN UP' : 'SIGN IN'}
-                        </Button>
+                        </button>
                     </form>
                 </Modal> :
                 //This is the Desktop form version for sign up

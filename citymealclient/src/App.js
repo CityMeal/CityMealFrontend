@@ -65,7 +65,8 @@ function App() {
   }
 
   //FUNCTION MAKING A NEW USER POST REQUEST TO THE DATABASE
-  const signUpUser = () => {
+  const signUpUser = (e) => {
+    e.preventDefault()
     console.log(newUser)
     console.log('i clicked signup user func')
     //Write a function to post user in database
@@ -210,7 +211,8 @@ function App() {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data)
+        setFavorites(data.favorites)
+        localStorage.setItem('favorites',)
       })
       .catch(err => console.log(err))
   }
@@ -230,9 +232,7 @@ function App() {
         },
       })
         .then(response => response.json())
-        .then(data => {
-          setFavorites(data.favorites)
-        })
+        .then(data => console.log(data))
         .catch(err => console.log(err))
     }
     getFav()

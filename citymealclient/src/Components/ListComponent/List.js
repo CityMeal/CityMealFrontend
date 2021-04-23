@@ -219,7 +219,7 @@ function List(props) {
         <Filter />
         <TextField id="standard-search" label="zipcode" type="search" />
       </div>
-      <div addfav={props.addFav} className={classes.listWrap}>
+      <div className={classes.listWrap}>
         {props.locations.map(location => (
           <Box className={classes.list} maxWidth="xl" key={location.id} >
             <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src="https://res.cloudinary.com/dqduwnrb1/image/upload/v1618158659/GoogleMapTA_nkou2y.jpg" alt="map" /></Box>

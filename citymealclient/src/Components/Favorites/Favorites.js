@@ -13,21 +13,6 @@ const directionStyle = {
   left: -0.5 + 'em',
 }
 
-const ListWrapper = styled.div`
-  // border: solid red;
-  width: 100%;
-  height:24em;
-  display: flex;
-  flex-wrap: wrap;
-  overflow: scroll;
-  // position: absolute;
-  box-sizing: border-box;
-  // margin-top: -4em;
-  margin-bottom: 5%;
-
-`
-
-
 const useStyles = makeStyles((theme) => ({
   msg: {
     display: 'flex',

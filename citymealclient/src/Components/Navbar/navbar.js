@@ -183,7 +183,7 @@ function Header(props) {
           <Button className={userNameBtnStyles.root} onClick={showMenuOption}>{props.userSignedIn.currentUser.username}</Button>
           <Menu open={openMenu.open} anchorEl={openMenu.anchorEl} onClose={closeMenu}>
             {menuList.map(option => (
-              (<Link to={option === 'SIGNOUT' ? '/' : option} key={`${option}link`}>
+              (<Link to={option === 'SIGNOUT' ? '/' : option.toLowerCase()} key={`${option}link`}>
                 <MenuItem
                   key={option}
                   onClick={option === 'SIGNOUT' ? props.logout : closeMenu}

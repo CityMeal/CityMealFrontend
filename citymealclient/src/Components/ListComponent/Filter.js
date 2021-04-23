@@ -20,7 +20,9 @@ const useStyles = makeStyles((theme) => ({
     },
     filterBtn: {
         width: '9em',
-        height:'3em'
+        height:'3em',
+        position:'relative',
+        top: '1em',
         // flex: 1,
     },
     zipcodeInput: {
