@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     backgroundColor: '#F9CF00',
+    marginTop: '3%',
     marginLeft: '5%',
     marginRight: '5%',
   },
