@@ -82,6 +82,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function constructStreetViewURL(favorite) {
+  let url = `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${favorite.latitude},${favorite.longitude}&key=${process.env.REACT_APP_API_KEY}`
+  return url
+}
 
 function Favorites(props) {
   const classes = useStyles();
@@ -93,7 +97,7 @@ function Favorites(props) {
         <div className={classes.listWrap}>
           {Array.isArray(props.favorites) && props.favorites.map(favorite => (
             <Box className={classes.list} maxWidth="xl" key={favorite.id} >
-              <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src="https://res.cloudinary.com/dqduwnrb1/image/upload/v1618158659/GoogleMapTA_nkou2y.jpg" alt="map" /></Box>
+              <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src={constructStreetViewURL(favorite)} alt="map" /></Box>
               <Box className={classes.info} width={1 / 2}>
                 <p>{favorite.name}</p>
                 <p>{favorite.city}</p>
