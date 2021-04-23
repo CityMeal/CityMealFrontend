@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 const DivStyle = styled.div`
   width: 100vw;
   height: 6.5em;
-  background-color: #4484CE;
+  background-color: #325288;
 `
 const themes = createMuiTheme({
   breakpoints: {
@@ -125,7 +125,7 @@ function Header(props) {
   const logoClasses = logoStyles()
 
   const buttons = ['Sign Up', 'Sign In']
-  
+
   const menuList = ['HOME', 'LIST', 'FAVORITES', 'PROFILE', 'SIGNOUT'] //LIST PAGE IS THE HOMEPAGE FOR NOW
 
   const [clickedBtn, setClickedBtn] = React.useState(null)
@@ -163,7 +163,7 @@ function Header(props) {
       anchorEl: null
     })
   }
-  
+
   return (
     <DivStyle className="Nav">
       <img src={logo} alt="logo" id='logo' className={logoClasses.root} />
@@ -194,8 +194,8 @@ function Header(props) {
         </div>
       }
       <Forms
-        clickedBtn ={clickedBtn}
-        closeModal ={handleModalClose}
+        clickedBtn={clickedBtn}
+        closeModal={handleModalClose}
         signupChange={props.signUpOnChange}
         signinChange={props.signInOnChange}
         userVals={props.userVals}

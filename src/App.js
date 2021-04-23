@@ -175,7 +175,6 @@ function App() {
 
   //DELETE USER
   const deleteUser = () => {
-    // const token = userSignedIn.token
     //Write a POST request to user login route on the back end
     fetch(`${BASE_URL}/user`, {
       method: 'DELETE',
@@ -195,8 +194,6 @@ function App() {
   const addFav = (e) => {
     const id = userSignedIn.currentUser.id
     const locationId = parseInt(e.target.name)
-    // console.log(locationId)
-
 
     fetch(`${BASE_URL}/user/${id}/savefavorite`, {
       method: 'POST',
@@ -297,31 +294,6 @@ function App() {
     console.log(userSignedIn.currentUser, 'should be updated one')
     console.log(console.log(localStorage.getItem('user')))
   }, [], [])
-
-  // //POST RATE 
-  // const rate = async (e) => {
-  //   const token = userSignedIn.token
-  //   const userId = userSignedIn.currentUser.id
-  //   // const locationId
-
-  //   await fetch(`${BASE_URL}/users/${userId}/locations/:location_id/ratings`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json',
-  //       'Authorization': `Bearer ${token}`
-  //     },
-  //     body: JSON.stringify({
-
-  //     })
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       console.log(data)
-  //     })
-  //     .catch(err => console.log(err))
-  // }
-
 
 
   //CHECK LOCAL STORAGE EACH TIME APP LOADS TO SEE IF THERE IS A USESR

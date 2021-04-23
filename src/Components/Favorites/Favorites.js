@@ -18,19 +18,17 @@ const useStyles = makeStyles((theme) => ({
   msg: {
     display: 'flex',
     justifyContent: 'center',
-    backgroundColor: '#F9CF00',
+    backgroundColor: '#f4eee8',
     marginTop: '3%',
     marginLeft: '5%',
     marginRight: '5%',
     boxShadow: (2 + 'px ' + 3 + 'px ' + 3 + 'px ' + 2 + 'px ' + ' lightgrey'),
+    color: '#325288'
   },
   fontSize: {
     [theme.breakpoints.down('sm')]: {
       fontSize: '1rem',
     },
-    // [theme.breakpoints.up('md')]: {
-    //   fontSize: '1.5rem',
-    // },
     [theme.breakpoints.up('lg')]: {
       fontSize: '2rem',
     },
