@@ -129,6 +129,14 @@ const useStyles = makeStyles((theme) => ({
     // border: 'solid red',
     position: 'relative',
     left: -0.5 + 'em',
+    marginTop: '3%',
+    marginBottom: '3%',
+  },
+  info: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    paddingLeft: '8%',
   },
   pic: {
     display: 'flex',
@@ -157,8 +165,9 @@ function List(props) {
               <p>{location.name}</p>
               <p>{location.city}</p>
               <Rating />
-              <Button variant="contained" color="primary" className={classes.directionBtn}><a style={{ textDecoration: "none", color: "white" }} href={`https://www.google.com/maps/place/` + location.siteAddress.split(" ").join("+")} target="_blank">GET DIRECTION</a></Button>
               <button className={classes.favBtn} onClick={props.addFav} name={location.id}>❤️</button>
+              <Button variant="contained" color="primary" className={classes.directionBtn}><a style={{ textDecoration: "none", color: "white" }} href={`https://www.google.com/maps/place/` + location.siteAddress.split(" ").join("+")} target="_blank">GET DIRECTION</a></Button>
+
             </Box>
           </Box>
         ))}

@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         // border: 'solid red',
         // felexDirection: 'column',
-        backgroundColor: '#F9CF00', //F9CF00
+        backgroundColor: '#f4eee8', //F9CF00
         // height: 9.4 + 'em',        
         position: 'relative',
         margin: 0.5 + 'em',
@@ -50,9 +50,9 @@ function Announce() {
     return (
         <Box className={classes.root} >
             {/* <div className={classes.text}> */}
-                <p className={classes.mainfont}><b>PICKUP TIME - NO REGISTRATION REQUIRED</b></p>
-                <p className={classes.subfont}><b>Families / Students:</b>Mon - Fri, 9AM to 12PM. <b>Community Members:</b> Mon - Fri, 3PM to 5PM</p>
-                {/* <p className={classes.subfont}>Community Members: Mon - Fri, 3 pm to 5 pm</p> 
+            <p className={classes.mainfont}><b>PICKUP TIME - NO REGISTRATION REQUIRED</b></p>
+            <p className={classes.subfont}><b>Families / Students:</b>Mon - Fri, 9AM to 12PM. <b>Community Members:</b> Mon - Fri, 3PM to 5PM</p>
+            {/* <p className={classes.subfont}>Community Members: Mon - Fri, 3 pm to 5 pm</p> 
                 <p className={classes.subfont}>No Registration Required</p> */}
             {/* </div> */}
 
