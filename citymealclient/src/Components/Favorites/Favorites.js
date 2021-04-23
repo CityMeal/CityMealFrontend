@@ -3,21 +3,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Rating from '../ListComponent/Rating'
-
+import { FaHeart } from 'react-icons/fa'
 
 const useStyles = makeStyles((theme) => ({
   listWrap: {
     width: '100%',
-    height: '80vh',
     marginTop: '1%',
     display: 'flex',
     justifyContent: 'center',
     flexWrap: 'wrap',
     overflow: 'scroll',
     boxSizing: 'border-box',
-    [theme.breakpoints.up('lg')]: {
-      height: '70vh',
-    },
   },
   msg: {
     display: 'flex',
@@ -102,6 +98,7 @@ function Favorites(props) {
                 <p>{favorite.name}</p>
                 <p>{favorite.city}</p>
                 <Rating />
+                {/* <button className={classes.favBtn} onClick={props.deleteFav} name={favorite.id} ><FaHeart color={'red'} /></button> */}
                 <button className={classes.favBtn} onClick={props.deleteFav} name={favorite.id} >❤️</button>
                 <Button variant="contained" color="primary" className={classes.directionBtn}><a style={{ textDecoration: "none", color: "white" }} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a></Button>
               </Box>

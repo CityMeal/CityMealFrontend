@@ -213,39 +213,10 @@ function App() {
       .then(data => {
         setFavorites(data.favorites)
         console.log(data)
-        // history.push("/FAVORITES");
+        window.alert('added to the favorite list')
       })
       .catch(err => console.log(err))
   }
-  // React.userEffect(() => {
-  //   const addFav = (e) => {
-  //     const id = userSignedIn.currentUser.id
-  //     const locationId = parseInt(e.target.name)
-  //     // console.log(locationId)
-
-
-  //     fetch(`${BASE_URL}/user/${id}/savefavorite`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Accept': 'application/json',
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         user_id: userSignedIn.currentUser.name,
-  //         location_id: locationId,
-  //       })
-  //     })
-  //       .then(response => response.json())
-  //       .then(data => {
-  //         setFavorites(data.favorites)
-  //         console.log(data)
-  //         // history.push("/FAVORITES");
-  //       })
-  //       .catch(err => console.log(err))
-  //   }
-  //   addFav()
-  // }, [])
-
 
   React.useEffect(() => {
     const getFav = () => {
@@ -287,7 +258,11 @@ function App() {
       .then(response => {
         return response.json()
       })
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data)
+        window.alert('Deleted from your favorite list')
+
+      })
       .catch(err => console.log(err))
   }
 

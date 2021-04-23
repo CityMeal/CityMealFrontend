@@ -10,6 +10,7 @@ import { FaMapMarkedAlt } from 'react-icons/fa'
 const useStyles = makeStyles((theme) => ({
     root: {
         marginBottom: '3%',
+        color: '#325288'
     },
     msg: {
         display: 'flex',
