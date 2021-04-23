@@ -115,7 +115,7 @@ function App() {
           token: data.token,
           currentUser: data.user
         })
-        history.push("/HOME");
+        history.push("/LIST");
         //Store User in LocalStorage. Remove from localstorage only on logout
         localStorage.setItem('user', JSON.stringify(data.user))
         localStorage.setItem('token', JSON.stringify(data.token))
@@ -144,10 +144,6 @@ function App() {
 
 
   const updateUser = () => {
-    // const token = userSignedIn.token
-    // console.log(typeof userSignedIn.currentUser.username)
-    // console.log(typeof userSignedIn.currentUser.zipcode)
-
     fetch(`${BASE_URL}/user`, {
       method: 'PUT',
       headers: {
@@ -169,9 +165,10 @@ function App() {
         console.log(data.user)
         localStorage.removeItem('user')
         localStorage.setItem('user', JSON.stringify(data.user))
+        history.push("/PROFILE");
       })
-
       .catch(err => console.log(err))
+      history.push("/HOME")
     console.log(localStorage.getItem('user'))
     console.log(userSignedIn.currentUser)
   }
@@ -198,7 +195,7 @@ function App() {
   const addFav = (e) => {
     const id = userSignedIn.currentUser.id
     const locationId = parseInt(e.target.name)
-    console.log(locationId)
+    // console.log(locationId)
 
 
     fetch(`${BASE_URL}/user/${id}/savefavorite`, {
@@ -214,10 +211,41 @@ function App() {
     })
       .then(response => response.json())
       .then(data => {
+        setFavorites(data.favorites)
         console.log(data)
+        // history.push("/FAVORITES");
       })
       .catch(err => console.log(err))
   }
+  // React.userEffect(() => {
+  //   const addFav = (e) => {
+  //     const id = userSignedIn.currentUser.id
+  //     const locationId = parseInt(e.target.name)
+  //     // console.log(locationId)
+
+
+  //     fetch(`${BASE_URL}/user/${id}/savefavorite`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Accept': 'application/json',
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         user_id: userSignedIn.currentUser.name,
+  //         location_id: locationId,
+  //       })
+  //     })
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         setFavorites(data.favorites)
+  //         console.log(data)
+  //         // history.push("/FAVORITES");
+  //       })
+  //       .catch(err => console.log(err))
+  //   }
+  //   addFav()
+  // }, [])
+
 
   React.useEffect(() => {
     const getFav = () => {
@@ -265,7 +293,7 @@ function App() {
 
   //GET ALL LOCATIONS AND CREATE SITE POSITION COORDINATES FOR MAP VIEW
   React.useEffect(() => {
-    const getAllLocation =  () => {
+    const getAllLocation = () => {
       fetch(`${BASE_URL}/locations`, {
         headers: {
           'Accept': 'application/json',
@@ -294,7 +322,7 @@ function App() {
     console.log(userSignedIn.currentUser, 'should be updated one')
     console.log(console.log(localStorage.getItem('user')))
   }, [], [])
- 
+
   // //POST RATE 
   // const rate = async (e) => {
   //   const token = userSignedIn.token
@@ -349,9 +377,9 @@ function App() {
       currentUser: {},
       token: "",
     })
-    removItems.forEach(item =>{ 
+    removItems.forEach(item => {
       localStorage.removeItem(item)
-    }) 
+    })
     history.push("/");
   }
 
@@ -391,6 +419,7 @@ function App() {
               updateUser={updateUser}
               deleteUser={deleteUser}
               locations={locations}
+              addFav={addFav}
               favorites={favorites}
               deleteFav={deleteFav}
               userSignedIn={userSignedIn}
@@ -398,15 +427,13 @@ function App() {
             <Route exact path="/PROFILE" render={() => <Profile
               userSignedIn={userSignedIn}
               updateUser={updateUser}
-              handleUser={handleChange}
+              handleChange={handleChange}
               deleteUser={deleteUser} />
             } />
           </Switch>
         }
-
-
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div >
   );
 }
