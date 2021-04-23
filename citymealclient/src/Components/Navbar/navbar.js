@@ -163,6 +163,7 @@ function Header(props) {
       anchorEl: null
     })
   }
+  console.log(props.userSignedIn.signedIn)
   
   return (
     <DivStyle className="Nav">
@@ -176,14 +177,14 @@ function Header(props) {
             key={button}
             className={btnClasses.root}
             size="small"
-            onClick={button === 'Sign Up' ? handleSignUpClick : handleSignInClick}
+            onClick={button === 'SIGN UP' ? handleSignUpClick : handleSignInClick}
           >{button}</Button>))
         :
         <div>
           <Button className={userNameBtnStyles.root} onClick={showMenuOption}>{props.userSignedIn.currentUser.username}</Button>
           <Menu open={openMenu.open} anchorEl={openMenu.anchorEl} onClose={closeMenu}>
             {menuList.map(option => (
-              (<Link to={option === 'SIGNOUT' ? '/' : option.toLowerCase()} key={`${option}link`}>
+              (<Link to={option === 'SIGNOUT' ? '/' : option} key={`${option}link`}>
                 <MenuItem
                   key={option}
                   onClick={option === 'SIGNOUT' ? props.logout : closeMenu}

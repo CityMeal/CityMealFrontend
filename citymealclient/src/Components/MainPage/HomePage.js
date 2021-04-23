@@ -88,7 +88,7 @@ function AlertComponent(props) {
                     horizontal: 'center',
                 }}
             >
-                <Typography>Please Sign In To Rate And Favorite Locations </Typography>
+                <Typography>Please Sign In To Save Locations</Typography>
             </Popover>
         </div>
     )
@@ -153,32 +153,32 @@ function HomePage(props) {
                         zoom={12}
                         center={usersLocation}
                     >
-                    {props.siteCoords.map(site => {
-                        return(
-                        <Marker 
-                            key={site.name} 
-                            position={site.position} 
-                            onClick={() => handleSeclect(site)}
-                        />
-                        )
-                    })}
-                    {
-                        siteSelected.position && 
-                        (
-                        <InfoWindow
-                            position={siteSelected.position}
-                            clickable={true}
-                            onCloseClick={() => setSiteSelected({})}
-                        >
-                            <div>
-                                <p>Food Center: {siteSelected.name}</p>
-                                <p>Address: {siteSelected.address}</p>
-                                <p>Zip Code: {siteSelected.zip}</p>
-                                <button onClick={() => window.alert('Please Sign In To Rate and Save Locations')}>❤️</button>
-                            </div>
-                        </InfoWindow>
-                        )
-                    }
+                        {props.siteCoords.map(site => {
+                            return (
+                                <Marker
+                                    key={site.name}
+                                    position={site.position}
+                                    onClick={() => handleSeclect(site)}
+                                />
+                            )
+                        })}
+                        {
+                            siteSelected.position &&
+                            (
+                                <InfoWindow
+                                    position={siteSelected.position}
+                                    clickable={true}
+                                    onCloseClick={() => setSiteSelected({})}
+                                >
+                                    <div>
+                                        <p>Food Center: {siteSelected.name}</p>
+                                        <p>Address: {siteSelected.address}</p>
+                                        <p>Zip Code: {siteSelected.zip}</p>
+                                        <button onClick={() => window.alert('Please Sign In To Save Locations')}>❤️</button>
+                                    </div>
+                                </InfoWindow>
+                            )
+                        }
                     </GoogleMap>
                 </LoadScript>
             </div>

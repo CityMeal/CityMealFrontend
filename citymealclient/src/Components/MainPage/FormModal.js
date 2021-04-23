@@ -167,7 +167,6 @@ function Forms(props) {
                                 size="small" 
                                 name={label}
                                 value= {props.userVals.label}
-                                defaultValue =""
                                 required
                                 onChange= {props.signupChange}
                             />

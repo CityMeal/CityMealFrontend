@@ -42,7 +42,7 @@ function App() {
 
   const [userSignedIn, setUserSignedIn] = React.useState({
     signedIn: false,
-    token: '',
+    token: null,
     currentUser: {}
   })
 
@@ -65,8 +65,7 @@ function App() {
   }
 
   //FUNCTION MAKING A NEW USER POST REQUEST TO THE DATABASE
-  const signUpUser = (e) => {
-    e.preventDefault()
+  const signUpUser = () => {
     console.log(newUser)
     console.log('i clicked signup user func')
     //Write a function to post user in database
@@ -97,9 +96,8 @@ function App() {
 
   //USE LOGIN DETAIL OBJECT TO AUTHENTICATE USER: WRITE AUTH FUNCTION
   const signInUser = (e) => {
-    console.log(e.target)
-    e.preventDefault();
     console.log(logInDetails)
+    e.preventDefault()
     //Write a POST request to user login route on the back end
     fetch(`${BASE_URL}/login`, {
       method: 'POST',
@@ -109,23 +107,23 @@ function App() {
       },
       body: JSON.stringify(logInDetails)
     })
-      .then(response => response.json())
-      .then(data => {
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      console.log('This is correct details')
         setUserSignedIn({
           signedIn: true,
           token: data.token,
           currentUser: data.user
         })
-        history.push("/HOME");
+        history.push("/LIST");
         //Store User in LocalStorage. Remove from localstorage only on logout
         localStorage.setItem('user', JSON.stringify(data.user))
-        localStorage.setItem('token', JSON.stringify(data.token))
-      })
-      .catch(err => console.log(err))
-
-    //Reset login details to empty strings
+        localStorage.setItem('token', JSON.stringify(data.token)) 
+    })
+    .catch(err => console.log(err))
     setLogInDetails({
-      username: "",
+      email: "",
       password: ""
     })
   }
@@ -169,8 +167,6 @@ function App() {
       })
       .catch(err => console.log(err))
       history.push("/HOME")
-    console.log(localStorage.getItem('user'))
-    console.log(userSignedIn.currentUser)
   }
 
   //DELETE USER
@@ -195,7 +191,7 @@ function App() {
   const addFav = (e) => {
     const id = userSignedIn.currentUser.id
     const locationId = parseInt(e.target.name)
-    console.log(locationId)
+    // console.log(locationId)
 
 
     fetch(`${BASE_URL}/user/${id}/savefavorite`, {
@@ -216,6 +212,35 @@ function App() {
       })
       .catch(err => console.log(err))
   }
+  // React.userEffect(() => {
+  //   const addFav = (e) => {
+  //     const id = userSignedIn.currentUser.id
+  //     const locationId = parseInt(e.target.name)
+  //     // console.log(locationId)
+
+
+  //     fetch(`${BASE_URL}/user/${id}/savefavorite`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Accept': 'application/json',
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         user_id: userSignedIn.currentUser.name,
+  //         location_id: locationId,
+  //       })
+  //     })
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         setFavorites(data.favorites)
+  //         console.log(data)
+  //         // history.push("/FAVORITES");
+  //       })
+  //       .catch(err => console.log(err))
+  //   }
+  //   addFav()
+  // }, [])
+
 
   React.useEffect(() => {
     const getFav = () => {
@@ -261,7 +286,7 @@ function App() {
 
   //GET ALL LOCATIONS AND CREATE SITE POSITION COORDINATES FOR MAP VIEW
   React.useEffect(() => {
-    const getAllLocation =  () => {
+    const getAllLocation = () => {
       fetch(`${BASE_URL}/locations`, {
         headers: {
           'Accept': 'application/json',
@@ -290,7 +315,7 @@ function App() {
     console.log(userSignedIn.currentUser, 'should be updated one')
     console.log(console.log(localStorage.getItem('user')))
   }, [], [])
- 
+
   // //POST RATE 
   // const rate = async (e) => {
   //   const token = userSignedIn.token
@@ -345,9 +370,9 @@ function App() {
       currentUser: {},
       token: "",
     })
-    removItems.forEach(item =>{ 
+    removItems.forEach(item => {
       localStorage.removeItem(item)
-    }) 
+    })
     history.push("/");
   }
 
@@ -367,7 +392,7 @@ function App() {
           onSubmitUser={signUpUser}
           onSubmitLogIn={signInUser}
         />
-        {!userSignedIn.signedIn ?
+        {!userSignedIn.signedIn?
           <Route exact path="/" render={() => <HomePage
             siteCoords={siteCoords}
             signedIn={userSignedIn.signedIn}
@@ -387,6 +412,7 @@ function App() {
               updateUser={updateUser}
               deleteUser={deleteUser}
               locations={locations}
+              addFav={addFav}
               favorites={favorites}
               deleteFav={deleteFav}
               userSignedIn={userSignedIn}
@@ -394,13 +420,13 @@ function App() {
             <Route exact path="/PROFILE" render={() => <Profile
               userSignedIn={userSignedIn}
               updateUser={updateUser}
-              handleUser={handleChange}
+              handleChange={handleChange}
               deleteUser={deleteUser} />
             } />
           </Switch>
         }
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div >
   );
 }
