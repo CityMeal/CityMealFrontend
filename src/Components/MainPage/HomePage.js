@@ -2,6 +2,7 @@ import React from "react";
 import Announcement from "../Others/announce";
 import Filter from "../ListComponent/Filter";
 import Forms from "../MainPage/FormModal";
+import { get } from "../../api";
 import {
   makeStyles,
   createMuiTheme,
@@ -16,7 +17,7 @@ import {
   Marker,
   InfoWindow,
 } from "@react-google-maps/api"; //I need to hide this
-import { get } from "../../api";
+
 
 const key = "AIzaSyC4DRbqgSVfVfyh8U1_TYcROL041wHGScE";
 
@@ -118,11 +119,13 @@ function HomePage(props) {
 
   //SET USER POSITION
   const [usersLocation, setUsersLocation] = React.useState({});
+
   const [siteSelected, setSiteSelected] = React.useState({});
   //SET SITE COORDINATES
   const [siteCoords, setSiteCoords] = React.useState([]);
 
   console.log("siteCoords", siteCoords);
+
   //SET USERS LOCATION STATE ONECE LOADED FROM USEEFFECT
   const success = (position) => {
     const userposition = {
