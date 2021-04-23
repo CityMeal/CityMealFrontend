@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,9 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
     filterBtn: {
         width: '9em',
-        height:'3em',
-        position:'relative',
-        top: '1em',
+        height: '3em'
         // flex: 1,
     },
     zipcodeInput: {
@@ -52,16 +51,15 @@ function Filter(props) {
 
     const [zipcode, setZipcode] = React.useState("00000")
 
-
     const [selectedBorough, setSelectedBorough] = React.useState('')
 
-    const [param, setParam]  = React.useState({
+    const [param, setParam] = React.useState({
         parameter: '',
         returnedSites: []
     })
 
     //BORUGH ANCHOR EL AND FUNCTION
-    const showBoroughOptions = (e) =>{
+    const showBoroughOptions = (e) => {
         setBoroughAnchorEl(e.currentTarget)
     }
 
@@ -107,7 +105,7 @@ function Filter(props) {
 
     }
 
-    
+
 
     //FILTER LOCATIONS BY EITHER ZIP CODE OR BOROUGH
     const filterLocation = async () => {
@@ -119,17 +117,18 @@ function Filter(props) {
                 'Accept': 'application/json',
             },
         })
-        .then(response => response.json())
-        .then(data => {
-            setParam(prevState => ({
-                ...prevState,
-                returnedSites:data
-            }))
-            console.log(data)
-        })
-        .catch(err => console.log(err))
+            .then(response => response.json())
+            .then(data => {
+                setParam(prevState => ({
+                    ...prevState,
+                    returnedSites: data
+                }))
+                console.log(data)
+
+            })
+            .catch(err => console.log(err))
     }
-   
+
 
     React.useEffect(() => {
         console.log(!zipcodeFilter, zipcodeFilter, selectedBorough.city)
@@ -158,16 +157,16 @@ function Filter(props) {
 
             }
             {boroughFilter &&
-            <div> 
-                <Button variant="outlined" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={showBoroughOptions}>Boroughs</Button>
-                <Menu id="simple-menu" variant= 'selectedMenu' value='Brooklyn' anchorEl={boroughAnchorEl} keepMounted open={Boolean(boroughAnchorEl)} onClose={handleFilterClose}>
-                    <MenuItem onClick={boroughClose} data-city="Brooklyn">Brooklyn</MenuItem>
-                    <MenuItem onClick={boroughClose} data-city="Manhattan">Manhattan</MenuItem>
-                    <MenuItem onClick={boroughClose} data-city="Staten Island">Staten Island</MenuItem>
-                    <MenuItem onClick={boroughClose} data-city="Queens">Queens</MenuItem> 
-                </Menu>
-                <Button variant="outlined" color="primary" onClick={filterLocation}>ENTER</Button>
-            </div>
+                <div>
+                    <Button variant="outlined" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={showBoroughOptions}>Boroughs</Button>
+                    <Menu id="simple-menu" variant='selectedMenu' value='Brooklyn' anchorEl={boroughAnchorEl} keepMounted open={Boolean(boroughAnchorEl)} onClose={handleFilterClose}>
+                        <MenuItem onClick={boroughClose} data-city="Brooklyn">Brooklyn</MenuItem>
+                        <MenuItem onClick={boroughClose} data-city="Manhattan">Manhattan</MenuItem>
+                        <MenuItem onClick={boroughClose} data-city="Staten Island">Staten Island</MenuItem>
+                        <MenuItem onClick={boroughClose} data-city="Queens">Queens</MenuItem>
+                    </Menu>
+                    <Button variant="outlined" color="primary" onClick={filterLocation}>ENTER</Button>
+                </div>
             }
         </div>
     );

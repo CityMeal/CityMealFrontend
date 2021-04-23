@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: '5%',
     paddingTop: '1%',
     paddingBottom: '1%',
-    backgroundColor: '#4484CE',
+    backgroundColor: '#325288',
     color: '#D9D9D9',
   },
   copyright: {
@@ -44,9 +44,12 @@ function Footer() {
     <div className={classes.root}>
       <footer className={classes.footer}>
         <Container maxWidth="xl">
-          <Link color="inherit" href="https://material-ui.com/"><Typography variant="h6">About CityMeal</Typography></Link>
+          {/* <Link color="inherit" href="https://material-ui.com/"><Typography variant="h6">About CityMeal</Typography></Link>
           <Link color="inherit" href="https://material-ui.com/"><Typography variant="h6">About Team</Typography></Link>
-          <Link color="inherit" href="https://material-ui.com/"><Typography variant="h6">Contact</Typography></Link>
+          <Link color="inherit" href="https://material-ui.com/"><Typography variant="h6">Contact</Typography></Link> */}
+          {/* <Typography variant="h6">About CityMeal</Typography>
+          <Typography variant="h6">About Team</Typography>
+          <Typography variant="h6">Contact</Typography> */}
         </Container>
         <div className={classes.copyright} >
           <Container maxWidth="xl">
