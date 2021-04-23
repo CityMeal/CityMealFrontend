@@ -56,7 +56,10 @@ function Announce() {
                 <p className={classes.subfont}>No Registration Required</p> */}
             {/* </div> */}
 
-        </Box>)
+        </Box>
+    )
+        
 }
 
 export default Announce;
+

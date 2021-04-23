@@ -177,7 +177,7 @@ function Header(props) {
             key={button}
             className={btnClasses.root}
             size="small"
-            onClick={button === 'SIGN UP' ? handleSignUpClick : handleSignInClick}
+            onClick={button === 'Sign Up' ? handleSignUpClick : handleSignInClick}
           >{button}</Button>))
         :
         <div>
@@ -195,6 +195,7 @@ function Header(props) {
         </div>
       }
       <Forms
+        successDiv={props.successful}
         clickedBtn ={clickedBtn}
         closeModal ={handleModalClose}
         signupChange={props.signUpOnChange}

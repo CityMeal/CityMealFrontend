@@ -1,7 +1,7 @@
 import React from 'react';
 import {Modal, TextField} from '@material-ui/core';
 import {Button, makeStyles, createMuiTheme, OutlinedInput, InputLabel, FormControl, useMediaQuery} from '@material-ui/core';
-
+import ShowSuccess from '../Others/successful';
 
 
 const themes = createMuiTheme({
@@ -134,7 +134,6 @@ const formStyle = makeStyles(theme => ({
 
 function Forms(props) {
 
-
     const modalClass = modalStyle()
     const formClass = formStyle()
     const webForm = useMediaQuery(themes2.breakpoints.up('tablet'))
@@ -146,18 +145,12 @@ function Forms(props) {
     //SET SIGN UP/ SIGN IN MODAL STATE
     const [openModal, setOpenModal] = React.useState(false)
 
-    const onSubmitClose = (e) => {
-        console.log(e.target)
-        return props.closeModal
-    }
-
-
     return (
         <div>
             {!webForm ?
             //This is the Mobile form version for sign up
                 <Modal open={props.clickedBtn !== null ? true : openModal} onClose={props.closeModal} className={modalClass.root}> 
-                    <form className={formClass.root} onSubmit={onSubmitClose}>
+                    <form className={formClass.root} >
                         {props.clickedBtn === 'SIGN UP' ? signUpLabels.map(label => (
                             <TextField id={`${label}field`} 
                                 key={label} 
@@ -185,9 +178,9 @@ function Forms(props) {
                             />
                         ))
                         }
-                        <button variant="contained" size='small' type="submit" onClick={props.clickedBtn === 'SIGN UP' ? props.submitUser : props.submitLogin}>
+                        <Button variant="contained" size='small' type="submit" onClick={props.clickedBtn === 'SIGN UP' ? props.submitUser : props.submitLogin}>
                             {props.clickedBtn === 'SIGN UP' ? 'SIGN UP' : 'SIGN IN'}
-                        </button>
+                        </Button>
                     </form>
                 </Modal> :
                 //This is the Desktop form version for sign up
