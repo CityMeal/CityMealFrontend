@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'center',
         backgroundColor: '#F9CF00',
+        marginTop: '3%',
         marginLeft: '5%',
         marginRight: '5%',
     },
@@ -111,7 +112,7 @@ function Profile(props) {
     return (
         <div>
             <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Profile</p></Box>
-            <ShowProfile button={props.button} userSignedIn={props.userSignedIn} currentUser={props.currentUser} handleChange={props.handleUser} updateUser={props.updateUser} deleteUser={props.deleteUser} />
+            <ShowProfile userSignedIn={props.userSignedIn} handleChange={props.handleChange} updateUser={props.updateUser} deleteUser={props.deleteUser} />
         </div>
     )
 }
