@@ -207,7 +207,10 @@ const useStyles = makeStyles((theme) => ({
 // >>>>>>> af4402c4898febd5f4ebca3232321b388b4414de
 //   }
 }));
-
+function constructStreetViewURL(location) {
+  let url = `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${location.latitude},${location.longitude}&key=${process.env.REACT_APP_API_KEY}`
+  return url
+}
 
 // <<<<<<< HEAD
 function List(props) {
@@ -222,12 +225,12 @@ function List(props) {
       <div addfav={props.addFav} className={classes.listWrap}>
         {props.locations.map(location => (
           <Box className={classes.list} maxWidth="xl" key={location.id} >
-            <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src="https://res.cloudinary.com/dqduwnrb1/image/upload/v1618158659/GoogleMapTA_nkou2y.jpg" alt="map" /></Box>
+            <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src= {constructStreetViewURL(location)} alt="map" /></Box>
             <Box className={classes.info} width={1 / 2}>
               <p>{location.name}</p>
               <p>{location.city}</p>
               <Rating />
-              <Button variant="contained" color="primary" className={classes.directionBtn}><a style={{ textDecoration: "none", color: "white" }} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a></Button>
+              <Button variant="contained" color="primary" className={classes.directionBtn}><a style={{ textDecoration: "none", color: "white" }} href={`https://www.google.com/maps/place/`+ location.siteAddress.split(" ").join("+")} target="_blank">GET DIRECTION</a></Button>
               <button className={classes.favBtn} onClick={props.addFav} name={location.id}>❤️</button>
             </Box>
           </Box>
