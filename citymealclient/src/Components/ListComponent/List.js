@@ -43,21 +43,21 @@ const useStyles = makeStyles((theme) => ({
     //   // border: 'solid black',
     //   marginTop: '9em',
     // },
-    [theme.breakpoints.up('lg')]: {
-      // border: 'solid black',
-      position: 'absolute',
-      top: '4em'
-      // marginTop: '9em',
-    },
+    // [theme.breakpoints.up('lg')]: {
+    //   // border: 'solid black',
+    //   position: 'absolute',
+    //   top: '4em'
+    //   // marginTop: '9em',
+    // },
     // [themes2.breakpoints.up('tablet')]: {
     //   border: 'solid green',
     //   width: '20em',
     //   margin: '3.2%',
     // },
-    [themes2.breakpoints.up('laptop')]: {
-      position: 'absolute',
-      top: '11em'
-    }
+    // [themes2.breakpoints.up('laptop')]: {
+    //   position: 'absolute',
+    //   top: '11em'
+    // }
 
   },
   filterDiv: {
@@ -134,86 +134,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     paddingLeft: '5%',
   },
-  // link: {
-  //   textDecoration: 'none',
-  //   color: '#D9D9D9',
-  //   backgroundColor: '#4484CE',
-  //   textAlign: 'center',
-  //   width: '50%',
-  //   paddingTop: '2%',
-  //   paddingBottom: '2%',
-  // },
-  // twolists: {
-  //   display: 'flex',
-  //   flexDirection: 'row',
-  // },
-  // showList: {
-  //   [theme.breakpoints.down('md')]: {
-  //     display: 'block',
-  //   },
-  //   [theme.breakpoints.up('md')]: {
-  //     display: 'none',
-  //   }
-  // },
-  // showListLg: {
-  //   [theme.breakpoints.down('md')]: {
-  //     display: 'none',
-  //   },
-  //   [theme.breakpoints.up('md')]: {
-  //     display: 'block',
-  //   }
-  // }
-  // =======
-  //   // link: {
-  //   //   textDecoration: 'none',
-  //   //   color: '#D9D9D9',
-  //   //   backgroundColor: '#4484CE',
-  //   //   textAlign: 'center',
-  //   //   width: '50%',
-  //   //   paddingTop: '2%',
-  //   //   paddingBottom: '2%',
-  //   // },
-  //   // twolists: {
-  //   //   display: 'flex',
-  //   //   flexDirection: 'row',
-  //   // },
-  //   // showList: {
-  //   //   [theme.breakpoints.down('md')]: {
-  //   //     display: 'block',
-  //   //   },
-  //   //   [theme.breakpoints.up('md')]: {
-  //   //     display: 'none',
-  //   //   }
-  //   // },
-  //   // showListLg: {
-  //   //   [theme.breakpoints.down('md')]: {
-  //   //     display: 'none',
-  //   //   },
-  //   //   [theme.breakpoints.up('md')]: {
-  //   //     display: 'block',
-  //   //   }
-  //   // },
-  //   favBtn: {
-  //     border: 'none',
-  //     backgroundColor: 'white',
-  //     width: '5%',
-  //   },
-  //   listDiv: {
-  //     // border: solid red;
-  //     width: 100 + '%',
-  //     height: 24 + 'em',
-  //     display: 'flex',
-  //     flexWrap: 'wrap',
-  //     overflow: 'scroll',
-  //     position: 'absolute',
-  //     boxSizing: 'border-box',
-  //     marginTop: -4 + 'em',
-  // >>>>>>> af4402c4898febd5f4ebca3232321b388b4414de
-  //   }
 }));
 
 
-// <<<<<<< HEAD
 function List(props) {
   const classes = useStyles();
 

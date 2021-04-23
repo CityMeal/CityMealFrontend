@@ -1,17 +1,12 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { emphasize, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 
 function Copyright() {
   return (
     <Typography variant="h6" style={{ color: "#D9D9D9" }} >
-      {/* {'© '}
-      {new Date().getFullYear()}
-      <Link color="inherit" href="https://material-ui.com/">
-        CityMeal
-      </Link> */}
       ©2021CityMeal
     </Typography>
   );
@@ -21,35 +16,17 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    // minHeight: '100vh',
     // minHeight: '100vh', (to make the footer sticky)
   },
   footer: {
     // border: 'solid red',
     display: 'flex',
     flexDirection: 'row',
-    // paddingLeft: '5%',
-    // paddingRight: '5%',
-    paddingTop: '1%',
-    paddingBottom: '1%',
-    position: 'relative',
-    // width: 100 + '%',
-    // height: 5 + 'em',
-    // position: 'absolute',
-    // bottom: '0em',
-    // left: '0em',
-    // right: '0em',
-
-    // top: 10 + 'em',
-    // marginTop: ,
-    // =======
     paddingLeft: '5%',
     paddingRight: '5%',
     paddingTop: '1%',
     paddingBottom: '1%',
-    // marginTop: 'auto',
-
-    // backgroundColor: '#4484CE',
+    backgroundColor: '#4484CE',
     color: '#D9D9D9',
   },
   copyright: {
@@ -80,14 +57,4 @@ function Footer() {
     </div>
   );
 }
-
-// function Footer() {
-//   return (
-//     <Container maxWidth="xl">
-//       <Link color="inherit" href="https://material-ui.com/">About CityMeal</Link>
-//       <Link color="inherit" href="https://material-ui.com/">About Team</Link>
-//       <Link color="inherit" href="https://material-ui.com/">Contact</Link>
-//     </Container>
-//   );
-// }
 export default Footer;

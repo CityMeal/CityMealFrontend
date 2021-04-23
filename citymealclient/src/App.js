@@ -168,7 +168,7 @@ function App() {
         history.push("/PROFILE");
       })
       .catch(err => console.log(err))
-      history.push("/HOME")
+    history.push("/HOME")
     console.log(localStorage.getItem('user'))
     console.log(userSignedIn.currentUser)
   }
@@ -433,7 +433,7 @@ function App() {
           </Switch>
         }
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </div >
   );
 }
