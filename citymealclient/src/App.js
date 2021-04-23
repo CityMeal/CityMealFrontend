@@ -166,7 +166,9 @@ function App() {
         localStorage.setItem('user', JSON.stringify(data.user))
       })
       .catch(err => console.log(err))
-      history.push("/HOME")
+    history.push("/HOME")
+    console.log(localStorage.getItem('user'))
+    console.log(userSignedIn.currentUser)
   }
 
   //DELETE USER
@@ -208,39 +210,11 @@ function App() {
       .then(response => response.json())
       .then(data => {
         setFavorites(data.favorites)
-        localStorage.setItem('favorites',)
+        console.log(data)
+        window.alert('added to the favorite list')
       })
       .catch(err => console.log(err))
   }
-  // React.userEffect(() => {
-  //   const addFav = (e) => {
-  //     const id = userSignedIn.currentUser.id
-  //     const locationId = parseInt(e.target.name)
-  //     // console.log(locationId)
-
-
-  //     fetch(`${BASE_URL}/user/${id}/savefavorite`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Accept': 'application/json',
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         user_id: userSignedIn.currentUser.name,
-  //         location_id: locationId,
-  //       })
-  //     })
-  //       .then(response => response.json())
-  //       .then(data => {
-  //         setFavorites(data.favorites)
-  //         console.log(data)
-  //         // history.push("/FAVORITES");
-  //       })
-  //       .catch(err => console.log(err))
-  //   }
-  //   addFav()
-  // }, [])
-
 
   React.useEffect(() => {
     const getFav = () => {
@@ -280,7 +254,11 @@ function App() {
       .then(response => {
         return response.json()
       })
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data)
+        window.alert('Deleted from your favorite list')
+
+      })
       .catch(err => console.log(err))
   }
 
@@ -426,7 +404,7 @@ function App() {
           </Switch>
         }
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </div >
   );
 }

@@ -43,21 +43,21 @@ const useStyles = makeStyles((theme) => ({
     //   // border: 'solid black',
     //   marginTop: '9em',
     // },
-    [theme.breakpoints.up('lg')]: {
-      // border: 'solid black',
-      position: 'absolute',
-      top: '4em'
-      // marginTop: '9em',
-    },
+    // [theme.breakpoints.up('lg')]: {
+    //   // border: 'solid black',
+    //   position: 'absolute',
+    //   top: '4em'
+    //   // marginTop: '9em',
+    // },
     // [themes2.breakpoints.up('tablet')]: {
     //   border: 'solid green',
     //   width: '20em',
     //   margin: '3.2%',
     // },
-    [themes2.breakpoints.up('laptop')]: {
-      position: 'absolute',
-      top: '11em'
-    }
+    // [themes2.breakpoints.up('laptop')]: {
+    //   position: 'absolute',
+    //   top: '11em'
+    // }
 
   },
   filterDiv: {
@@ -135,6 +135,10 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: '5%',
   },
 }));
+function constructStreetViewURL(location) {
+  let url = `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${location.latitude},${location.longitude}&key=${process.env.REACT_APP_API_KEY}`
+  return url
+}
 
 function List(props) {
   const classes = useStyles();
@@ -148,14 +152,12 @@ function List(props) {
       <div className={classes.listWrap}>
         {props.locations.map(location => (
           <Box className={classes.list} maxWidth="xl" key={location.id} >
-            <Box className={classes.pic} borderRadius={16} width={1 / 2}>
-              <img height="auto" width="100%" padding-left="3%" src="https://res.cloudinary.com/dqduwnrb1/image/upload/v1618158659/GoogleMapTA_nkou2y.jpg" alt="map" />
-            </Box>
+            <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src={constructStreetViewURL(location)} alt="map" /></Box>
             <Box className={classes.info} width={1 / 2}>
               <p>{location.name}</p>
               <p>{location.city}</p>
               <Rating />
-              <Button variant="contained" color="primary" className={classes.directionBtn}><a style={{ textDecoration: "none", color: "white" }} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a></Button>
+              <Button variant="contained" color="primary" className={classes.directionBtn}><a style={{ textDecoration: "none", color: "white" }} href={`https://www.google.com/maps/place/` + location.siteAddress.split(" ").join("+")} target="_blank">GET DIRECTION</a></Button>
               <button className={classes.favBtn} onClick={props.addFav} name={location.id}>❤️</button>
             </Box>
           </Box>

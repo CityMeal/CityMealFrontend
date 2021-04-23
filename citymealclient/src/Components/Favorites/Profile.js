@@ -4,10 +4,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
-const BASE_URL = "http://localhost:3030"
+import { FaUser } from 'react-icons/fa'
+import { FaMapMarkedAlt } from 'react-icons/fa'
+
 const useStyles = makeStyles((theme) => ({
     root: {
         marginBottom: '3%',
+        color: '#325288'
     },
     msg: {
         display: 'flex',
@@ -16,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '3%',
         marginLeft: '5%',
         marginRight: '5%',
+        boxShadow: (2 + 'px ' + 3 + 'px ' + 3 + 'px ' + 2 + 'px ' + ' lightgrey'),
     },
     fontSize: {
         [theme.breakpoints.down('sm')]: {
@@ -35,7 +39,13 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: '3%',
         fontSize: '1.5rem'
     },
+    label: {
+        fontSize: '1rem',
+        marginRight: '10%',
+        paddingLeft: '3%',
+    },
     currentProfileDiv: {
+        marginTop: '3%',
         marginLeft: '3%',
     },
     currentProfile: {
@@ -43,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'row',
         paddingTop: '3%',
         paddingBottom: '3%',
+        marginBottom: '25%',
     },
     editform: {
         marginTop: '2%',
@@ -54,9 +65,10 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '3%',
     },
 }));
-function ShowProfile(props) {
 
+function Profile(props) {
     const classes = useStyles();
+
     const [currentZipcode, setCurrentZipcode] = React.useState('true')
     const [currentBtn, setCurrentBtn] = React.useState('EDIT')
     function handleClick(e) {
@@ -65,54 +77,68 @@ function ShowProfile(props) {
         setCurrentBtn('SUBMIT')
 
     }
-
-    return (
-        <div className={classes.root}>
-            <Box className={classes.profile}>
-                {currentBtn === 'EDIT' ?
-                    (currentZipcode &&
-                        <div className={classes.currentProfileDiv}>
-                            <div className={classes.currentProfile}><label>username:</label>{props.userSignedIn.currentUser.username}</div>
-                            <div className={classes.currentProfile}><label>zipcode:</label>{props.userSignedIn.currentUser.zipcode}</div>
-                        </div>
-                    )
-                    :
-                    <form className={classes.editform}>
-                        {!currentZipcode &&
-                            <div>
-                                <TextField className={classes.editInput} id="standard-search" name="username" label="username" value={props.userSignedIn.currentUser.username} onChange={props.handleChange} />
-                                <TextField className={classes.editInput} id="standard-search" name="zipcode" label="zipcode" value={props.userSignedIn.currentUser.zipcode} onChange={props.handleChange} />
-                            </div>
-                        }
-                    </form>
-                }
-
-                <Button
-                    className={classes.editform}
-                    variant="contained"
-                    color="primary"
-                    onClick={currentBtn === 'EDIT' ? handleClick : props.updateUser}
-                >{currentBtn}
-                </Button>
-                <Button
-                    className={classes.editform}
-                    variant="outlined"
-                    color="primary"
-                    onClick={props.deleteUser}>
-                    Delete Account
-                </Button>
-
-            </Box>
-        </div>
-    )
-}
-function Profile(props) {
-    // console.log(props)
-    const classes = useStyles();
     return (
         <div>
             <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Profile</p></Box>
-            <ShowProfile userSignedIn={props.userSignedIn} handleChange={props.handleChange} updateUser={props.updateUser} deleteUser={props.deleteUser} />
+            <div className={classes.root}>
+                <Box className={classes.profile}>
+                    {currentBtn === 'EDIT' ?
+                        (currentZipcode &&
+                            <div className={classes.currentProfileDiv}>
+                                <div className={classes.currentProfile}>
+                                    <FaUser size={50} style={{ marginRight: '20%' }}>
+                                        <label className={classes.label}>username:</label>
+                                    </FaUser>
+                                    {props.userSignedIn.currentUser.username}
+                                </div>
+                                <div className={classes.currentProfile}>
+                                    <FaMapMarkedAlt size={50}>
+                                        <label className={classes.label}>zipcode:</label>
+                                    </FaMapMarkedAlt>
+                                    {props.userSignedIn.currentUser.zipcode}
+                                </div>
+                            </div>
+                        )
+                        :
+                        <form className={classes.editform}>
+                            {!currentZipcode &&
+                                <div>
+                                    <TextField
+                                        className={classes.editInput}
+                                        id="standard-search"
+                                        name="username"
+                                        label="username"
+                                        value={props.userSignedIn.currentUser.username}
+                                        onChange={props.handleChange} />
+                                    <TextField
+                                        className={classes.editInput}
+                                        id="standard-search"
+                                        name="zipcode"
+                                        label="zipcode"
+                                        value={props.userSignedIn.currentUser.zipcode}
+                                        onChange={props.handleChange} />
+                                </div>
+                            }
+                        </form>
+                    }
+
+                    <Button
+                        className={classes.editform}
+                        variant="contained"
+                        color="primary"
+                        onClick={currentBtn === 'EDIT' ? handleClick : props.updateUser}
+                    >{currentBtn}
+                    </Button>
+                    <Button
+                        className={classes.editform}
+                        variant="outlined"
+                        color="primary"
+                        onClick={props.deleteUser}>
+                        Delete Account
+                </Button>
+
+                </Box>
+            </div >
         </div>
     )
 }
