@@ -9,25 +9,32 @@ import { FaMapMarkedAlt } from 'react-icons/fa'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginBottom: '3%',
+        height: '100%',
+        [theme.breakpoints.between('xs', 'sm')]: {
+            height: '72vh',
+        },
+        [theme.breakpoints.between('sm', 'md')]: {
+            height: '81vh',
+        },
+        [theme.breakpoints.between('lg', 'xl')]: {
+            height: '63.3vh',
+        },
+        [theme.breakpoints.up('xl')]: {
+            height: '69vh',
+        },
         color: '#325288'
     },
     msg: {
         display: 'flex',
         justifyContent: 'center',
-        backgroundColor: '#f4eee8',
+        backgroundColor: '#f6f3ef',
         marginTop: '3%',
         marginLeft: '5%',
         marginRight: '5%',
         boxShadow: (2 + 'px ' + 3 + 'px ' + 3 + 'px ' + 2 + 'px ' + ' lightgrey'),
-        color: '#325288'
-    },
-    fontSize: {
+        color: '#325288',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '1rem',
-        },
-        [theme.breakpoints.up('md')]: {
-            fontSize: '1.7rem',
+            marginTop: '5%',
         },
     },
     fontSize: {
@@ -45,8 +52,11 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
-        paddingBottom: '3%',
-        fontSize: '1.5rem'
+        fontSize: '1.5rem',
+        paddingRight: '2%',
+        [theme.breakpoints.down('sm')]: {
+            marginTop: '5%',
+        },
     },
     currentProfileDiv: {
         marginTop: '3%',
@@ -84,7 +94,7 @@ function Profile(props) {
     return (
         <div>
             <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Account Setting</p></Box>
-            <div className={classes.root}>
+            <Box className={classes.root}>
                 <Box className={classes.profile}>
                     {currentBtn === 'EDIT' ?
                         (currentZipcode &&
@@ -140,7 +150,7 @@ function Profile(props) {
                 </Button>
 
                 </Box>
-            </div >
+            </Box>
         </div >
     )
 }

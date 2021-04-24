@@ -5,20 +5,19 @@ import Box from '@material-ui/core/Box';
 const useStyles = makeStyles((theme) => ({
     root: {
         color: '#325288',
-        backgroundColor: '#f4eee8',
+        backgroundColor: '#f6f3ef',
         position: 'relative',
         width: '100vw',
-        marginTop: '3%',
-        marginBottom: '3%',
-        paddingTop: '2%',
-        paddingBottom: '2%',
+        margin: '3% 0 3% 0',
+        padding: '2% 0 2% 0',
         textAlign: 'center',
         opacity: 0.8,
         fontSize: '0.9rem',
+        boxShadow: (2 + 'px ' + 3 + 'px ' + 3 + 'px ' + 2 + 'px ' + ' lightgrey'),
     },
     mainfont: {
         [theme.breakpoints.down('sm')]: {
-            // fontSize: '0.7rem',
+            fontSize: '0.8rem',
         },
         [theme.breakpoints.up('md')]: {
             fontSize: '1.2rem',

@@ -1,13 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
 
-.App{
-    /* border: solid purple; */
+
+/* .App{
     background-color: #ffffff;
+    border: solid purple; 
     position: relative;
-    /* height: 100vh; */
-    /* padding-bottom: 14em; */
-}
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    padding-bottom: 14em;
+} */
 
 body{
-    font-family: 'Lato', cursive;
+    font-family: 'Lato', sans-serif;
+    /* height: 100vh;
+    padding: 0; */
 }

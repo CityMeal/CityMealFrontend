@@ -1,7 +1,6 @@
 import React from 'react';
 import Announcement from '../Others/announce';
 import Filter from '../ListComponent/Filter';
-import citymeal from '../Images/citymeal.png'
 import Forms from '../MainPage/FormModal';
 import { makeStyles, createMuiTheme, useMediaQuery, Popover, Typography } from '@material-ui/core';
 
@@ -159,7 +158,6 @@ function HomePage(props) {
 
     return (
         <div className={classes.mainDiv}>
-            <img className={classes.mainImage} src={citymeal} alt="mainImage" id="mainImage" />
             <Announcement />
 
 

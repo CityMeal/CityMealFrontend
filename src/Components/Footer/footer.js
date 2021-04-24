@@ -15,12 +15,6 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    flexDirection: 'column',
-    // minHeight: '100vh', (to make the footer sticky)
-  },
-  footer: {
-    // border: 'solid red',
-    display: 'flex',
     flexDirection: 'row',
     paddingLeft: '5%',
     paddingRight: '5%',
@@ -28,10 +22,23 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: '1%',
     backgroundColor: '#325288',
     color: '#D9D9D9',
+    // bottom: '0px',
+    width: '90vw',
   },
+  // footer: {
+  //   // border: 'solid red',
+  //   display: 'flex',
+  //   flexDirection: 'row',
+  //   paddingLeft: '5%',
+  //   paddingRight: '5%',
+  //   paddingTop: '1%',
+  //   paddingBottom: '1%',
+  //   backgroundColor: '#325288',
+  //   color: '#D9D9D9',
+  // },
   copyright: {
     display: 'flex',
-    alignItems: 'flex-end'
+    justifyContent: 'flex-end'
   }
 }));
 
@@ -42,21 +49,27 @@ function Footer() {
 
   return (
     <div className={classes.root}>
-      <footer className={classes.footer}>
+      <Container></Container>
+      <div className={classes.copyright} >
         <Container maxWidth="xl">
-          {/* <Link color="inherit" href="https://material-ui.com/"><Typography variant="h6">About CityMeal</Typography></Link>
+          <Copyright />
+        </Container>
+      </div>
+      {/* <footer className={classes.footer}>
+        <Container maxWidth="xl">
+          <Link color="inherit" href="https://material-ui.com/"><Typography variant="h6">About CityMeal</Typography></Link>
           <Link color="inherit" href="https://material-ui.com/"><Typography variant="h6">About Team</Typography></Link>
-          <Link color="inherit" href="https://material-ui.com/"><Typography variant="h6">Contact</Typography></Link> */}
-          {/* <Typography variant="h6">About CityMeal</Typography>
+          <Link color="inherit" href="https://material-ui.com/"><Typography variant="h6">Contact</Typography></Link> 
+          <Typography variant="h6">About CityMeal</Typography>
           <Typography variant="h6">About Team</Typography>
-          <Typography variant="h6">Contact</Typography> */}
+          <Typography variant="h6">Contact</Typography>
         </Container>
         <div className={classes.copyright} >
           <Container maxWidth="xl">
             <Copyright />
           </Container>
         </div>
-      </footer>
+      </footer> */}
     </div>
   );
 }
