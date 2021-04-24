@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Rating from '../ListComponent/Rating'
-import { FaHeart } from 'react-icons/fa'
+
 
 const useStyles = makeStyles((theme) => ({
   listWrap: {
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     flexWrap: 'wrap',
-    overflow: 'scroll',
+    // overflow: 'scroll',
     boxSizing: 'border-box',
   },
   msg: {
@@ -29,21 +29,21 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       fontSize: '1rem',
     },
-    [theme.breakpoints.up('lg')]: {
-      fontSize: '2rem',
+    [theme.breakpoints.up('md')]: {
+      fontSize: '1.7rem',
     },
   },
   list: {
     display: 'flex',
     justifyContent: 'center',
     width: '60em',
-    marginLeft: '5%',
-    marginRight: '5%',
-    marginTop: '3%',
-    marginBottom: '5%',
+    margin: '4% 0 4% 0',
+    padding: '3%',
     boxShadow: (2 + 'px ' + 3 + 'px ' + 3 + 'px ' + 2 + 'px ' + ' lightgrey'),
     [theme.breakpoints.up('lg')]: {
       width: '30em',
+      padding: '2%',
+      margin: '4%',
     },
   },
   pic: {
@@ -52,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '0.5rem',
     paddingBottom: '0.5rem',
     paddingLeft: '0.5rem',
+    [theme.breakpoints.up('lg')]: {
+      paddingLeft: '0'
+    },
   },
   info: {
     display: 'flex',
@@ -60,15 +63,15 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: '8%',
   },
   directionBtn: {
-    width: '50%',
+    // width: '50%',
     marginTop: '6%',
     marginBottom: '3%',
     [theme.breakpoints.between('xs', 'sm')]: {
-      width: '90%',
+      // width: '90%',
       fontSize: '0.7rem'
     },
     [theme.breakpoints.between('sm', 'lg')]: {
-      width: '70%',
+      // width: '70%',
     },
   },
   favBtn: {
@@ -96,11 +99,10 @@ function Favorites(props) {
           {Array.isArray(props.favorites) && props.favorites.map(favorite => (
             <Box className={classes.list} maxWidth="xl" key={favorite.id} >
               <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src={constructStreetViewURL(favorite)} alt="map" /></Box>
-              <Box className={classes.info} width={1 / 2}>
-                <p>{favorite.name}</p>
+              <Box className={classes.info}>
+                <p style={{ fontSize: '1.5rem' }}>{favorite.siteAddress}</p>
                 <p>{favorite.city}</p>
                 <Rating />
-                {/* <button className={classes.favBtn} onClick={props.deleteFav} name={favorite.id} ><FaHeart color={'red'} /></button> */}
                 <button className={classes.favBtn} onClick={props.deleteFav} name={favorite.id} >❤️</button>
                 <Button variant="contained" color="primary" className={classes.directionBtn}><a style={{ textDecoration: "none", color: "white" }} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a></Button>
               </Box>
@@ -113,5 +115,3 @@ function Favorites(props) {
 }
 
 export default Favorites;
-
-

@@ -1,6 +1,7 @@
 import React from 'react';
 import Announcement from '../Others/announce';
 import Filter from '../ListComponent/Filter';
+import citymeal from '../Images/citymeal.png'
 import Forms from '../MainPage/FormModal';
 import { makeStyles, createMuiTheme, useMediaQuery, Popover, Typography } from '@material-ui/core';
 
@@ -66,6 +67,20 @@ const homeStyles = makeStyles((theme) => ({
         height: '20em',
         borderRadius: '5px',
         border: '2px solid black'
+    },
+    mainImage: {
+        height: '100vh',
+        width: '100%',
+        marginTop: '5%',
+        [theme.breakpoints.between('xs', 'sm')]: {
+            height: '300px'
+        },
+        [theme.breakpoints.between('sm', 'md')]: {
+            height: '500px'
+        },
+        [theme.breakpoints.up('lg')]: {
+            height: '30vh'
+        },
     }
 
 }))
@@ -119,7 +134,7 @@ function HomePage(props) {
             lng: position.coords.longitude,
         }
         setUsersLocation(userposition)
-        localStorage.setItem('userPosition',JSON.stringify(userposition) )
+        localStorage.setItem('userPosition', JSON.stringify(userposition))
     }
 
     const handleSeclect = (site) => {
@@ -130,13 +145,13 @@ function HomePage(props) {
         //GET FIRST LOCATION OF USER ON PAGE LOAD
         navigator.geolocation.getCurrentPosition(success)
         //Look up navigator.watchPosition 
-        
+
     })
 
     React.useEffect(() => {
         const userPosition = localStorage.getItem('userPosition')
         console.log(userPosition)
-        if(userPosition){
+        if (userPosition) {
             const located = JSON.parse(userPosition)
             setUsersLocation(located)
         }
@@ -144,7 +159,10 @@ function HomePage(props) {
 
     return (
         <div className={classes.mainDiv}>
+            <img className={classes.mainImage} src={citymeal} alt="mainImage" id="mainImage" />
             <Announcement />
+
+
             <div className={classes.filterMapDiv}>
                 <Filter />
                 <LoadScript googleMapsApiKey={key}>

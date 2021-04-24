@@ -15,11 +15,20 @@ const useStyles = makeStyles((theme) => ({
     msg: {
         display: 'flex',
         justifyContent: 'center',
-        backgroundColor: '#F9CF00',
+        backgroundColor: '#f4eee8',
         marginTop: '3%',
         marginLeft: '5%',
         marginRight: '5%',
         boxShadow: (2 + 'px ' + 3 + 'px ' + 3 + 'px ' + 2 + 'px ' + ' lightgrey'),
+        color: '#325288'
+    },
+    fontSize: {
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '1rem',
+        },
+        [theme.breakpoints.up('md')]: {
+            fontSize: '1.7rem',
+        },
     },
     fontSize: {
         [theme.breakpoints.down('sm')]: {
@@ -38,11 +47,6 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         paddingBottom: '3%',
         fontSize: '1.5rem'
-    },
-    label: {
-        fontSize: '1rem',
-        marginRight: '10%',
-        paddingLeft: '3%',
     },
     currentProfileDiv: {
         marginTop: '3%',
@@ -79,21 +83,19 @@ function Profile(props) {
     }
     return (
         <div>
-            <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Profile</p></Box>
+            <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Account Setting</p></Box>
             <div className={classes.root}>
                 <Box className={classes.profile}>
                     {currentBtn === 'EDIT' ?
                         (currentZipcode &&
                             <div className={classes.currentProfileDiv}>
                                 <div className={classes.currentProfile}>
-                                    <FaUser size={50} style={{ marginRight: '20%' }}>
-                                        <label className={classes.label}>username:</label>
+                                    <FaUser size={40} style={{ marginRight: '20%' }}>
                                     </FaUser>
                                     {props.userSignedIn.currentUser.username}
                                 </div>
                                 <div className={classes.currentProfile}>
-                                    <FaMapMarkedAlt size={50}>
-                                        <label className={classes.label}>zipcode:</label>
+                                    <FaMapMarkedAlt size={50} style={{ marginRight: '1em' }}>
                                     </FaMapMarkedAlt>
                                     {props.userSignedIn.currentUser.zipcode}
                                 </div>
@@ -124,22 +126,22 @@ function Profile(props) {
 
                     <Button
                         className={classes.editform}
-                        variant="contained"
+                        variant="outlined"
                         color="primary"
                         onClick={currentBtn === 'EDIT' ? handleClick : props.updateUser}
                     >{currentBtn}
                     </Button>
                     <Button
                         className={classes.editform}
-                        variant="outlined"
-                        color="primary"
+                        Button variant="outlined"
+                        color="secondary"
                         onClick={props.deleteUser}>
                         Delete Account
                 </Button>
 
                 </Box>
             </div >
-        </div>
+        </div >
     )
 }
 export default Profile

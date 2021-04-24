@@ -1,7 +1,7 @@
 import React from 'react';
 import './navbar.css'
 import styled from 'styled-components'
-import logo from '../Images/logo.png'
+import newlogo from '../Images/newlogo.png'
 import Forms from '../MainPage/FormModal'
 import { Button, Menu, MenuItem, makeStyles, createMuiTheme, ThemeProvider, useMediaQuery } from '@material-ui/core';
 import { Link } from 'react-router-dom';
@@ -166,7 +166,7 @@ function Header(props) {
 
   return (
     <DivStyle className="Nav">
-      <img src={logo} alt="logo" id='logo' className={logoClasses.root} />
+      <img src={newlogo} alt="logo" id='logo' className={logoClasses.root} />
       {!props.userSignedIn.signedIn
         ?
         buttons.map((button, index) => (
