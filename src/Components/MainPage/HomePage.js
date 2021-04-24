@@ -16,10 +16,10 @@ import {
   LoadScript,
   Marker,
   InfoWindow,
-} from "@react-google-maps/api"; //I need to hide this
+} from "@react-google-maps/api"; 
 
 
-const key = "AIzaSyC4DRbqgSVfVfyh8U1_TYcROL041wHGScE";
+const key = "AIzaSyC4DRbqgSVfVfyh8U1_TYcROL041wHGScE";//I need to hide this
 
 const mapDiv = {
   // border: 'solid blue',
@@ -104,9 +104,11 @@ function AlertComponent(props) {
   );
 }
 function HomePage(props) {
+  
   const classes = homeStyles();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
@@ -123,8 +125,6 @@ function HomePage(props) {
   const [siteSelected, setSiteSelected] = React.useState({});
   //SET SITE COORDINATES
   const [siteCoords, setSiteCoords] = React.useState([]);
-
-  console.log("siteCoords", siteCoords);
 
   //SET USERS LOCATION STATE ONECE LOADED FROM USEEFFECT
   const success = (position) => {
@@ -159,7 +159,6 @@ function HomePage(props) {
   React.useEffect(() => {
     const getAllLocation = async () => {
       const data = await get("/locations");
-
       const sites = data.locations.map((site) => {
         return {
           name: site.name,
@@ -170,11 +169,10 @@ function HomePage(props) {
             lng: parseFloat(site.longitude),
           },
         };
-      });
+      },[]);
 
       setSiteCoords(sites);
     };
-
     getAllLocation();
   }, []);
 

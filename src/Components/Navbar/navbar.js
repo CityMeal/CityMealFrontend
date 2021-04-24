@@ -5,6 +5,8 @@ import logo from '../Images/logo.png'
 import Forms from '../MainPage/FormModal'
 import { Button, Menu, MenuItem, makeStyles, createMuiTheme, ThemeProvider, useMediaQuery } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import UnAuthNav from './UnAuthNav';
+import AuthNav from './AuthNav';
 
 //Styled-Component Styling
 const DivStyle = styled.div`
@@ -44,36 +46,7 @@ const logoStyles = makeStyles(() => ({
     }
   }
 }))
-const btnstyles = makeStyles(() => ({
-  root: {
-    backgroundColor: '#E5E5E5',
-    top: -2 + 'em',
-    marginLeft: 0.7 + 'em',
-    borderRadius: 2 + 'px',
-    [themes.breakpoints.down('sm')]: {//340
-      position: 'relative',
-      left: 22 + '%',
-    },
-    [themes.breakpoints.between('md', 'lg')]: {//360 - 411
-      position: 'relative',
-      left: 30 + '%',
-    },
-    [themes.breakpoints.up('lg')]: {//412 or more/699
-      position: 'relative',
-      left: 40 + '%',
-    },
-    [themes.breakpoints.up('xl')]: { // 700 or more 1023
-      border: 'solid black',
-      position: 'relative',
-      left: 65 + '%',
-    },
-    [themes2.breakpoints.up('laptop')]: {//1024 or more
-      border: 'solid pink',
-      position: 'relative',
-      left: 75 + '%',
-    }
-  }
-}))
+
 const desktopMenuStyle = makeStyles(() => ({
   root: {
     backgroundColor: '#E5E5E5',
@@ -86,25 +59,7 @@ const desktopMenuStyle = makeStyles(() => ({
     },
   }
 }))
-const userNameBtnStyle = makeStyles(() => ({
-  root: {
-    width: 30 + '%',
-    position: 'relative',
-    top: -3 + 'em',
-    left: 14.5 + 'em',
-    borderRadius: 2 + 'px',
-    color: '#FFFFFF',
-    fontSize: 17 + 'px',
-    [themes.breakpoints.down('sm')]: {//340
-      position: 'relative',
-      left: 12.6 + 'em',
-    },
-    [themes.breakpoints.up('lg')]: {//412 or more/699
-      position: 'relative',
-      left: 16.8 + 'em',
-    },
-  }
-}))
+
 const menuOptionStyle = makeStyles(() => ({
   root: {
     width: 10 + 'em',
@@ -120,8 +75,6 @@ const menuOptionStyle = makeStyles(() => ({
 }))
 function Header(props) {
 
-  const btnClasses = btnstyles()
-  const userNameBtnStyles = userNameBtnStyle()
   const logoClasses = logoStyles()
 
   const buttons = ['Sign Up', 'Sign In']
@@ -166,32 +119,12 @@ function Header(props) {
   return (
     <DivStyle className="Nav">
       <img src={logo} alt="logo" id='logo' className={logoClasses.root} />
-      {!props.userSignedIn.signedIn
-        ?
-        buttons.map((button, index) => (
-          <Button
-            variant="contained"
-            id={`button${index}`}
-            key={button}
-            className={btnClasses.root}
-            size="small"
-            onClick={button === 'Sign Up' ? handleSignUpClick : handleSignInClick}
-          >{button}</Button>))
-        :
-        <div>
-          <Button className={userNameBtnStyles.root} onClick={showMenuOption}>{props.userSignedIn.currentUser.username}</Button>
-          <Menu open={openMenu.open} anchorEl={openMenu.anchorEl} onClose={closeMenu}>
-            {menuList.map(option => (
-              (<Link to={option === 'SIGNOUT' ? '/' : option} key={`${option}link`}>
-                <MenuItem
-                  key={option}
-                  onClick={option === 'SIGNOUT' ? props.logout : closeMenu}
-                >{option === 'SIGN OUT' ? 'SIGN OUT' : option}</MenuItem>
-              </Link>)
-            ))}
-          </Menu>
-        </div>
-      }
+      {/* {!props.userSignedIn.signedIn */}
+        {/* ? */}
+        <UnAuthNav />
+        {/* : */}
+        <AuthNav />
+      {/* } */}
       <Forms
         clickedBtn={clickedBtn}
         closeModal={handleModalClose}

@@ -4,12 +4,13 @@ import "./App.css";
 import Header from "./Components/Navbar/navbar";
 import Footer from "./Components/Footer/footer";
 import UnauthenticatedApp from "./unauthenticatedApp";
+import { get, post } from "./api";
 const AuthenticatedApp = React.lazy(() =>
   import(/* webpackChunkName: "authenticated-app" */ "./authenticatedApp")
 );
 // import AuthenticatedApp from "./authenticatedApp";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "http://localhost:3030";
 console.log(process.env.REACT_APP_API_KEY);
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
   const [locations, setLocations] = React.useState([]);
 
   //SET FAVORITE SITES
-  const [favorites, setFavorites] = React.useState([]);
+  const [favorites, setFavorites] = React.useState([]); //MOVE TO FAVORITES PAGE
 
   //SET NEW USER STATE
   const [newUser, setNewUser] = React.useState({
@@ -61,22 +62,10 @@ function App() {
   };
 
   //FUNCTION MAKING A NEW USER POST REQUEST TO THE DATABASE
-  const signUpUser = () => {
-    console.log(newUser);
+  const signUpUser = async () => {
     console.log("i clicked signup user func");
-    //Write a function to post user in database
-    fetch(`${BASE_URL}/register`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUser),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
-
+    const data = await post("/register", newUser)
+    console.log(data)
     //update the new user state and clear form
     setNewUser({
       username: "",
@@ -303,9 +292,7 @@ function App() {
         {userSignedIn.signedIn ? (
           <React.Suspense fallback={<div>Loading...</div>}>
             <AuthenticatedApp
-              signedIn={userSignedIn.signedIn}
               userSignedIn={userSignedIn}
-              locations={locations}
             />
           </React.Suspense>
         ) : (
@@ -320,7 +307,6 @@ function App() {
             deleteFav={deleteFav}
             userSignedIn={userSignedIn}
             handleChange={handleChange}
-            signedIn={userSignedIn.signedIn}
           />
         )}
       </div>
