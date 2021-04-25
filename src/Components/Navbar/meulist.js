@@ -97,11 +97,13 @@ const userNameBtnStyle = makeStyles(() => ({
     marginTop: -0.3 + 'em',
     marginRight: 50 + 'px',
     fontSize: 1.5 + 'rem',
-    [themes.breakpoints.between('xs', 'sm')]: {
-      top: -1.8 + 'em',
-      marginTop: - 0.5 + 'em',
-      marginRight: 20 + 'px',
-      fontSize: 1.2 + 'rem',
+    marginLeft: 70 + '%',
+    [themes.breakpoints.up('lg')]: {
+      // top: -1.8 + 'em',
+      // marginTop: - 0.5 + 'em',
+      // marginRight: 20 + 'px',
+      // fontSize: 1.2 + 'rem',
+      marginLeft: 80 + '%',
     },
   }
 }))

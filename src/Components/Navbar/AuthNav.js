@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { userNameBtnStyle, mobileStyle, dropDown, themes2, useMediaQuery, tabStyle } from './meulist'
 
 function AuthNav(props) {
-    console.log(props.logout)
 
     const userNameBtnClass = userNameBtnStyle()
     const dropDownClass = dropDown()

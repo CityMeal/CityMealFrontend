@@ -16,8 +16,6 @@ function AuthenticatedApp(props) {
     deleteFav,
   } = props;
 
-  console.log(locations)
-
   return (
     <Switch>
       <Route path="/home">
