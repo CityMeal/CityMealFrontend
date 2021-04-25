@@ -9,11 +9,10 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/ap
 const key = "AIzaSyC4DRbqgSVfVfyh8U1_TYcROL041wHGScE"
 
 const mapDiv = {
-    // border: 'solid blue',
-    width: '99vw',
+    width: '80vw',
     height: '75vh',
     position: 'relative',
-    margin: 'auto'
+    margin: '3% 5% 5% 10%'
 }
 
 const alert = {
@@ -67,21 +66,6 @@ const homeStyles = makeStyles((theme) => ({
         borderRadius: '5px',
         border: '2px solid black'
     },
-    mainImage: {
-        height: '100vh',
-        width: '100%',
-        marginTop: '5%',
-        [theme.breakpoints.between('xs', 'sm')]: {
-            height: '300px'
-        },
-        [theme.breakpoints.between('sm', 'md')]: {
-            height: '500px'
-        },
-        [theme.breakpoints.up('lg')]: {
-            height: '30vh'
-        },
-    }
-
 }))
 
 
@@ -158,9 +142,8 @@ function HomePage(props) {
 
     return (
         <div className={classes.mainDiv}>
+            {/* <img src={citymeal} alt="logo" id='logo' className={classes.image} /> */}
             <Announcement />
-
-
             <div className={classes.filterMapDiv}>
                 <Filter />
                 <LoadScript googleMapsApiKey={key}>
