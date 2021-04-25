@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     msg: {
         display: 'flex',
         justifyContent: 'center',
+        width: '90vw',
         backgroundColor: '#f6f3ef',
         marginTop: '3%',
         marginLeft: '5%',

@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
   msg: {
     display: 'flex',
     justifyContent: 'center',
+    width: '90vw',
     color: '#325288',
     backgroundColor: '#f6f3ef',
     marginTop: '3%',
