@@ -1,7 +1,7 @@
 import React from 'react';
-import MobileForm from './mobileForm';
+import MobileForm from './Form';
 import DesktopForm from './desktopForm'
-import {themes2, useMediaQuery} from './formStyle';
+import { themes2, useMediaQuery } from './formStyle';
 import ShowSuccess from '../Others/successful';
 
 
@@ -10,13 +10,13 @@ function Forms(props) {
 
     const webForm = useMediaQuery(themes2.breakpoints.up('tablet'))
 
-    
+
 
     return (
         <div>
             {!webForm ?
-                <MobileForm /> 
-            :
+                <MobileForm />
+                :
                 <DesktopForm />
             }
         </div>

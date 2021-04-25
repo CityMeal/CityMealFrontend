@@ -74,7 +74,8 @@ const homeStyles = makeStyles((theme) => ({
             borderRadius: '5px',
             border: '2px solid black'
         },
-    }))
+    }
+}))
 
 
 function AlertComponent(props) {

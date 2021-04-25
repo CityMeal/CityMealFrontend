@@ -3,7 +3,7 @@ const BASE_URL = "http://localhost:3030";
 function get(url) {
   return fetch(`${BASE_URL}${url}`, {
     headers: {
-      Accept: "application/json",
+      'Accept': "application/json",
     },
   })
     .then((response) => response.json())
@@ -15,7 +15,7 @@ function get(url) {
 function post(url, data) {
   return fetch(`${BASE_URL}/${url}`, {
     headers: {
-      Accept: "application/json",
+      'Accept': "application/json",
     },
     body: JSON.stringify(data),
   })

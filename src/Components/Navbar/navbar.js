@@ -30,7 +30,8 @@ function NavBar(props) {
           submitUser={props.onSubmitUser}
           submitLogin={props.onSubmitLogIn} />
         :
-        <AuthNav />
+        <AuthNav
+          logout={props.logout} />
       }
     </DivStyle >
   );

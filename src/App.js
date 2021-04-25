@@ -5,6 +5,7 @@ import NavBar from "./Components/Navbar/navbar";
 import Footer from "./Components/Footer/footer";
 import UnauthenticatedApp from "./unauthenticatedApp";
 import { get, post } from "./api";
+
 const AuthenticatedApp = React.lazy(() =>
   import(/* webpackChunkName: "authenticated-app" */ "./authenticatedApp")
 );
@@ -244,6 +245,38 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  //GET ALL LOCATIONS AND CREATE SITE POSITION COORDINATES FOR MAP VIEW
+  React.useEffect(() => {
+    const getAllLocation = () => {
+      fetch(`${BASE_URL}/locations`, {
+        headers: {
+          'Accept': 'application/json',
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          const sites = data.locations.map(site => {
+            return {
+              name: site.name,
+              zip: site.zip,
+              address: site.siteAddress,
+              position: {
+                lat: parseFloat(site.latitude),
+                lng: parseFloat(site.longitude)
+              }
+            }
+          })
+          localStorage.setItem('sites', JSON.stringify(sites)) //NOT FULLY SURE IF THIS IS DOING WHAT I WANT IT TO DO
+          setLocations(data.locations)
+        })
+        .catch(err => console.log(err))
+    }
+    getAllLocation()
+    console.log(userSignedIn.currentUser, 'should be updated one')
+    console.log(console.log(localStorage.getItem('user')))
+  }, [], [])
+
+
   //CHECK LOCAL STORAGE EACH TIME APP LOADS TO SEE IF THERE IS A USESR
   React.useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
@@ -294,26 +327,22 @@ function App() {
           <React.Suspense fallback={<div>Loading...</div>}>
             <AuthenticatedApp
               userSignedIn={userSignedIn}
+              deleteUser={deleteUser}
+              locations={locations}
+              addFav={addFav}
+              favorites={favorites}
+              deleteFav={deleteFav}
             />
           </React.Suspense>
         ) : (
           <UnauthenticatedApp
-            user={userSignedIn.currentUser}
-            handleUser={handleChange}
-            updateUser={updateUser}
-            deleteUser={deleteUser}
-            locations={locations}
-            addFav={addFav}
-            favorites={favorites}
-            deleteFav={deleteFav}
             userSignedIn={userSignedIn}
-            handleChange={handleChange}
           />
         )}
       </div>
       <Footer />
     </div>
-  );
+  )
 }
 
 export default App;
