@@ -6,21 +6,25 @@ import Forms from '../MainPage/FormModal'
 import { Button, Menu, MenuItem, makeStyles, createMuiTheme, ThemeProvider, useMediaQuery } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
-//Styled-Component Styling
-// const DivStyle = styled.div`
-//   display: flex,
-//   justify-content: space-between,
-//   width: 100vw;
-//   height: 6.5em;
-//   background-color: #325288;
-// `
-
 const useStyles = makeStyles((theme) => ({
   root: {
-    // display: 'flex',
     backgroundColor: '#325288',
     height: '6.5em',
   },
+  userDropdown: {
+    display: 'flex',
+    justifyContent: 'center',
+    height: '5vh',
+    fontSize: 20 + 'px',
+    [themes.breakpoints.between('lg', 'xl')]: {
+      width: '13vw',
+    },
+  },
+  userDropdownLink: {
+    textDecoration: 'none !important',
+    textAlign: 'center',
+    color: '#325288',
+  }
 }));
 
 const themes = createMuiTheme({
@@ -81,7 +85,7 @@ const btnstyles = makeStyles(() => ({
       marginTop: 6.5 + 'em',
       marginLeft: 0 + 'em',
     },
-  }
+  },
 }))
 const desktopMenuStyle = makeStyles(() => ({
   root: {
@@ -97,25 +101,17 @@ const desktopMenuStyle = makeStyles(() => ({
 }))
 const userNameBtnStyle = makeStyles(() => ({
   root: {
-    // display: 'flex',
-    // flexDirection: 'row',
-    // justifyContent: 'flex-end',
-    // width: 30 + '%',
-    // position: 'relative',
-    top: -2 + 'em',
-    paddingRight: 3 + '%',
-    // left: 14.5 + 'em',
-    // borderRadius: 2 + 'px',
     color: '#FFFFFF',
-    fontSize: 30 + 'px',
-    // [themes.breakpoints.down('sm')]: {//340
-    //   position: 'relative',
-    //   left: 12.6 + 'em',
-    // },
-    // [themes.breakpoints.up('lg')]: {//412 or more/699
-    //   // position: 'relative',
-    //   // left: 16.8 + 'em',
-    // },
+    top: -2 + 'em',
+    marginTop: -0.3 + 'em',
+    marginRight: 50 + 'px',
+    fontSize: 1.5 + 'rem',
+    [themes.breakpoints.between('xs', 'sm')]: {
+      top: -1.8 + 'em',
+      marginTop: - 0.5 + 'em',
+      marginRight: 20 + 'px',
+      fontSize: 1.2 + 'rem',
+    },
   }
 }))
 const menuOptionStyle = makeStyles(() => ({
@@ -202,8 +198,9 @@ function Header(props) {
               <Button className={userNameBtnStyles.root} onClick={showMenuOption}>{props.userSignedIn.currentUser.username}</Button>
               <Menu open={openMenu.open} anchorEl={openMenu.anchorEl} onClose={closeMenu}>
                 {menuList.map(option => (
-                  (<Link to={option === 'SIGNOUT' ? '/' : option} key={`${option}link`}>
+                  (<Link to={option === 'SIGNOUT' ? '/' : option} className={classes.userDropdownLink} key={`${option}link`}>
                     <MenuItem
+                      className={classes.userDropdown}
                       key={option}
                       onClick={option === 'SIGNOUT' ? props.logout : closeMenu}
                     >{option === 'SIGN OUT' ? 'SIGN OUT' : option}</MenuItem>
