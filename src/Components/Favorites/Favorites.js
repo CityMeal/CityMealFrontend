@@ -6,15 +6,6 @@ import Rating from '../ListComponent/Rating'
 
 
 const useStyles = makeStyles((theme) => ({
-  listWrap: {
-    width: '100vw',
-    marginTop: '1%',
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    // overflow: 'scroll',
-    boxSizing: 'border-box',
-  },
   msg: {
     display: 'flex',
     justifyContent: 'center',
@@ -36,17 +27,25 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '2rem',
     },
   },
+  listWrap: {
+    width: '100vw',
+    marginTop: '1%',
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    boxSizing: 'border-box',
+  },
   list: {
     display: 'flex',
     justifyContent: 'center',
     width: '60em',
-    margin: '4% 0 4% 0',
-    padding: '3%',
+    margin: '2% 0 2% 0',
+    padding: '2%',
     boxShadow: (2 + 'px ' + 3 + 'px ' + 3 + 'px ' + 2 + 'px ' + ' lightgrey'),
     [theme.breakpoints.up('lg')]: {
       width: '30em',
       padding: '2%',
-      margin: '4%',
+      margin: '1%',
     },
   },
   pic: {
