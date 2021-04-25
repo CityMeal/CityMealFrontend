@@ -8,8 +8,8 @@ const inputStlye = {
 
 const starStyle = {
     cursor: 'pointer',
-    marginTop: '3%',
-    marginBottom: '4%',
+    marginTop: '2%',
+    marginBottom: '3%',
 }
 
 const Rating = () => {

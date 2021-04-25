@@ -3,47 +3,50 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Rating from '../ListComponent/Rating'
-import { FaHeart } from 'react-icons/fa'
+
 
 const useStyles = makeStyles((theme) => ({
-  listWrap: {
-    width: '100%',
-    marginTop: '1%',
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    overflow: 'scroll',
-    boxSizing: 'border-box',
-  },
   msg: {
     display: 'flex',
     justifyContent: 'center',
-    backgroundColor: '#f4eee8',
+    width: '90vw',
+    color: '#325288',
+    backgroundColor: '#f6f3ef',
     marginTop: '3%',
     marginLeft: '5%',
     marginRight: '5%',
     boxShadow: (2 + 'px ' + 3 + 'px ' + 3 + 'px ' + 2 + 'px ' + ' lightgrey'),
-    color: '#325288'
   },
   fontSize: {
     [theme.breakpoints.down('sm')]: {
       fontSize: '1rem',
     },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '1.5rem',
+    },
     [theme.breakpoints.up('lg')]: {
       fontSize: '2rem',
     },
+  },
+  listWrap: {
+    width: '100vw',
+    marginTop: '1%',
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    boxSizing: 'border-box',
   },
   list: {
     display: 'flex',
     justifyContent: 'center',
     width: '60em',
-    marginLeft: '5%',
-    marginRight: '5%',
-    marginTop: '3%',
-    marginBottom: '5%',
+    margin: '2% 0 2% 0',
+    padding: '2%',
     boxShadow: (2 + 'px ' + 3 + 'px ' + 3 + 'px ' + 2 + 'px ' + ' lightgrey'),
     [theme.breakpoints.up('lg')]: {
       width: '30em',
+      padding: '2%',
+      margin: '1%',
     },
   },
   pic: {
@@ -52,6 +55,9 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '0.5rem',
     paddingBottom: '0.5rem',
     paddingLeft: '0.5rem',
+    [theme.breakpoints.up('lg')]: {
+      paddingLeft: '0'
+    },
   },
   info: {
     display: 'flex',
@@ -60,15 +66,11 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: '8%',
   },
   directionBtn: {
-    width: '50%',
-    marginTop: '6%',
+    // width: '50%',
+    marginTop: '10%',
     marginBottom: '3%',
     [theme.breakpoints.between('xs', 'sm')]: {
-      width: '90%',
       fontSize: '0.7rem'
-    },
-    [theme.breakpoints.between('sm', 'lg')]: {
-      width: '70%',
     },
   },
   favBtn: {
@@ -76,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'white',
     width: '5%',
     cursor: 'pointer',
-    marginTop: '3%',
+    marginTop: '6%',
   },
 }));
 
@@ -91,27 +93,28 @@ function Favorites(props) {
   return (
     <div>
       <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Favorite Meal Sites</p></Box>
-      <Box>
+      <Box style={{ height: '100%' }}>
+
         <div className={classes.listWrap}>
+
           {Array.isArray(props.favorites) && props.favorites.map(favorite => (
             <Box className={classes.list} maxWidth="xl" key={favorite.id} >
-              <Box className={classes.pic} borderRadius={16} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src={constructStreetViewURL(favorite)} alt="map" /></Box>
-              <Box className={classes.info} width={1 / 2}>
-                <p>{favorite.name}</p>
-                <p>{favorite.city}</p>
+              <Box className={classes.pic} width={1 / 2}><img height="auto" width="100%" padding-left="3%" src={constructStreetViewURL(favorite)} alt="map" /></Box>
+              <Box className={classes.info}>
+                <Box style={{ marginBottom: '13%', color: '#325288' }}> {favorite.siteAddress} </Box>
+                <Box style={{ marginBottom: '13%', color: '#325288' }}> {favorite.city} </Box>
                 <Rating />
-                {/* <button className={classes.favBtn} onClick={props.deleteFav} name={favorite.id} ><FaHeart color={'red'} /></button> */}
                 <button className={classes.favBtn} onClick={props.deleteFav} name={favorite.id} >❤️</button>
                 <Button variant="contained" color="primary" className={classes.directionBtn}><a style={{ textDecoration: "none", color: "white" }} href="https://www.google.com/maps" target="_blank">GET DIRECTION</a></Button>
               </Box>
             </Box>
           ))}
+
         </div>
-      </Box>
-    </div>
+
+      </Box >
+    </div >
   );
 }
 
 export default Favorites;
-
-

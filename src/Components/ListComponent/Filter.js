@@ -12,12 +12,12 @@ const BASE_URL = "http://localhost:3030"
 const useStyles = makeStyles((theme) => ({
     root: {
         // border: 'solid red',
-        width: '20em',
+        // width: '20em',
         display: 'flex',
         justifyContent: 'center',
-        margin: 'auto',
+        // margin: 'auto',
+        margin: '0 5% 0 3%',
         padding: '0.3%',
-
     },
     filterBtn: {
         width: '9em',
@@ -25,10 +25,11 @@ const useStyles = makeStyles((theme) => ({
         // flex: 1,
     },
     zipcodeInput: {
-        marginLeft: '6%',
+        marginRight: '5%',
+        // marginLeft: '6%',
         // flex: 1,
-        position: 'relative',
-        left: 3 + '%',
+        // position: 'relative',
+        // left: 3 + '%',
     },
     boroughBtn: {
         width: '9em',
@@ -111,6 +112,8 @@ function Filter(props) {
     const filterLocation = async () => {
         const paramEntered = param.parameter
         console.log(paramEntered)
+        // const filtered = get(`/getLocations/${paramEntered}`)
+
         // let param = zipcode / [borughs] / addresss&newcuurentpositon //If it's an address, create it into a string or an object
         await fetch(`${BASE_URL}/getLocations/${paramEntered}`, {
             headers: {
