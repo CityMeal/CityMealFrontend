@@ -99,7 +99,7 @@ function App() {
           token: data.token,
           currentUser: data.user,
         });
-        history.push("/LIST");
+        history.push("/HOME");
         //Store User in LocalStorage. Remove from localstorage only on logout
         localStorage.setItem("user", JSON.stringify(data.user));
         localStorage.setItem("token", JSON.stringify(data.token));
@@ -332,6 +332,8 @@ function App() {
               addFav={addFav}
               favorites={favorites}
               deleteFav={deleteFav}
+              handleChange={handleChange}
+              updateUser={updateUser}
             />
           </React.Suspense>
         ) : (

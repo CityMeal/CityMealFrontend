@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
-import logo from '../Images/logo.png'
+import newlogo from '../Images/newlogo.png'
 import UnAuthNav from './UnAuthNav';
 import { logoStyles } from '../Forms/formStyle';
 import AuthNav from './AuthNav';
@@ -14,12 +14,13 @@ const DivStyle = styled.div`
 
 
 function NavBar(props) {
+  console.log(props.logout)
 
   const logoClasses = logoStyles()
 
   return (
     <DivStyle className="Nav">
-      <img src={logo} alt="logo" id='logo' className={logoClasses.root} />
+      <img src={newlogo} alt="logo" id='logo' className={logoClasses.root} />
       {!props.userSignedIn.signedIn
         ?
         <UnAuthNav
@@ -31,7 +32,8 @@ function NavBar(props) {
           submitLogin={props.onSubmitLogIn} />
         :
         <AuthNav
-          logout={props.logout} />
+          logout={props.logout}
+          userSignedIn={props.userSignedIn} />
       }
     </DivStyle >
   );

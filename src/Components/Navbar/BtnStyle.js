@@ -22,26 +22,6 @@ const themes2 = createMuiTheme({
   },
 })
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: '#325288',
-    height: '6.5em',
-  },
-  userDropdown: {
-    display: 'flex',
-    justifyContent: 'center',
-    height: '5vh',
-    fontSize: 20 + 'px',
-    [themes.breakpoints.between('lg', 'xl')]: {
-      width: '13vw',
-    },
-  },
-  userDropdownLink: {
-    textDecoration: 'none !important',
-    textAlign: 'center',
-    color: '#325288',
-  }
-}));
 
 const logoStyles = makeStyles(() => ({
   root: {
@@ -82,78 +62,6 @@ const btnstyles = makeStyles(() => ({
     },
   },
 }))
-const desktopMenuStyle = makeStyles(() => ({
-  root: {
-    backgroundColor: '#E5E5E5',
-    top: -2 + 'em',
-    marginLeft: 0.7 + 'em',
-    borderRadius: 2 + 'px',
-    [themes.breakpoints.down('sm')]: {//340
-      position: 'relative',
-      left: 22 + '%',
-    },
-  }
-}))
-const userNameBtnStyle = makeStyles(() => ({
-  root: {
-    color: '#FFFFFF',
-    top: -2 + 'em',
-    marginTop: -0.3 + 'em',
-    marginRight: 50 + 'px',
-    fontSize: 1.5 + 'rem',
-    [themes.breakpoints.between('xs', 'sm')]: {
-      top: -1.8 + 'em',
-      marginTop: - 0.5 + 'em',
-      marginRight: 20 + 'px',
-      fontSize: 1.2 + 'rem',
-    },
-  }
-}))
-const menuOptionStyle = makeStyles(() => ({
-  root: {
-    width: 10 + 'em',
-    top: 64 + 'px',
-    left: 212 + 'px',
-  },
-  '& .MuiMenu-paper': {
-    border: 'solid red',
-    width: 10 + 'em',
-    top: 64 + 'px',
-    left: 212 + 'px',
-  }
-}))
 
 
-// const btnstyles = makeStyles(() => ({
-//   root: {
-//     // border:'solid red',
-//     width: '10em',
-//     display: 'flex',
-//     position: 'relative',
-//     justifyContent: 'flex-end',
-//     top: '-1.4em',
-//     left: '10em',
-//     borderRadius: 2 + 'px',
-
-//     [themes.breakpoints.between('xs', 'sm')]: {
-//       left: 48 + '%',
-//     },
-//     [themes.breakpoints.up('md')]: {
-//       left: 53 + '%',
-//     },
-//     [themes.breakpoints.up('lg')]: {
-//       left: 60 + '%',
-//     },
-//     [themes.breakpoints.up('xl')]: {
-//       left: 78 + '%',
-//     },
-//     [themes2.breakpoints.up('laptop')]: {
-//       left: 83 + '%',
-//     }
-//   },
-//   space: {
-//     marginLeft: '8px',
-//   }
-// }))
-
-export { btnstyles, useStyles, logoStyles, desktopMenuStyle, userNameBtnStyle, menuOptionStyle };
+export { btnstyles };
