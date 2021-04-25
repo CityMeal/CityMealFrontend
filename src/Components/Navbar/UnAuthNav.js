@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 import { btnstyles } from './BtnStyle';
+import MobileForm  from '../Forms/mobileForm'
 
 
 
@@ -23,18 +24,33 @@ function UnAuthNav (props){
         setClickedBtn('SIGN IN')
     }
 
+    //CLOSE MODAL FUNCTION
+    const handleModalClose = () => {
+        setClickedBtn(null)
+    }
+
     return(
-        <div>
+        <div className={styles.root}>
             {buttons.map((button, index) => (
             <Button
                 variant="contained"
                 id={`button${index}`}
                 key={button}
-                className={styles.root}
+                className={styles.space}
                 size="small"
                 onClick={button === 'Sign Up' ? handleSignUpClick : handleSignInClick}
             >{button}</Button>))
             }
+            <MobileForm
+                clickedBtn={clickedBtn}
+                closeModal={handleModalClose}
+                onChangeSignup={props.signupChange}
+                onChangeSignin={props.signinChange}
+                userVals={props.userVals}
+                loginVals={props.loginVals}
+                submitUser={props.onSubmitUser}
+                submitLogin={props.onSubmitLogIn}
+            />
         </div>
 
     )

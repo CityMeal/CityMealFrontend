@@ -23,32 +23,33 @@ const themes2 = createMuiTheme({
 
 const btnstyles = makeStyles(() => ({
   root: {
-    backgroundColor: '#E5E5E5',
-    top: -2 + 'em',
-    marginLeft: 0.7 + 'em',
+    // border:'solid red',
+    width: '10em',
+    display: 'flex',
+    position:'relative',
+    justifyContent: 'flex-end',
+    top: '-1.4em',
+    left: '10em',
     borderRadius: 2 + 'px',
-    [themes.breakpoints.down('sm')]: {//340
-      position: 'relative',
-      left: 22 + '%',
+
+    [themes.breakpoints.between('xs', 'sm')]: {
+      left: 48 + '%',
     },
-    [themes.breakpoints.between('md', 'lg')]: {//360 - 411
-      position: 'relative',
-      left: 30 + '%',
+    [themes.breakpoints.up('md')]: {
+      left: 53 + '%',
     },
-    [themes.breakpoints.up('lg')]: {//412 or more/699
-      position: 'relative',
-      left: 40 + '%',
+    [themes.breakpoints.up('lg')]: {
+      left: 60 + '%',
     },
-    [themes.breakpoints.up('xl')]: { // 700 or more 1023
-      border: 'solid black',
-      position: 'relative',
-      left: 65 + '%',
+    [themes.breakpoints.up('xl')]: { 
+      left: 78 + '%',
     },
-    [themes2.breakpoints.up('laptop')]: {//1024 or more
-      border: 'solid pink',
-      position: 'relative',
-      left: 75 + '%',
+    [themes2.breakpoints.up('laptop')]: {
+      left: 83 + '%',
     }
+  },
+  space: {
+    marginLeft: '8px',
   }
 }))
 

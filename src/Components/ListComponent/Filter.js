@@ -111,6 +111,8 @@ function Filter(props) {
     const filterLocation = async () => {
         const paramEntered = param.parameter
         console.log(paramEntered)
+        // const filtered = get(`/getLocations/${paramEntered}`)
+
         // let param = zipcode / [borughs] / addresss&newcuurentpositon //If it's an address, create it into a string or an object
         await fetch(`${BASE_URL}/getLocations/${paramEntered}`, {
             headers: {

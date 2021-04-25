@@ -1,7 +1,7 @@
 import React from "react";
 import Announcement from "../Others/announce";
 import Filter from "../ListComponent/Filter";
-import Forms from "../MainPage/FormModal";
+import Forms from "../Forms/FormModal";
 import { get } from "../../api";
 import {
   makeStyles,

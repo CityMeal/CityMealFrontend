@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import "./App.css";
-import Header from "./Components/Navbar/navbar";
+import NavBar from "./Components/Navbar/navbar";
 import Footer from "./Components/Footer/footer";
 import UnauthenticatedApp from "./unauthenticatedApp";
 import { get, post } from "./api";
@@ -279,7 +279,7 @@ function App() {
   return (
     <div className="App">
       <div className="otherContent">
-        <Header
+        <NavBar
           userSignedIn={userSignedIn}
           logout={logOut}
           userVals={newUser}
