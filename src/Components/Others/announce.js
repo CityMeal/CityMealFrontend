@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: (2 + 'px ' + 3 + 'px ' + 3 + 'px ' + 2 + 'px ' + ' lightgrey'),
     },
     intro: {
-        color: '#FD5200', //'#f8567b',
+        color: '#F4442E', //'#FF6663',//'#FD5200',
         [theme.breakpoints.down('sm')]: {
             fontSize: '1.1rem',
         },

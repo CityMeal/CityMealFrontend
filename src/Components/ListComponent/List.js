@@ -117,7 +117,7 @@ function List(props) {
     <div>
       <div className={classes.filterDiv}>
         <Filter />
-        <TextField id="standard-search" label="zipcode" type="search" />
+        {/* <TextField id="standard-search" label="zipcode" type="search" /> */}
       </div>
       <div addfav={props.addFav} className={classes.listWrap}>
         {props.locations.map(location => (
