@@ -9,7 +9,7 @@ function AuthenticatedApp(props) {
     userSignedIn,
     locations,
     addFav,
-    updateUser,
+    getUpdatedUser,
     handleChange,
     deleteUser,
     favorites,
@@ -18,16 +18,16 @@ function AuthenticatedApp(props) {
 
   return (
     <Switch>
-      <Route path="/home">
+      <Route path="/HOME">
         <HomePage signedIn={userSignedIn.signedIn} />
       </Route>
-      <Route path="/list">
+      <Route path="/LIST">
         <ListView locations={locations} addFav={addFav} />
       </Route>
       <Route path="/favorites">
         <Favorites
-          handleUser={handleChange}
-          updateUser={updateUser}
+          // handleUser={handleUserChange}
+          // updateUser={updateUser}
           deleteUser={deleteUser}
           locations={locations}
           addFav={addFav}
@@ -36,10 +36,10 @@ function AuthenticatedApp(props) {
           userSignedIn={userSignedIn}
         />
       </Route>
-      <Route path="/profile">
+      <Route path="/PROFILE">
         <Profile
+          giveUpdatedUser={getUpdatedUser}
           userSignedIn={userSignedIn}
-          updateUser={updateUser}
           handleChange={handleChange}
           deleteUser={deleteUser}
         />

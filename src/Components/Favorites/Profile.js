@@ -6,6 +6,7 @@ import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import { FaUser } from 'react-icons/fa'
 import { FaMapMarkedAlt } from 'react-icons/fa'
+import {get, put} from '../../api'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -67,16 +68,77 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Profile(props) {
+
+    console.log(props.userSignedIn.token)
+    console.log(props.userSignedIn.currentUser)
     const classes = useStyles();
 
     const [currentZipcode, setCurrentZipcode] = React.useState('true')
     const [currentBtn, setCurrentBtn] = React.useState('EDIT')
+    const [submitClicked, setSubmitClicked] = React.useState(false)
+
+    const [updatedUser, setUpdatedUser] = React.useState({
+        username: props.userSignedIn.currentUser.username,
+        email: props.userSignedIn.currentUser.email,
+        address: props.userSignedIn.currentUser.address,
+        city: props.userSignedIn.currentUser.city,
+        zipcode: props.userSignedIn.currentUser.zipcode,
+    })
+    console.log(updatedUser)
+
     function handleClick(e) {
         console.log('I clicked Edit', e.target)
         setCurrentZipcode(!currentZipcode)
         setCurrentBtn('SUBMIT')
-
     }
+
+    //HANDLE UPDATE USER CHANGE
+    function handleUpdateChange(e) {
+        const {name, value} = e.target;
+        setUpdatedUser((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }))
+    
+    }
+
+const updateUser = async () => {
+    console.log(props.userSignedIn.currentUser)
+    console.log(updatedUser)
+    // setSubmitClicked(true)
+    const updatedData = await put('/user', updatedUser, props.userSignedIn.token)
+    console.log(updatedUser)
+    props.giveUpdatedUser(updatedData)
+
+    // fetch(`${BASE_URL}/user`, {
+    //   method: "PUT",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${userSignedIn.token}`,
+    //   },
+    //   body: JSON.stringify({
+    //     username: userSignedIn.currentUser.username,
+    //     zipcode: userSignedIn.currentUser.zipcode,
+    //   }),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     setUserSignedIn((prevState) => ({
+    //       ...prevState,
+    //       currentUser: data.user,
+    //     }));
+    //     console.log(data.user);
+    //     localStorage.removeItem("user");
+    //     localStorage.setItem("user", JSON.stringify(data.user));
+    //     history.push("/PROFILE");
+    //   })
+    //   .catch((err) => console.log(err));
+    // history.push("/HOME");
+    // console.log(localStorage.getItem("user"));
+    // console.log(userSignedIn.currentUser);
+};
+
     return (
         <div>
             <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Profile</p></Box>
@@ -89,13 +151,15 @@ function Profile(props) {
                                     <FaUser size={50} style={{ marginRight: '20%' }}>
                                         <label className={classes.label}>username:</label>
                                     </FaUser>
-                                    {props.userSignedIn.currentUser.username}
+                                    {updatedUser.username}
+                                    {/* {props.userSignedIn.currentUser.username} */}
                                 </div>
                                 <div className={classes.currentProfile}>
                                     <FaMapMarkedAlt size={50}>
                                         <label className={classes.label}>zipcode:</label>
                                     </FaMapMarkedAlt>
-                                    {props.userSignedIn.currentUser.zipcode}
+                                    {updatedUser.zipcode}
+                                    {/* {props.userSignedIn.currentUser.zipcode} */}
                                 </div>
                             </div>
                         )
@@ -108,14 +172,17 @@ function Profile(props) {
                                         id="standard-search"
                                         name="username"
                                         label="username"
-                                        value={props.userSignedIn.currentUser.username}
-                                        onChange={props.handleChange} />
+                                        value= {updatedUser.username}
+                                        // {props.userSignedIn.currentUser.username}
+                                        onChange= {handleUpdateChange} />
+                                        {/* {props.handleChange} */}
                                     <TextField
                                         className={classes.editInput}
                                         id="standard-search"
                                         name="zipcode"
                                         label="zipcode"
-                                        value={props.userSignedIn.currentUser.zipcode}
+                                        value={updatedUser.zipcode}
+                                        // {props.userSignedIn.currentUser.zipcode}
                                         onChange={props.handleChange} />
                                 </div>
                             }
@@ -126,7 +193,7 @@ function Profile(props) {
                         className={classes.editform}
                         variant="contained"
                         color="primary"
-                        onClick={currentBtn === 'EDIT' ? handleClick : props.updateUser}
+                        onClick={currentBtn === 'EDIT' ? handleClick : updateUser}
                     >{currentBtn}
                     </Button>
                     <Button

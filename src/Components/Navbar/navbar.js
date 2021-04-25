@@ -14,7 +14,7 @@ const DivStyle = styled.div`
 
 
 function NavBar(props) {
-
+  console.log(props.loginVals)
   const logoClasses = logoStyles()
 
   return (

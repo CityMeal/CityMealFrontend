@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 import { btnstyles } from './BtnStyle';
-import MobileForm  from '../Forms/mobileForm'
+import Form  from '../Forms/Form'
 
 
 
@@ -41,15 +41,15 @@ function UnAuthNav (props){
                 onClick={button === 'Sign Up' ? handleSignUpClick : handleSignInClick}
             >{button}</Button>))
             }
-            <MobileForm
+            <Form
                 clickedBtn={clickedBtn}
                 closeModal={handleModalClose}
                 onChangeSignup={props.signupChange}
                 onChangeSignin={props.signinChange}
                 userVals={props.userVals}
                 loginVals={props.loginVals}
-                submitUser={props.onSubmitUser}
-                submitLogin={props.onSubmitLogIn}
+                submitUser={props.submitUser}
+                submitLogin={props.submitLogin}
             />
         </div>
 

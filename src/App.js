@@ -61,12 +61,12 @@ function App() {
     });
   };
 
+
   //FUNCTION MAKING A NEW USER POST REQUEST TO THE DATABASE
   const signUpUser = async () => {
     console.log("i clicked signup user func");
-    const data = await post("/register", newUser)
+    const data = await post('/register', newUser)
     console.log(data)
-    //update the new user state and clear form
     setNewUser({
       username: "",
       email: "",
@@ -76,85 +76,36 @@ function App() {
       password: "",
     });
   };
+  console.log(logInDetails)
 
   //USE LOGIN DETAIL OBJECT TO AUTHENTICATE USER: WRITE AUTH FUNCTION
-  const signInUser = (e) => {
-    console.log(e.target);
+  const signInUser =  async (e) => {
     e.preventDefault();
-    console.log(logInDetails);
-    //Write a POST request to user login route on the back end
-    fetch(`${BASE_URL}/login`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(logInDetails),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setUserSignedIn({
-          signedIn: true,
-          token: data.token,
-          currentUser: data.user,
-        });
-        history.push("/LIST");
-        //Store User in LocalStorage. Remove from localstorage only on logout
-        localStorage.setItem("user", JSON.stringify(data.user));
-        localStorage.setItem("token", JSON.stringify(data.token));
-      })
-      .catch((err) => console.log(err));
-
+    console.log(logInDetails)
+    const data = await post('/login', logInDetails)
+    setUserSignedIn({
+      signedIn: true,
+      token: data.token,
+      currentUser: data.user,
+    });
+    history.push('/HOME')
+    localStorage.setItem("user", JSON.stringify(data.user));
+    localStorage.setItem("token", JSON.stringify(data.token));
     //Reset login details to empty strings
     setLogInDetails({
-      username: "",
+      email: "",
       password: "",
     });
   };
 
-  //HANDLE UPDATE USER CHANGE
-  function handleChange(e) {
-    const value = e.target.value;
-
+  const getUpdatedUser = (updatedUser) => {
     setUserSignedIn((prevState) => ({
       ...prevState,
-      currentUser: {
-        ...prevState.currentUser,
-        [e.target.name]: value,
-      },
-    }));
+      currentUser: updatedUser.user,
+    }))
   }
 
-  const updateUser = () => {
-    fetch(`${BASE_URL}/user`, {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userSignedIn.token}`,
-      },
-      body: JSON.stringify({
-        username: userSignedIn.currentUser.username,
-        zipcode: userSignedIn.currentUser.zipcode,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setUserSignedIn((prevState) => ({
-          ...prevState,
-          currentUser: data.user,
-        }));
-        console.log(data.user);
-        localStorage.removeItem("user");
-        localStorage.setItem("user", JSON.stringify(data.user));
-        history.push("/PROFILE");
-      })
-      .catch((err) => console.log(err));
-    history.push("/HOME");
-    console.log(localStorage.getItem("user"));
-    console.log(userSignedIn.currentUser);
-  };
-
+  
   //DELETE USER
   const deleteUser = () => {
     //Write a POST request to user login route on the back end
@@ -292,21 +243,18 @@ function App() {
         {userSignedIn.signedIn ? (
           <React.Suspense fallback={<div>Loading...</div>}>
             <AuthenticatedApp
+              getUpdatedUser={getUpdatedUser}
               userSignedIn={userSignedIn}
+              deleteUser={deleteUser}
+              locations={locations}
+              addFav={addFav}
+              favorites={favorites}
+              deleteFav={deleteFav}
             />
           </React.Suspense>
         ) : (
           <UnauthenticatedApp
-            user={userSignedIn.currentUser}
-            handleUser={handleChange}
-            updateUser={updateUser}
-            deleteUser={deleteUser}
-            locations={locations}
-            addFav={addFav}
-            favorites={favorites}
-            deleteFav={deleteFav}
             userSignedIn={userSignedIn}
-            handleChange={handleChange}
           />
         )}
       </div>

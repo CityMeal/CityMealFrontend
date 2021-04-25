@@ -5,8 +5,8 @@ import ShowSuccess from '../Others/successful';
 
 
 
-function MobileForm(props) {
-
+function Form(props) {
+    console.log(props.loginVals)
     const modalClass = modalStyle()
     const formClass = formStyle()
 
@@ -57,4 +57,4 @@ function MobileForm(props) {
     )
 }
 
-export default MobileForm
+export default Form

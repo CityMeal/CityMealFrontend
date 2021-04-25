@@ -1,7 +1,6 @@
 import React from "react";
 import Announcement from "../Others/announce";
 import Filter from "../ListComponent/Filter";
-import Forms from "../Forms/FormModal";
 import { get } from "../../api";
 import {
   makeStyles,
@@ -159,6 +158,7 @@ function HomePage(props) {
   React.useEffect(() => {
     const getAllLocation = async () => {
       const data = await get("/locations");
+      console.log(data)
       const sites = data.locations.map((site) => {
         return {
           name: site.name,
