@@ -42,7 +42,7 @@ function AuthNav(props) {
             'aria-controls': `simple-tabpanel-${index}`,
         };
     }
-      
+
     console.log(value)
 
     return (
@@ -55,7 +55,7 @@ function AuthNav(props) {
                         {
                             menuList.map((option) => (
                                 <Link className={dropDownClass.userDropdownLink} to={option === 'SIGNOUT' ? '/HOME' : option} key={`${option}label`}>
-                                    <MenuItem className={dropDownClass.userDropdown} onClick={option === 'SIGNOUT' ? props.logout : handleClose} >{option}</MenuItem>
+                                    <MenuItem className={dropDownClass.userDropdown} onClick={option === 'SIGN OUT' ? props.logout : handleClose} >{option}</MenuItem>
                                 </Link>
                             ))
                         }
@@ -67,8 +67,7 @@ function AuthNav(props) {
                         {
                             menuList.map((option, index) => (
                                 <Link to={option === 'SIGNOUT' ? '/HOME' : option} className={desktop.list} key={`${option}label`}>
-                                    {/* <div>{option}</div> */}
-                                    <Tab onClick={option === 'SIGNOUT' ? props.logout : null} label={option} value={index} {...a11yProps(index)} className="MuiTabs-flexContainer" >{option}</Tab>
+                                    <Tab onClick={option === 'SIGN OUT' ? props.logout : null} label={option} value={index} {...a11yProps(index)} className="MuiTabs-flexContainer" >{option}</Tab>
                                 </Link>
                             ))
                         }
