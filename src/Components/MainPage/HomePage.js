@@ -2,6 +2,8 @@ import React from "react";
 import Announcement from "../Others/announce";
 import Filter from "../ListComponent/Filter";
 import { get } from "../../api";
+import { determineCenter } from "../Others/determineCenterLocation";
+
 import {
     makeStyles,
     createMuiTheme,
@@ -122,6 +124,22 @@ function HomePage(props) {
     //SET SITE COORDINATES
     const [siteCoords, setSiteCoords] = React.useState([]);
 
+    const [filteredCoords, setFiltered] = React.useState([]);
+
+    const handleFilteredCoords = () => {
+        if (filteredCoords.data) {
+          if (filteredCoords.data.length > 0) {
+          let coords = determineCenter(filteredCoords)
+          return coords
+          }
+        } else {
+          if (usersLocation) {
+            return usersLocation
+          }
+          return { lat:40.7128,lng:-74.0060};
+        }
+    }
+
     //SET USERS LOCATION STATE ONECE LOADED FROM USEEFFECT
     const success = (position) => {
         const userposition = {
@@ -172,49 +190,55 @@ function HomePage(props) {
         getAllLocation();
     }, []);
 
+    //RETURN FUNCTION
     return (
         <div className={classes.mainDiv}>
-            <Announcement />
-            <div className={classes.filterMapDiv}>
-                <Filter />
-                <LoadScript googleMapsApiKey={key}>
-                    <GoogleMap
-                        mapContainerStyle={mapDiv}
-                        zoom={12}
-                        center={usersLocation}
+        <Announcement />
+        <div className={classes.filterMapDiv}>
+        <Filter
+            onResult={data => {
+                console.log("data",data)
+                setFiltered({ data });
+            }}
+        />
+            <LoadScript googleMapsApiKey={key}>
+            <GoogleMap
+                mapContainerStyle={mapDiv}
+                zoom={15}
+                center={handleFilteredCoords()}
+            >
+                {siteCoords.map((site) => {
+                return (
+                    <Marker
+                    key={site.name}
+                    position={site.position}
+                    onClick={() => handleSeclect(site)}
+                    />
+                );
+                })}
+                {siteSelected.position && (
+                <InfoWindow
+                    position={siteSelected.position}
+                    clickable={true}
+                    onCloseClick={() => setSiteSelected({})}
+                >
+                    <div>
+                    <p>Food Center: {siteSelected.name}</p>
+                    <p>Address: {siteSelected.address}</p>
+                    <p>Zip Code: {siteSelected.zip}</p>
+                    <button
+                        onClick={() =>
+                        window.alert("Please Sign In To Save Locations")
+                        }
                     >
-                        {siteCoords.map((site) => {
-                            return (
-                                <Marker
-                                    key={site.name}
-                                    position={site.position}
-                                    onClick={() => handleSeclect(site)}
-                                />
-                            );
-                        })}
-                        {siteSelected.position && (
-                            <InfoWindow
-                                position={siteSelected.position}
-                                clickable={true}
-                                onCloseClick={() => setSiteSelected({})}
-                            >
-                                <div>
-                                    <p>Food Center: {siteSelected.name}</p>
-                                    <p>Address: {siteSelected.address}</p>
-                                    <p>Zip Code: {siteSelected.zip}</p>
-                                    <button
-                                        onClick={() =>
-                                            window.alert("Please Sign In To Save Locations")
-                                        }
-                                    >
-                                        ❤️
-                                    </button>
-                                </div>
-                            </InfoWindow>
-                        )}
-                    </GoogleMap>
-                </LoadScript>
-            </div>
+                        :heart:
+                    </button>
+                    </div>
+                </InfoWindow>
+                )}
+            </GoogleMap>
+            </LoadScript>
+        </div>
         </div>
     );
 }

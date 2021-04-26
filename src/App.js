@@ -11,7 +11,7 @@ const AuthenticatedApp = React.lazy(() =>
 );
 // import AuthenticatedApp from "./authenticatedApp";
 
-const BASE_URL = "http://localhost:3030";
+const BASE_URL = "https://city-meal.herokuapp.com";
 
 
 function App() {

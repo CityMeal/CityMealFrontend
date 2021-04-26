@@ -6,6 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { MenuList } from '@material-ui/core'
+import { get } from "../../api";
 
 const BASE_URL = "http://localhost:3030"
 
@@ -111,25 +112,37 @@ function Filter(props) {
     //FILTER LOCATIONS BY EITHER ZIP CODE OR BOROUGH
     const filterLocation = async () => {
         const paramEntered = param.parameter
-        console.log(paramEntered)
+        console.log("paramentered",paramEntered)
         // const filtered = get(`/getLocations/${paramEntered}`)
 
         // let param = zipcode / [borughs] / addresss&newcuurentpositon //If it's an address, create it into a string or an object
-        await fetch(`${BASE_URL}/getLocations/${paramEntered}`, {
-            headers: {
-                'Accept': 'application/json',
-            },
-        })
-            .then(response => response.json())
-            .then(data => {
-                setParam(prevState => ({
-                    ...prevState,
-                    returnedSites: data
-                }))
-                console.log(data)
+        // await fetch(`${BASE_URL}/getLocations/${paramEntered}`, {
+        //     headers: {
+        //         'Accept': 'application/json',
+        //     },
+        // })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         setParam(prevState => ({
+        //             ...prevState,
+        //             returnedSites: data
+        //         }))
+        //         console.log(data)
 
-            })
-            .catch(err => console.log(err))
+        //     })
+        //     .catch(err => console.log(err))
+
+        try {
+            const data = await get(`/getLocations/${paramEntered}`)
+            setParam(prevState => ({
+                ...prevState,
+                returnedSites:data
+            }))
+            props.onResult(data.getLocations);
+        } catch (err) {
+            //do something with err
+            console.log(err)
+        }
     }
 
 
