@@ -3,6 +3,7 @@ import Announcement from "../Others/announce";
 import Filter from "../ListComponent/Filter";
 import { get } from "../../api";
 import { determineCenter } from "../Others/determineCenterLocation";
+import heart from "../Images/heart.png"
 
 import {
     makeStyles,
@@ -226,13 +227,16 @@ function HomePage(props) {
                     <p>Food Center: {siteSelected.name}</p>
                     <p>Address: {siteSelected.address}</p>
                     <p>Zip Code: {siteSelected.zip}</p>
-                    <button
+                    {/* <button
                         onClick={() =>
                         window.alert("Please Sign In To Save Locations")
                         }
                     >
-                        :heart:
-                    </button>
+
+                    </button> */}
+                    <img src={heart} onClick={() =>
+                        window.alert("Please Sign In To Save Locations")
+                        }/>
                     </div>
                 </InfoWindow>
                 )}
