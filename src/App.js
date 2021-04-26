@@ -5,6 +5,10 @@ import NavBar from "./Components/Navbar/navbar";
 import Footer from "./Components/Footer/footer";
 import UnauthenticatedApp from "./unauthenticatedApp";
 import { get, post } from "./api";
+// import Alerts from './Components/Others/Alert';
+
+
+
 
 const AuthenticatedApp = React.lazy(() =>
   import(/* webpackChunkName: "authenticated-app" */ "./authenticatedApp")
@@ -80,7 +84,7 @@ function App() {
 
 
   //USE LOGIN DETAIL OBJECT TO AUTHENTICATE USER: WRITE AUTH FUNCTION
-  const signInUser =  async (e) => {
+  const signInUser = async (e) => {
     e.preventDefault();
 
     const data = await post('/login', logInDetails)
@@ -106,7 +110,7 @@ function App() {
     }))
   }
 
-  
+
   //DELETE USER
   const deleteUser = () => {
     //Write a POST request to user login route on the back end
@@ -143,9 +147,11 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setFavorites(data.favorites);
+        // <Alerts />
         window.alert("added to the favorite list");
       })
       .catch((err) => console.log(err));
+
   };
 
   React.useEffect(() => {

@@ -2,6 +2,7 @@ import React from "react";
 import Announcement from "../Others/announce";
 import Filter from "../ListComponent/Filter";
 import { get } from "../../api";
+import { determineCenter } from '../Others/FilterByZipcode';
 import {
     makeStyles,
     createMuiTheme,
@@ -121,6 +122,22 @@ function HomePage(props) {
 
     //SET SITE COORDINATES
     const [siteCoords, setSiteCoords] = React.useState([]);
+    const [filteredCoords, setFiltered] = React.useState([]);
+
+    const handleFilteredCoords = () => {
+        if (filteredCoords.data) {
+            if (filteredCoords.data.length > 0) {
+                let coords = determineCenter(filteredCoords)
+                console.log(coords)
+                return coords
+            }
+        } else {
+            if (usersLocation) {
+                return usersLocation
+            }
+            return { lat: 40.7128, lng: -74.0060 };
+        }
+    }
 
     //SET USERS LOCATION STATE ONECE LOADED FROM USEEFFECT
     const success = (position) => {
@@ -171,17 +188,21 @@ function HomePage(props) {
         };
         getAllLocation();
     }, []);
-
     return (
         <div className={classes.mainDiv}>
             <Announcement />
             <div className={classes.filterMapDiv}>
-                <Filter />
+                <Filter
+                    onResult={data => {
+                        // console.log(“data”,data)
+                        setFiltered({ data });
+                    }}
+                />
                 <LoadScript googleMapsApiKey={key}>
                     <GoogleMap
                         mapContainerStyle={mapDiv}
-                        zoom={12}
-                        center={usersLocation}
+                        zoom={15}
+                        center={handleFilteredCoords()}
                     >
                         {siteCoords.map((site) => {
                             return (
@@ -204,11 +225,11 @@ function HomePage(props) {
                                     <p>Zip Code: {siteSelected.zip}</p>
                                     <button
                                         onClick={() =>
-                                            window.alert("Please Sign In To Save Locations")
+                                            window.alert('Please Sign In To Save Locations')
                                         }
                                     >
-                                        ❤️
-                                    </button>
+                                        :heart:
+                      </button>
                                 </div>
                             </InfoWindow>
                         )}
@@ -217,6 +238,52 @@ function HomePage(props) {
             </div>
         </div>
     );
+
+    // return (
+    //     <div className={classes.mainDiv}>
+    //         <Announcement />
+    //         <div className={classes.filterMapDiv}>
+    //             <Filter />
+    //             <LoadScript googleMapsApiKey={key}>
+    //                 <GoogleMap
+    //                     mapContainerStyle={mapDiv}
+    //                     zoom={12}
+    //                     center={usersLocation}
+    //                 >
+    //                     {siteCoords.map((site) => {
+    //                         return (
+    //                             <Marker
+    //                                 key={site.name}
+    //                                 position={site.position}
+    //                                 onClick={() => handleSeclect(site)}
+    //                             />
+    //                         );
+    //                     })}
+    //                     {siteSelected.position && (
+    //                         <InfoWindow
+    //                             position={siteSelected.position}
+    //                             clickable={true}
+    //                             onCloseClick={() => setSiteSelected({})}
+    //                         >
+    //                             <div>
+    //                                 <p>Food Center: {siteSelected.name}</p>
+    //                                 <p>Address: {siteSelected.address}</p>
+    //                                 <p>Zip Code: {siteSelected.zip}</p>
+    //                                 <button
+    //                                     onClick={() =>
+    //                                         window.alert("Please Sign In To Save Locations")
+    //                                     }
+    //                                 >
+    //                                     ❤️
+    //                                 </button>
+    //                             </div>
+    //                         </InfoWindow>
+    //                     )}
+    //                 </GoogleMap>
+    //             </LoadScript>
+    //         </div>
+    //     </div>
+    // );
 }
 
 export default HomePage;
