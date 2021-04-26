@@ -19,38 +19,40 @@ function Form(props) {
 
     return(
         <div>
-            <Modal open={props.clickedBtn !== null ? true : openModal} onClose={props.closeModal} className={modalClass.root}> 
+            <Modal open={props.clickedBtn !== null ? true : openModal} onClose={props.closeModal} className={modalClass.root}>
                 <form className={formClass.root} >
                     {props.clickedBtn === 'SIGN UP' ? signUpLabels.map(label => (
-                        <TextField id={`${label}field`} 
-                            key={label} 
-                            label={label === 'zipcode' ?  'zip code': label}
-                            type={label === 'password'? "password": null}
-                            variant="outlined" 
-                            size="small" 
+                        <TextField id={`${label}field`}
+                            key={label}
+                            // label={label === 'zipcode' ? 'zip code' : label}
+                            placeholder={label}
+                            type={label === 'password' ? "password" : null}
+                            variant="outlined"
+                            size="small"
                             name={label}
-                            value= {props.userVals.label}
+                            value={props.userVals.label}
                             required
-                            onChange= {props.onChangeSignup}
-                            />
-                        )):
+                            onChange={props.onChangeSignup}
+                        />
+                    )) :
                         signInLabels.map(label => (
-                            <TextField id={`${label}field`} 
-                            key={label} 
-                            label={label}
-                            type={label === 'password'? "password": null}
-                            variant="outlined" 
-                            size="small" 
-                            name={label}
-                            value= {props.loginVals.label}
-                            required
-                            onChange= {props.onChangeSignin}
+                            <TextField id={`${label}field`}
+                                key={label}
+                                // label={label}
+                                placeholder={label}
+                                type={label === 'password' ? "password" : null}
+                                variant="outlined"
+                                size="small"
+                                name={label}
+                                value={props.loginVals.label}
+                                required
+                                onChange={props.onChangeSignin}
                             />
                         ))
-                        }
-                        <Button variant="contained" size='small' type="submit" onClick={props.clickedBtn === 'SIGN UP' ? props.submitUser : props.submitLogin}>
-                            {props.clickedBtn === 'SIGN UP' ? 'SIGN UP' : 'SIGN IN'}
-                        </Button>
+                    }
+                    <Button variant="contained" size='small' type="submit" onClick={props.clickedBtn === 'SIGN UP' ? props.submitUser : props.submitLogin}>
+                        {props.clickedBtn === 'SIGN UP' ? 'SIGN UP' : 'SIGN IN'}
+                    </Button>
                 </form>
             </Modal>
         </div>

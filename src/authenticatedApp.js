@@ -18,10 +18,10 @@ function AuthenticatedApp(props) {
 
   return (
     <Switch>
-      <Route path="/HOME">
+      <Route path="/home">
         <HomePage signedIn={userSignedIn.signedIn} />
       </Route>
-      <Route path="/LIST">
+      <Route path="/list">
         <ListView locations={locations} addFav={addFav} />
       </Route>
       <Route path="/favorites">
@@ -36,7 +36,7 @@ function AuthenticatedApp(props) {
           userSignedIn={userSignedIn}
         />
       </Route>
-      <Route path="/PROFILE">
+      <Route path="/profile">
         <Profile
           giveUpdatedUser={getUpdatedUser}
           userSignedIn={userSignedIn}
