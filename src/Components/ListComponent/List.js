@@ -95,11 +95,12 @@ const useStyles = makeStyles((theme) => ({
     border: 'none',
     backgroundColor: 'white',
     width: '5%',
+    marginTop: '6%',
   },
   directionBtn: {
     position: 'relative',
     left: -0.5 + 'em',
-    marginTop: '3%',
+    marginTop: '10%',
     marginBottom: '3%',
   },
 }));
