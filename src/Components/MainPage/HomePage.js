@@ -3,6 +3,7 @@ import Announcement from "../Others/announce";
 import Filter from "../ListComponent/Filter";
 import { get } from "../../api";
 import { determineCenter } from "../Others/determineCenterLocation";
+import GoogleMapReact from 'google-map-react';
 
 import {
     makeStyles,
@@ -126,6 +127,8 @@ function HomePage(props) {
 
     const [filteredCoords, setFiltered] = React.useState([]);
 
+    const defaultLocation =  { lat:40.7128,lng:-74.0060}
+
     const handleFilteredCoords = () => {
         if (filteredCoords.data) {
           if (filteredCoords.data.length > 0) {
@@ -193,18 +196,26 @@ function HomePage(props) {
     //RETURN FUNCTION
     return (
         <div className={classes.mainDiv}>
-        <Announcement />
-        <div className={classes.filterMapDiv}>
-        <Filter
-            onResult={data => {
-                console.log("data",data)
-                setFiltered({ data });
-            }}
-        />
-            <LoadScript googleMapsApiKey={key}>
+            <Announcement />
+            <div className={classes.filterMapDiv}>
+                <Filter
+                onResult={data => {
+                    console.log("data",data)
+                    setFiltered({ data });
+                    }}
+                />
+                <GooogleMapReact
+                    bootstrapURLKey ={key}
+                    defaultCenter ={defaultLocation}
+                    defaultZoom={12}
+                >
+
+
+                </GooogleMapReact>
+            {/* <LoadScript googleMapsApiKey={key}>
             <GoogleMap
                 mapContainerStyle={mapDiv}
-                zoom={15}
+                zoom={12}
                 center={handleFilteredCoords()}
             >
                 {siteCoords.map((site) => {
@@ -237,8 +248,8 @@ function HomePage(props) {
                 </InfoWindow>
                 )}
             </GoogleMap>
-            </LoadScript>
-        </div>
+            </LoadScript> */}
+            </div>
         </div>
     );
 }
