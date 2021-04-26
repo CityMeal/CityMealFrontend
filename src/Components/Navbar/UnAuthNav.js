@@ -5,9 +5,8 @@ import Form  from '../Forms/Form'
 
 
 
-function UnAuthNav (props){
-
-    const styles = btnstyles()
+function UnAuthNav(props) {
+    const btnClasses = btnstyles()
 
     const buttons = ['Sign Up', 'Sign In']
 
@@ -29,17 +28,17 @@ function UnAuthNav (props){
         setClickedBtn(null)
     }
 
-    return(
-        <div className={styles.root}>
+    return (
+        <div className={btnClasses.signBtn}>
             {buttons.map((button, index) => (
-            <Button
-                variant="contained"
-                id={`button${index}`}
-                key={button}
-                className={styles.space}
-                size="small"
-                onClick={button === 'Sign Up' ? handleSignUpClick : handleSignInClick}
-            >{button}</Button>))
+                <Button
+                    id={`button${index}`}
+                    key={button}
+                    // className={styles.space}
+                    className={btnClasses.root}
+                    size="small"
+                    onClick={button === 'Sign Up' ? handleSignUpClick : handleSignInClick}
+                >{button}</Button>))
             }
             <Form
                 clickedBtn={clickedBtn}

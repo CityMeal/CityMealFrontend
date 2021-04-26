@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, createMuiTheme} from '@material-ui/core';
+import { makeStyles, createMuiTheme } from '@material-ui/core';
 
 const themes = createMuiTheme({
   breakpoints: {
@@ -12,6 +12,7 @@ const themes = createMuiTheme({
     },
   },
 })
+
 const themes2 = createMuiTheme({
   breakpoints: {
     values: {
@@ -21,36 +22,46 @@ const themes2 = createMuiTheme({
   },
 })
 
-const btnstyles = makeStyles(() => ({
-  root: {
-    // border:'solid red',
-    width: '10em',
-    display: 'flex',
-    position:'relative',
-    justifyContent: 'flex-end',
-    top: '-1.4em',
-    left: '10em',
-    borderRadius: 2 + 'px',
 
-    [themes.breakpoints.between('xs', 'sm')]: {
-      left: 48 + '%',
-    },
-    [themes.breakpoints.up('md')]: {
-      left: 53 + '%',
-    },
-    [themes.breakpoints.up('lg')]: {
-      left: 60 + '%',
-    },
-    [themes.breakpoints.up('xl')]: { 
-      left: 78 + '%',
-    },
+const logoStyles = makeStyles(() => ({
+  root: {
+    position: 'relative',
+    width: 5 + 'em',
+    height: 5 + 'em',
+    left: 1 + 'em',
+    top: 0.6 + 'em',
     [themes2.breakpoints.up('laptop')]: {
-      left: 83 + '%',
+      position: 'relative',
+      left: 2 + 'em',
     }
-  },
-  space: {
-    marginLeft: '8px',
   }
 }))
+
+const btnstyles = makeStyles(() => ({
+  root: {
+    color: '#f4eee8',
+    top: - 2.5 + 'em',
+    marginRight: 1.5 + 'em',
+    float: 'right',
+    fontSize: 1.5 + 'em',
+  },
+  signBtn: {
+    marginTop: '5%',
+    marginLeft: 40 + 'em',
+    float: 'right',
+    position: 'relative',
+    [themes.breakpoints.between('xs', 'sm')]: {
+      fontSize: 10 + 'px',
+      marginTop: 7 + 'em',
+      marginLeft: 1 + 'em',
+    },
+    [themes.breakpoints.between('sm', 'xl')]: {//360 - 411
+      fontSize: 12 + 'px',
+      marginTop: 6.5 + 'em',
+      marginLeft: 0 + 'em',
+    },
+  },
+}))
+
 
 export { btnstyles };
