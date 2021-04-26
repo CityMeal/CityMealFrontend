@@ -158,7 +158,7 @@ function HomePage(props) {
         //GET FIRST LOCATION OF USER ON PAGE LOAD
         navigator.geolocation.getCurrentPosition(success);
         //Look up navigator.watchPosition
-    });
+    },[]);
 
     React.useEffect(() => {
         const userPosition = localStorage.getItem("userPosition");
