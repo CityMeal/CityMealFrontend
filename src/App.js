@@ -99,9 +99,10 @@ function App() {
   };
 
   const getUpdatedUser = (updatedUser) => {
+    console.log(updatedUser)
     setUserSignedIn((prevState) => ({
       ...prevState,
-      currentUser: updatedUser.user,
+      currentUser: updatedUser,
     }))
   }
 
@@ -224,7 +225,7 @@ function App() {
     removItems.forEach((item) => {
       localStorage.removeItem(item);
     });
-    history.push("/");
+    history.push("/HOME");
   };
 
   return (

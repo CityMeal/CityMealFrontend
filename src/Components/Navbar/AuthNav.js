@@ -4,13 +4,13 @@ import { Button, Menu, MenuItem, List, ListItem, Tabs ,Avatar} from '@material-u
 import Tab from '@material-ui/core/Tab';
 import { Link } from 'react-router-dom';
 import {mobileStyle, themes2, useMediaQuery, tabStyle} from './meulist'
+import { PersonPinSharp } from '@material-ui/icons';
 
 function AuthNav(props){
-
     const mobile = mobileStyle()
     const desktop = tabStyle()
 
-    const menuList = ['HOME', 'LIST', 'FAVORITES', 'PROFILE', 'SIGNOUT']
+    const menuList = ['HOME', 'LIST', 'FAVORITES', 'PROFILE', 'SIGN OUT']
 
     const webMenu = useMediaQuery(themes2.breakpoints.up('laptop'))
 
@@ -18,9 +18,6 @@ function AuthNav(props){
     
     const [value, setValue] = React.useState(0);
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
 
    const handleClick = (event) => {
        setAnchorEl(event.currentTarget)
@@ -28,6 +25,12 @@ function AuthNav(props){
 
     const handleClose = () => {
         setAnchorEl(null)
+
+    };
+
+    const handleChange = (event, newValue) => {
+        console.log(event.currentTarget)
+        setValue(newValue);
     };
 
     function a11yProps(index) {
@@ -36,18 +39,19 @@ function AuthNav(props){
           'aria-controls': `simple-tabpanel-${index}`,
         };
     }
-    console.log(value, webMenu, !webMenu)
+      
+    console.log(value)
 
     return (
         <div >
             {!webMenu ?
             <div>
-                <Avatar  className={mobile.name} variant = "square" onClick={handleClick}>YEMISIIIIIII</Avatar>
+                <Avatar  className={mobile.name} variant = "square" onClick={handleClick}>{props.userSignedIn.currentUser.username}I</Avatar>
                 <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose} >
                 {
                     menuList.map((option) => (
-                        <Link to={option === 'SIGNOUT' ? '/HOME' : option} className={mobile.link} key={`${option}label`}>
-                            <MenuItem onClick={handleClose} >{option}</MenuItem>
+                        <Link to={option === 'SIGN OUT' ? '/HOME' : option} className={mobile.link} key={`${option}label`}>
+                            <MenuItem onClick={option === 'SIGN OUT' ? props.logout : handleClose} >{option}</MenuItem>
                         </Link>
                     ))
                 }
@@ -55,11 +59,11 @@ function AuthNav(props){
             </div>
             : 
             <div>
-                <Tabs  variant= "fullwidth" value={value} onChange={handleChange} className={desktop.root}>
+                <Tabs variant= "fullWidth" value={value} onChange={handleChange} className={desktop.root}>
                 {
                     menuList.map((option, index) => (
-                        <Link to={option === 'SIGNOUT' ? '/HOME' : option} className={desktop.list} key={`${option}label`} >
-                            <Tab label = {option} value={index} {...a11yProps(index)} className ="MuiTabs-flexContainer" >{option}</Tab>
+                        <Link to={option === 'SIGN OUT' ? '/HOME' : `/${option}`} className={desktop.list} key={`${option}label`} >
+                            <Tab  onClick={option === 'SIGN OUT' ? props.logout : null}label={option} {...a11yProps(index)} className ="MuiTabs-flexContainer" >{option}</Tab>
                         </Link>
                     ))
                 }

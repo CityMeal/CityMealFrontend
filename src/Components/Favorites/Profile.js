@@ -107,37 +107,11 @@ const updateUser = async () => {
     console.log(updatedUser)
     // setSubmitClicked(true)
     const updatedData = await put('/user', updatedUser, props.userSignedIn.token)
-    console.log(updatedUser)
+    console.log(updatedData)
     props.giveUpdatedUser(updatedData)
-
-    // fetch(`${BASE_URL}/user`, {
-    //   method: "PUT",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${userSignedIn.token}`,
-    //   },
-    //   body: JSON.stringify({
-    //     username: userSignedIn.currentUser.username,
-    //     zipcode: userSignedIn.currentUser.zipcode,
-    //   }),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     setUserSignedIn((prevState) => ({
-    //       ...prevState,
-    //       currentUser: data.user,
-    //     }));
-    //     console.log(data.user);
-    //     localStorage.removeItem("user");
-    //     localStorage.setItem("user", JSON.stringify(data.user));
-    //     history.push("/PROFILE");
-    //   })
-    //   .catch((err) => console.log(err));
-    // history.push("/HOME");
-    // console.log(localStorage.getItem("user"));
-    // console.log(userSignedIn.currentUser);
 };
+
+
 
     return (
         <div>
@@ -152,7 +126,6 @@ const updateUser = async () => {
                                         <label className={classes.label}>username:</label>
                                     </FaUser>
                                     {updatedUser.username}
-                                    {/* {props.userSignedIn.currentUser.username} */}
                                 </div>
                                 <div className={classes.currentProfile}>
                                     <FaMapMarkedAlt size={50}>

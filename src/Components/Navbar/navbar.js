@@ -14,7 +14,8 @@ const DivStyle = styled.div`
 
 
 function NavBar(props) {
-  console.log(props.loginVals)
+  console.log(props.logout)
+  console.log(props.userSignedIn.signedIn)
   const logoClasses = logoStyles()
 
   return (
@@ -30,7 +31,7 @@ function NavBar(props) {
           submitUser={props.onSubmitUser}
           submitLogin={props.onSubmitLogIn}/>
        :
-        <AuthNav />
+        <AuthNav logout={props.logout} userSignedIn={props.userSignedIn}/>
       }
     </DivStyle >
   );
