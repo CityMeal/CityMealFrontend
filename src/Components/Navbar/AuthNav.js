@@ -66,7 +66,8 @@ function AuthNav(props) {
                     <Tabs indicatorColor="#325288" variant="fullwidth" value={value} onChange={handleChange} className={desktop.root}>
                         {
                             menuList.map((option, index) => (
-                                <Link to={option === 'SIGNOUT' ? '/HOME' : option} className={desktop.list} key={`${option}label`}>
+                                <Link to={option === 'SIGN OUT' ? '/home' : `/${option.toLowerCase()}`} className={desktop.list} key={`${option}label`}>
+                                    {/* <div>{option}</div> */}
                                     <Tab onClick={option === 'SIGN OUT' ? props.logout : null} label={option} value={index} {...a11yProps(index)} className="MuiTabs-flexContainer" >{option}</Tab>
                                 </Link>
                             ))

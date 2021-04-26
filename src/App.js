@@ -12,7 +12,7 @@ const AuthenticatedApp = React.lazy(() =>
 // import AuthenticatedApp from "./authenticatedApp";
 
 const BASE_URL = "http://localhost:3030";
-console.log(process.env.REACT_APP_API_KEY);
+
 
 function App() {
   const history = useHistory();
@@ -65,9 +65,9 @@ function App() {
 
   //FUNCTION MAKING A NEW USER POST REQUEST TO THE DATABASE
   const signUpUser = async () => {
-    console.log("i clicked signup user func");
+
     const data = await post('/register', newUser)
-    console.log(data)
+
     setNewUser({
       username: "",
       email: "",
@@ -77,19 +77,19 @@ function App() {
       password: "",
     });
   };
-  console.log(logInDetails)
+
 
   //USE LOGIN DETAIL OBJECT TO AUTHENTICATE USER: WRITE AUTH FUNCTION
   const signInUser =  async (e) => {
     e.preventDefault();
-    console.log(logInDetails)
+
     const data = await post('/login', logInDetails)
     setUserSignedIn({
       signedIn: true,
       token: data.token,
       currentUser: data.user,
     });
-    history.push('/HOME')
+    history.push('/home')
     localStorage.setItem("user", JSON.stringify(data.user));
     localStorage.setItem("token", JSON.stringify(data.token));
     //Reset login details to empty strings
@@ -100,7 +100,6 @@ function App() {
   };
 
   const getUpdatedUser = (updatedUser) => {
-    console.log(updatedUser)
     setUserSignedIn((prevState) => ({
       ...prevState,
       currentUser: updatedUser,
@@ -144,7 +143,6 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setFavorites(data.favorites);
-        console.log(data);
         window.alert("added to the favorite list");
       })
       .catch((err) => console.log(err));
@@ -154,7 +152,6 @@ function App() {
     const getFav = () => {
       const id = userSignedIn.currentUser.id;
       if (!id) {
-        console.log("There is no user id");
         return;
       }
 
@@ -197,36 +194,6 @@ function App() {
       .catch((err) => console.log(err));
   };
 
-  //GET ALL LOCATIONS AND CREATE SITE POSITION COORDINATES FOR MAP VIEW
-  React.useEffect(() => {
-    const getAllLocation = () => {
-      fetch(`${BASE_URL}/locations`, {
-        headers: {
-          'Accept': 'application/json',
-        },
-      })
-        .then(response => response.json())
-        .then(data => {
-          const sites = data.locations.map(site => {
-            return {
-              name: site.name,
-              zip: site.zip,
-              address: site.siteAddress,
-              position: {
-                lat: parseFloat(site.latitude),
-                lng: parseFloat(site.longitude)
-              }
-            }
-          })
-          localStorage.setItem('sites', JSON.stringify(sites)) //NOT FULLY SURE IF THIS IS DOING WHAT I WANT IT TO DO
-          setLocations(data.locations)
-        })
-        .catch(err => console.log(err))
-    }
-    getAllLocation()
-    console.log(userSignedIn.currentUser, 'should be updated one')
-    console.log(console.log(localStorage.getItem('user')))
-  }, [], [])
 
 
   //CHECK LOCAL STORAGE EACH TIME APP LOADS TO SEE IF THERE IS A USESR
@@ -244,12 +211,11 @@ function App() {
         token: token,
       }));
     }
-    console.log(userSignedIn.currentUser);
+
   }, []);
 
   //LOG USER OUT
   const logOut = () => {
-    console.log("im clicking button");
     const removItems = ["user", "token"];
     setUserSignedIn({
       signedIn: false,
@@ -259,7 +225,7 @@ function App() {
     removItems.forEach((item) => {
       localStorage.removeItem(item);
     });
-    history.push("/HOME");
+    history.push("/home");
   };
 
   return (
@@ -281,7 +247,6 @@ function App() {
               getUpdatedUser={getUpdatedUser}
               userSignedIn={userSignedIn}
               deleteUser={deleteUser}
-              locations={locations}
               addFav={addFav}
               favorites={favorites}
               deleteFav={deleteFav}

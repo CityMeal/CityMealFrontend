@@ -24,7 +24,6 @@ function Form(props) {
                     {props.clickedBtn === 'SIGN UP' ? signUpLabels.map(label => (
                         <TextField id={`${label}field`}
                             key={label}
-                            // label={label === 'zipcode' ? 'zip code' : label}
                             placeholder={label}
                             type={label === 'password' ? "password" : null}
                             variant="outlined"
