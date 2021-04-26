@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   copyright: {
     display: 'flex',
-    justifyContent: 'flex-end'
+    justifyContent: 'center'
   }
 }));
 
@@ -37,9 +37,9 @@ function Footer() {
   return (
     <div className={classes.root}>
       <Container></Container>
-      <div className={classes.copyright} >
+      <div >
         <Container maxWidth="xl">
-          <Copyright />
+          <Copyright className={classes.copyright} />
         </Container>
       </div>
     </div>
