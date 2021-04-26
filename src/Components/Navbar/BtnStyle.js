@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles, createMuiTheme } from '@material-ui/core';
 
 const themes = createMuiTheme({
@@ -13,29 +12,6 @@ const themes = createMuiTheme({
   },
 })
 
-const themes2 = createMuiTheme({
-  breakpoints: {
-    values: {
-      laptop: 1024,
-      desktop: 1280,
-    },
-  },
-})
-
-
-const logoStyles = makeStyles(() => ({
-  root: {
-    position: 'relative',
-    width: 5 + 'em',
-    height: 5 + 'em',
-    left: 1 + 'em',
-    top: 0.6 + 'em',
-    [themes2.breakpoints.up('laptop')]: {
-      position: 'relative',
-      left: 2 + 'em',
-    }
-  }
-}))
 
 const btnstyles = makeStyles(() => ({
   root: {

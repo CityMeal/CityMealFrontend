@@ -1,6 +1,4 @@
-import React from 'react';
 import { makeStyles, createMuiTheme, useMediaQuery } from '@material-ui/core';
-
 
 
 const themes2 = createMuiTheme({

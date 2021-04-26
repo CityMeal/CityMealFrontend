@@ -4,7 +4,7 @@ import "./App.css";
 import NavBar from "./Components/Navbar/navbar";
 import Footer from "./Components/Footer/footer";
 import UnauthenticatedApp from "./unauthenticatedApp";
-import { get, post } from "./api";
+import { post } from "./api";
 // import Alerts from './Components/Others/Alert';
 
 
@@ -15,14 +15,14 @@ const AuthenticatedApp = React.lazy(() =>
 );
 // import AuthenticatedApp from "./authenticatedApp";
 
-const BASE_URL = "http://localhost:3030";
+const BASE_URL = "https://city-meal.herokuapp.com";
 
 
 function App() {
   const history = useHistory();
 
   //SET SITES LOCATIONS
-  const [locations, setLocations] = React.useState([]);
+  // const [locations, setLocations] = React.useState([]);
 
   //SET FAVORITE SITES
   const [favorites, setFavorites] = React.useState([]); //MOVE TO FAVORITES PAGE
@@ -70,7 +70,7 @@ function App() {
   //FUNCTION MAKING A NEW USER POST REQUEST TO THE DATABASE
   const signUpUser = async () => {
 
-    const data = await post('/register', newUser)
+    // const data = await post('/register', newUser)
 
     setNewUser({
       username: "",

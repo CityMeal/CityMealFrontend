@@ -1,6 +1,6 @@
-import React from 'react';
+
 import { makeStyles, createMuiTheme, useMediaQuery } from '@material-ui/core';
-import zIndex from '@material-ui/core/styles/zIndex';
+
 
 
 const themes = createMuiTheme({
@@ -31,7 +31,7 @@ const mobileStyle = makeStyles(() => ({
     border: 'solid green',
     position: 'relative',
     left: '10em',
-    left: '8em',
+    // left: '8em',
 
     [themes.breakpoints.up('md')]: {
       width: '9em',

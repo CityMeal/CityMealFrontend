@@ -1,16 +1,15 @@
 import React from 'react';
-import styled from 'styled-components'
-import { Button, Menu, MenuItem, List, ListItem, Tabs, Avatar } from '@material-ui/core';
+import { Button, Menu, MenuItem, Tabs } from '@material-ui/core';
 import Tab from '@material-ui/core/Tab';
 import { Link } from 'react-router-dom';
-import { userNameBtnStyle, mobileStyle, dropDown, themes2, useMediaQuery, tabStyle } from './meulist'
+import { userNameBtnStyle, dropDown, themes2, useMediaQuery, tabStyle } from './meulist'
 
 function AuthNav(props) {
 
     const userNameBtnClass = userNameBtnStyle()
     const dropDownClass = dropDown()
 
-    const mobile = mobileStyle()
+    // const mobile = mobileStyle()
     const desktop = tabStyle()
 
     const menuList = ['HOME', 'LIST', 'FAVORITES', 'PROFILE', 'SIGN OUT']

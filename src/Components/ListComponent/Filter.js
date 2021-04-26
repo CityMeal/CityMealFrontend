@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { MenuList } from '@material-ui/core'
 
-const BASE_URL = "http://localhost:3030"
+const BASE_URL = "https://city-meal.herokuapp.com";
 
 const useStyles = makeStyles((theme) => ({
     root: {

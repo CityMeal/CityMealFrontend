@@ -6,9 +6,9 @@ import { determineCenter } from '../Others/FilterByZipcode';
 import {
     makeStyles,
     createMuiTheme,
-    useMediaQuery,
-    Popover,
-    Typography,
+    // useMediaQuery,
+    // Popover,
+    // Typography,
 } from "@material-ui/core";
 
 import {
@@ -28,12 +28,12 @@ const mapDiv = {
     margin: '3% 5% 5% 10%'
 }
 
-const alert = {
-    width: "20em",
-    height: "20em",
-    borderRadius: "5px",
-    border: "2px solid black",
-};
+// const alert = {
+//     width: "20em",
+//     height: "20em",
+//     borderRadius: "5px",
+//     border: "2px solid black",
+// };
 const themes2 = createMuiTheme({
     breakpoints: {
         values: {
@@ -78,42 +78,42 @@ const homeStyles = makeStyles((theme) => ({
 }))
 
 
-function AlertComponent(props) {
-    return (
-        <div>
-            <Popover
-                open={props.open}
-                anchorEl={props.anchorEl}
-                onClose={props.close}
-                anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "center",
-                }}
-                transformOrigin={{
-                    vertical: "top",
-                    horizontal: "center",
-                }}
-            >
-                <Typography>Please Sign In To Save Locations</Typography>
-            </Popover>
-        </div>
-    );
-}
+// function AlertComponent(props) {
+//     return (
+//         <div>
+//             <Popover
+//                 open={props.open}
+//                 anchorEl={props.anchorEl}
+//                 onClose={props.close}
+//                 anchorOrigin={{
+//                     vertical: "bottom",
+//                     horizontal: "center",
+//                 }}
+//                 transformOrigin={{
+//                     vertical: "top",
+//                     horizontal: "center",
+//                 }}
+//             >
+//                 <Typography>Please Sign In To Save Locations</Typography>
+//             </Popover>
+//         </div>
+//     );
+// }
 function HomePage(props) {
 
     const classes = homeStyles();
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    // const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const open = Boolean(anchorEl);
+    // const open = Boolean(anchorEl);
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+    // const handleClick = (event) => {
+    //     setAnchorEl(event.currentTarget);
+    // };
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    // const handleClose = () => {
+    //     setAnchorEl(null);
+    // };
 
     //SET USER POSITION
     const [usersLocation, setUsersLocation] = React.useState({});
