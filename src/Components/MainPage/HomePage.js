@@ -123,22 +123,6 @@ function HomePage(props) {
 
     //SET SITE COORDINATES
     const [siteCoords, setSiteCoords] = React.useState([]);
-    const [filteredCoords, setFiltered] = React.useState([]);
-
-    const handleFilteredCoords = () => {
-        if (filteredCoords.data) {
-            if (filteredCoords.data.length > 0) {
-                let coords = determineCenter(filteredCoords)
-                console.log(coords)
-                return coords
-            }
-        } else {
-            if (usersLocation) {
-                return usersLocation
-            }
-            return { lat: 40.7128, lng: -74.0060 };
-        }
-    }
 
     const [filteredCoords, setFiltered] = React.useState([]);
 

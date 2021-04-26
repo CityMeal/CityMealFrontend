@@ -7,7 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { MenuList } from '@material-ui/core'
-import { get } from "../../api";
+
 
 const BASE_URL = "https://city-meal.herokuapp.com";
 
@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         justifyContent: 'center',
-        // margin: 'auto',
         margin: '0 5% 0 3%',
         padding: '0.3%',
     },
