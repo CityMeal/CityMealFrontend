@@ -9,7 +9,7 @@ import HomePage from './Components/MainPage/HomePage';
 import Favorites from './Components/Favorites/Favorites';
 import Profile from './Components/Favorites/Profile';
 
-const BASE_URL = "https://city-meal.herokuapp.com/"
+const BASE_URL = "https://city-meal.herokuapp.com"
 console.log(process.env.REACT_APP_API_KEY)
 
 function App() {
