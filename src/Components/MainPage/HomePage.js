@@ -1,7 +1,6 @@
 import React from "react";
 import Announcement from "../Others/announce";
 import Filter from "../ListComponent/Filter";
-import Forms from "../Forms/FormModal";
 import { get } from "../../api";
 import {
     makeStyles,
@@ -19,7 +18,7 @@ import {
 } from "@react-google-maps/api";
 
 
-const key = "AIzaSyC4DRbqgSVfVfyh8U1_TYcROL041wHGScE";//I need to hide this
+const key = process.env.REACT_APP_API_KEY;//I need to hide this
 
 const mapDiv = {
     width: '80vw',
@@ -119,6 +118,7 @@ function HomePage(props) {
     const [usersLocation, setUsersLocation] = React.useState({});
 
     const [siteSelected, setSiteSelected] = React.useState({});
+
     //SET SITE COORDINATES
     const [siteCoords, setSiteCoords] = React.useState([]);
 
@@ -207,8 +207,8 @@ function HomePage(props) {
                                             window.alert("Please Sign In To Save Locations")
                                         }
                                     >
-                                        ❤️
-                  </button>
+                                      ❤️
+                                    </button>
                                 </div>
                             </InfoWindow>
                         )}

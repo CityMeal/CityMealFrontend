@@ -13,7 +13,7 @@ function AuthNav(props) {
     const mobile = mobileStyle()
     const desktop = tabStyle()
 
-    const menuList = ['HOME', 'LIST', 'FAVORITES', 'PROFILE', 'SIGNOUT']
+    const menuList = ['HOME', 'LIST', 'FAVORITES', 'PROFILE', 'SIGN OUT']
 
     const webMenu = useMediaQuery(themes2.breakpoints.up('laptop'))
 
@@ -21,9 +21,6 @@ function AuthNav(props) {
 
     const [value, setValue] = React.useState(0);
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
@@ -31,6 +28,12 @@ function AuthNav(props) {
 
     const handleClose = () => {
         setAnchorEl(null)
+
+    };
+
+    const handleChange = (event, newValue) => {
+        console.log(event.currentTarget)
+        setValue(newValue);
     };
 
     function a11yProps(index) {
@@ -39,7 +42,8 @@ function AuthNav(props) {
             'aria-controls': `simple-tabpanel-${index}`,
         };
     }
-    console.log(value, webMenu, !webMenu)
+      
+    console.log(value)
 
     return (
         <div >

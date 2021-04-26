@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -6,6 +5,7 @@ import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import { FaUser } from 'react-icons/fa'
 import { FaMapMarkedAlt } from 'react-icons/fa'
+import {get, put} from '../../api'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -82,16 +82,51 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Profile(props) {
+
+    console.log(props.userSignedIn.token)
+    console.log(props.userSignedIn.currentUser)
     const classes = useStyles();
 
     const [currentZipcode, setCurrentZipcode] = React.useState('true')
     const [currentBtn, setCurrentBtn] = React.useState('EDIT')
+    const [submitClicked, setSubmitClicked] = React.useState(false)
+
+    const [updatedUser, setUpdatedUser] = React.useState({
+        username: props.userSignedIn.currentUser.username,
+        email: props.userSignedIn.currentUser.email,
+        address: props.userSignedIn.currentUser.address,
+        city: props.userSignedIn.currentUser.city,
+        zipcode: props.userSignedIn.currentUser.zipcode,
+    })
+    console.log(updatedUser)
+
     function handleClick(e) {
         console.log('I clicked Edit', e.target)
         setCurrentZipcode(!currentZipcode)
         setCurrentBtn('SUBMIT')
-
     }
+
+    //HANDLE UPDATE USER CHANGE
+    function handleUpdateChange(e) {
+        const {name, value} = e.target;
+        setUpdatedUser((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }))
+    
+    }
+
+const updateUser = async () => {
+    console.log(props.userSignedIn.currentUser)
+    console.log(updatedUser)
+    // setSubmitClicked(true)
+    const updatedData = await put('/user', updatedUser, props.userSignedIn.token)
+    console.log(updatedData)
+    props.giveUpdatedUser(updatedData)
+};
+
+
+
     return (
         <div>
             <Box className={classes.msg} maxWidth="xl"><p className={classes.fontSize}>Account Setting</p></Box>
@@ -103,12 +138,13 @@ function Profile(props) {
                                 <div className={classes.currentProfile}>
                                     <FaUser size={40} style={{ marginRight: '20%' }}>
                                     </FaUser>
-                                    {props.userSignedIn.currentUser.username}
+                                    {updatedUser.username}
                                 </div>
                                 <div className={classes.currentProfile}>
                                     <FaMapMarkedAlt size={50} style={{ marginRight: '1em' }}>
                                     </FaMapMarkedAlt>
-                                    {props.userSignedIn.currentUser.zipcode}
+                                    {updatedUser.zipcode}
+                                    {/* {props.userSignedIn.currentUser.zipcode} */}
                                 </div>
                             </div>
                         )
@@ -121,14 +157,17 @@ function Profile(props) {
                                         id="standard-search"
                                         name="username"
                                         label="username"
-                                        value={props.userSignedIn.currentUser.username}
-                                        onChange={props.handleChange} />
+                                        value= {updatedUser.username}
+                                        // {props.userSignedIn.currentUser.username}
+                                        onChange= {handleUpdateChange} />
+                                        {/* {props.handleChange} */}
                                     <TextField
                                         className={classes.editInput}
                                         id="standard-search"
                                         name="zipcode"
                                         label="zipcode"
-                                        value={props.userSignedIn.currentUser.zipcode}
+                                        value={updatedUser.zipcode}
+                                        // {props.userSignedIn.currentUser.zipcode}
                                         onChange={props.handleChange} />
                                 </div>
                             }
@@ -139,7 +178,7 @@ function Profile(props) {
                         className={classes.editform}
                         variant="outlined"
                         color="primary"
-                        onClick={currentBtn === 'EDIT' ? handleClick : props.updateUser}
+                        onClick={currentBtn === 'EDIT' ? handleClick : updateUser}
                     >{currentBtn}
                     </Button>
                     <Button
