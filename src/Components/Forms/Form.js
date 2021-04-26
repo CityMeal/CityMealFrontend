@@ -11,7 +11,6 @@ function Form(props) {
 
     const signUpLabels = ['username', 'email', 'address', 'city', 'zipcode', 'password']
     const signInLabels = ['email', 'password']
-    console.log(props.submitUser, props.submitLogIn)
 
     //SET SIGN UP/ SIGN IN MODAL STATE
     const [openModal, setOpenModal] = React.useState(false)

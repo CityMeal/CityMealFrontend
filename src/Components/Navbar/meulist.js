@@ -98,12 +98,8 @@ const userNameBtnStyle = makeStyles(() => ({
     marginRight: 50 + 'px',
     fontSize: 1.5 + 'rem',
     marginLeft: 70 + '%',
-    [themes.breakpoints.up('lg')]: {
-      // top: -1.8 + 'em',
-      // marginTop: - 0.5 + 'em',
-      // marginRight: 20 + 'px',
-      // fontSize: 1.2 + 'rem',
-      marginLeft: 80 + '%',
+    [themes.breakpoints.down('xs')]: {
+      marginLeft: 60 + '%',
     },
   }
 }))
@@ -133,16 +129,18 @@ const dropDown = makeStyles((theme) => ({
 const tabStyle = makeStyles(() => ({
   root: {
     position: 'relative',
-    top: '-3em',
-
+    top: '-3.3em',
+    marginRight: '1%',
 
     '& .MuiTabs-flexContainer': {
       justifyContent: 'flex-end',
-    }
+      fontSize: '20px',
+    },
   },
   list: {
     textDecoration: 'none',
     color: 'white',
+
   }
 }))
 
