@@ -1,5 +1,4 @@
 const BASE_URL = "https://city-meal.herokuapp.com";
-// const BASE_URL = "http://localhost:3030";
 
 function get(url) {
   return fetch(`${BASE_URL}${url}`, {
@@ -14,6 +13,7 @@ function get(url) {
 }
 
 function post(url, data) {
+  console.log("post", data)
   return fetch(`${BASE_URL}${url}`, {
     method: "POST",
     headers: {

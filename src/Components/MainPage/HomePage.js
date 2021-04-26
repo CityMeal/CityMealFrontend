@@ -2,7 +2,8 @@ import React from "react";
 import Announcement from "../Others/announce";
 import Filter from "../ListComponent/Filter";
 import { get } from "../../api";
-import { determineCenter } from '../Others/FilterByZipcode';
+import { determineCenter } from "../Others/determineCenterLocation";
+
 import {
     makeStyles,
     createMuiTheme,
@@ -139,6 +140,22 @@ function HomePage(props) {
         }
     }
 
+    const [filteredCoords, setFiltered] = React.useState([]);
+
+    const handleFilteredCoords = () => {
+        if (filteredCoords.data) {
+            if (filteredCoords.data.length > 0) {
+                let coords = determineCenter(filteredCoords)
+                return coords
+            }
+        } else {
+            if (usersLocation) {
+                return usersLocation
+            }
+            return { lat: 40.7128, lng: -74.0060 };
+        }
+    }
+
     //SET USERS LOCATION STATE ONECE LOADED FROM USEEFFECT
     const success = (position) => {
         const userposition = {
@@ -188,13 +205,15 @@ function HomePage(props) {
         };
         getAllLocation();
     }, []);
+
+    //RETURN FUNCTION
     return (
         <div className={classes.mainDiv}>
             <Announcement />
             <div className={classes.filterMapDiv}>
                 <Filter
                     onResult={data => {
-                        // console.log(“data”,data)
+                        console.log("data", data)
                         setFiltered({ data });
                     }}
                 />
@@ -225,11 +244,11 @@ function HomePage(props) {
                                     <p>Zip Code: {siteSelected.zip}</p>
                                     <button
                                         onClick={() =>
-                                            window.alert('Please Sign In To Save Locations')
+                                            window.alert("Please Sign In To Save Locations")
                                         }
                                     >
                                         :heart:
-                      </button>
+                    </button>
                                 </div>
                             </InfoWindow>
                         )}
