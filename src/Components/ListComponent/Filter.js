@@ -175,36 +175,6 @@ function Filter(props) {
             </form>
         </div >
     );
-
-    // return (
-    //     <div className={classes.root}>
-    //         <Button variant="outlined" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} className={classes.filterBtn}>Filter By</Button>
-    //         <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleFilterClose}>
-    //             <MenuItem onClick={handleZipcodeClick}>zip code</MenuItem>
-    //             <MenuItem onClick={handleBoroughClick}>borough</MenuItem>
-    //         </Menu>
-
-    //         {zipcodeFilter &&
-    //             <form className={classes.zipcodeInput}>
-    //                 <TextField id="standard-search" label="zip code" type="search" value={zipcode} onChange={handleChange} />
-    //                 <Button variant="outlined" color="primary" onClick={filterLocation}>ENTER</Button>
-    //             </form>
-
-    //         }
-    //         {boroughFilter &&
-    //             <div>
-    //                 <Button variant="outlined" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={showBoroughOptions}>Boroughs</Button>
-    //                 <Menu id="simple-menu" variant='selectedMenu' value='Brooklyn' anchorEl={boroughAnchorEl} keepMounted open={Boolean(boroughAnchorEl)} onClose={handleFilterClose}>
-    //                     <MenuItem onClick={boroughClose} data-city="Brooklyn">Brooklyn</MenuItem>
-    //                     <MenuItem onClick={boroughClose} data-city="Manhattan">Manhattan</MenuItem>
-    //                     <MenuItem onClick={boroughClose} data-city="Staten Island">Staten Island</MenuItem>
-    //                     <MenuItem onClick={boroughClose} data-city="Queens">Queens</MenuItem>
-    //                 </Menu>
-    //                 <Button variant="outlined" color="primary" onClick={filterLocation}>ENTER</Button>
-    //             </div>
-    //         }
-    //     </div>
-    // );
 }
 
 export default Filter;

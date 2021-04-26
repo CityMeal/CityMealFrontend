@@ -158,7 +158,7 @@ function HomePage(props) {
         //GET FIRST LOCATION OF USER ON PAGE LOAD
         navigator.geolocation.getCurrentPosition(success);
         //Look up navigator.watchPosition
-    });
+    }, []);
 
     React.useEffect(() => {
         const userPosition = localStorage.getItem("userPosition");
@@ -167,7 +167,7 @@ function HomePage(props) {
             const located = JSON.parse(userPosition);
             setUsersLocation(located);
         }
-    }, []);
+    });
 
     //GET ALL LOCATIONS AND CREATE SITE POSITION COORDINATES FOR MAP VIEW
     React.useEffect(() => {
