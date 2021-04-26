@@ -207,7 +207,7 @@ function HomePage(props) {
                                             window.alert("Please Sign In To Save Locations")
                                         }
                                     >
-                                      ❤️
+                                        ❤️
                                     </button>
                                 </div>
                             </InfoWindow>

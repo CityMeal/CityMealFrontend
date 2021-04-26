@@ -1,6 +1,6 @@
 import React from 'react';
-import {Modal, TextField, Button, useMediaQuery} from '@material-ui/core';
-import {themes, themes2, modalStyle, formStyle} from './formStyle';
+import { Modal, TextField, Button, useMediaQuery } from '@material-ui/core';
+import { themes, themes2, modalStyle, formStyle } from './formStyle';
 import ShowSuccess from '../Others/successful';
 
 
@@ -17,14 +17,13 @@ function Form(props) {
     //SET SIGN UP/ SIGN IN MODAL STATE
     const [openModal, setOpenModal] = React.useState(false)
 
-    return(
+    return (
         <div>
             <Modal open={props.clickedBtn !== null ? true : openModal} onClose={props.closeModal} className={modalClass.root}>
                 <form className={formClass.root} >
                     {props.clickedBtn === 'SIGN UP' ? signUpLabels.map(label => (
                         <TextField id={`${label}field`}
                             key={label}
-                            // label={label === 'zipcode' ? 'zip code' : label}
                             placeholder={label}
                             type={label === 'password' ? "password" : null}
                             variant="outlined"
