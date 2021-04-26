@@ -1,18 +1,16 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
-import "./App.css";
-import NavBar from "./Components/Navbar/navbar";
-import Footer from "./Components/Footer/footer";
-import UnauthenticatedApp from "./unauthenticatedApp";
-import { get, post } from "./api";
+import React, { useEffect } from 'react';
+import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
+import './App.css';
+import Header from './Components/Navbar/navbar';
+import Footer from './Components/Footer/footer';
+import Announce from './Components/Others/announce';
+import ListView from './Components/MainPage/ListViewPage';
+import HomePage from './Components/MainPage/HomePage';
+import Favorites from './Components/Favorites/Favorites';
+import Profile from './Components/Favorites/Profile';
 
-const AuthenticatedApp = React.lazy(() =>
-  import(/* webpackChunkName: "authenticated-app" */ "./authenticatedApp")
-);
-// import AuthenticatedApp from "./authenticatedApp";
-
-const BASE_URL = "https://city-meal.herokuapp.com";
-
+const BASE_URL = "https://city-meal.herokuapp.com"
+console.log(process.env.REACT_APP_API_KEY)
 
 function App() {
   const history = useHistory();
