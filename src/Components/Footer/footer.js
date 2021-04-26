@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#325288',
     color: '#D9D9D9',
     bottom: '0px',
-    position: 'fixed',
-    width: '100%'
+    // position: 'absolute',
+    // width: '100%'
   },
   copyright: {
     display: 'flex',
