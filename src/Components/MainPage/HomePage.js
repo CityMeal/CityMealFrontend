@@ -18,7 +18,7 @@ import {
 } from "@react-google-maps/api";
 
 
-const key = "AIzaSyC4DRbqgSVfVfyh8U1_TYcROL041wHGScE";//I need to hide this
+const key = process.env.REACT_APP_API_KEY;//I need to hide this
 
 const mapDiv = {
     width: '80vw',
