@@ -29,8 +29,6 @@ To help New Yorkers who can't afford food, CityMeal offers information for free 
 - Node 0.10.x
 - Redis 2.6.x
 - Postgresql 9.1.x
-- etc
-- etc
 
 ## Development
 
